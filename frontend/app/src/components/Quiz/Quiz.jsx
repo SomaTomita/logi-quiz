@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { resultIntialState } from "../../constants";
+import Answertimer from "../AnswerTimer/AnswerTimer";
 import "./Quiz.css";
 
 const Quiz = ({ questions }) => {
@@ -9,6 +10,7 @@ const Quiz = ({ questions }) => {
   const [result, setResult] = useState(resultIntialState);
   const [showResult, setShowResult] = useState(false);
   const [quizStarted, setQuizStarted] = useState(false);
+  const [showAnswerTimer, setShowAnswerTimer] = useState(true);
 
   const { question, choices, correctAnswer } = questions[currentQuestion];
 
@@ -21,10 +23,11 @@ const Quiz = ({ questions }) => {
     }
   };
 
-  const onClickNext = () => {
+  const onClickNext = (finalAnswer) => {
     setAnswerIndex(null);
+    setShowAnswerTimer(false);
     setResult((prev) =>
-      answer
+      finalAnswer
         ? {
             ...prev,
             score: prev.score + 5,
@@ -42,6 +45,10 @@ const Quiz = ({ questions }) => {
       setCurrentQuestion(0);
       setShowResult(true);
     }
+
+    setTimeout(() => {
+      setShowAnswerTimer(true);
+    })
   };
 
   const onTryAgain = () => {
@@ -50,11 +57,18 @@ const Quiz = ({ questions }) => {
     setCurrentQuestion(0);
     setAnswerIndex(null);
     setQuizStarted(false);
+    setShowAnswerTimer(false);
   };
 
   const startQuiz = () => {
     setCurrentQuestion(0);
     setQuizStarted(true);
+    setShowAnswerTimer(true);
+  };
+
+  const handleTimeUp = () => {
+    setAnswer(false);
+    onClickNext(false);
   };
 
   return (
@@ -83,6 +97,9 @@ const Quiz = ({ questions }) => {
         </div>
       ) : (
         <>
+          {showAnswerTimer && (
+            <Answertimer duration={6} onTimeUp={handleTimeUp} />
+          )}
           <span className="active-question-no">{currentQuestion + 1}</span>
           <span className="total-question">/{questions.length}</span>
           <h2>{question}</h2>
@@ -98,8 +115,10 @@ const Quiz = ({ questions }) => {
             ))}
           </ul>
           <div className="footer">
-            <button onClick={onClickNext} disabled={answerIndex === null}>
-              {currentQuestion === questions.length - 1 ? "Finish" : "Next"}
+            <button 
+              onClick={ () => onClickNext(answer)} 
+              disabled={answerIndex === null}>
+             {currentQuestion === questions.length - 1 ? "Finish" : "Next"}
             </button>
           </div>
         </>

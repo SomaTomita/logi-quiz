@@ -1,0 +1,2 @@
+class AttemptAnswer < ApplicationRecord
+end

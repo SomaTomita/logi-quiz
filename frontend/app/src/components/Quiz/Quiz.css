@@ -5,6 +5,7 @@
    margin-top: 100px;
    padding: 30px 60px;
    box-sizing: border-box;
+   position: relative;
  }
  
  .quiz-container .active-question-no {
