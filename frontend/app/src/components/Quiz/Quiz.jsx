@@ -1,16 +1,33 @@
 import { useState, useEffect } from "react";
-import { resultIntialState } from "../../constants";
+import { useParams } from 'react-router-dom';
 import Answertimer from "../AnswerTimer/AnswerTimer";
 import "./Quiz.css";
+import { resultIntialState } from '../../constants';
+ 
 
-const Quiz = ({ questions }) => {
+const Quiz = () => {
+  const { sectionId } = useParams();
+  const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answerIndex, setAnswerIndex] = useState(null);
   const [answer, setAnswer] = useState(null);
-  const [result, setResult] = useState(resultIntialState);
+  const [result, setResult] = useState({ score: 0, correctAnswers: 0, wrongAnswers: 0 });
   const [showResult, setShowResult] = useState(false);
   const [quizStarted, setQuizStarted] = useState(false);
   const [showAnswerTimer, setShowAnswerTimer] = useState(true);
+
+
+  // Fetch quizzes when sectionId changes
+  useEffect(() => {
+    fetch(`http://localhost:3001/sections/${sectionId}/quizzes`)
+      .then(response => response.json())
+      .then(data => setQuestions(data));
+  }, [sectionId]);
+
+  // Check if questions are loaded
+  if (!questions.length) {
+    return 'Loading...';
+  }
 
   const { question, choices, correctAnswer } = questions[currentQuestion];
 
