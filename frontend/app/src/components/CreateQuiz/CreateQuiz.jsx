@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';  // useEffectを追加
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function CreateQuiz() {
@@ -13,8 +13,8 @@ function CreateQuiz() {
     explanation_text: "", 
   });
 
-  const [sections, setSections] = useState([]);  // セクションのstateを追加
-  const [selectedSection, setSelectedSection] = useState(""); // 選択したセクションのstateを追加
+  const [sections, setSections] = useState([]); 
+  const [selectedSection, setSelectedSection] = useState("");
 
   useEffect(() => {
     axios.get('http://localhost:3001/sections')
