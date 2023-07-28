@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import './Section.css';
 
 function Section() {
   const [sections, setSections] = useState([]);
@@ -8,7 +9,7 @@ function Section() {
 
   useEffect(() => {
     const fetchSections = async () => {
-      const response = await axios.get('http://localhost:3000/sections');
+      const response = await axios.get('http://localhost:3001/sections');
       setSections(response.data);
     }
     fetchSections();
@@ -19,15 +20,13 @@ function Section() {
   }
 
   return (
-      <table>
-          <tbody>
-              {sections.map(section => (
-                  <tr key={section.id} onClick={() => handleSectionClick(section.id)}>
-                      <td>{section.section_name}</td>
-                  </tr>
-              ))}
-          </tbody>
-      </table>
+    <div className="section-container">
+      {sections.map(section => (
+        <div key={section.id} className="section-block" onClick={() => handleSectionClick(section.id)}>
+          <p>{section.section_name}</p>
+        </div>
+      ))}
+    </div>
   );
 }
 

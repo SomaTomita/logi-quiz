@@ -11,7 +11,7 @@ function App() {
   <Routes>
    <Route path="/create-quiz" element={<CreateQuiz/>} /> 
    <Route path="/create-section" element={<CreateSection/>} /> 
-   <Route path="/" element={<Section />} /> 
+   <Route path="/sections" element={<Section />} /> 
    <Route path="/sections/:sectionId/quizzes" element={<Quiz />} />
   </Routes>
 </Router>

@@ -17,15 +17,16 @@ function AnswerTimer({ duration, onTimeUp }) {
 
   useEffect(() => {
     setProgressLoaded(100 * (counter / duration));
-
-    if (counter === duration) {
+  
+    if (counter >= duration) {
       clearInterval(intervalRef.current);
-
+  
       setTimeout(() => {
         onTimeUp();
       }, 100);
     }
   }, [counter]);
+  
 
   const progressBarStyle = {
     width: `${progressLoaded}%`,
