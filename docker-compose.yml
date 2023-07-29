@@ -2,19 +2,22 @@ version: '3'
 services:
   api:
     build: ./backend/
+    # 既存のサーバーを削除し、新たにRailsサーバーを立ち上げることで、サーバ起動における問題発生を防ぐ
+    # Railsサーバーがリッスンするポートを3000に指定し、-b '0.0.0.0'はすべてのIPアドレスからの接続を許可
     command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    volumes:
+    volumes: # ホストマシンの./backendディレクトリがコンテナ内の/apiディレクトリにマウント(接続し、同期)
       - ./backend:/api
-    ports:
+    ports: # ポート3001をコンテナ内のポート3000に関連付けのためマッピング
       - 3001:3000
-    depends_on:
+    depends_on:  # dbを先に起動
       - db
-    tty: true
+    #デバッグセッションやrails consoleの使用、Dockerコンテナ内部にbashシェルを起動等可能に
+    tty: true #本番環境では無効へ
     stdin_open: true
   db:
     image: mysql:latest
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
-    volumes:
+    volumes: # dbデータの永続化
       - db-volume:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
@@ -23,15 +26,16 @@ services:
       - "3306:3306"
   front:
     build: ./frontend/
-    volumes:
+    volumes: # ホストマシンのfrontend/appディレクトリをコンテナ内の/frontディレクトリにマウント
       - ./frontend/app:/front
     ports:
       - 3000:3000
     tty: true
     stdin_open: true
-    environment:
+    environment: #ポーリングを有効にすることで、chokidarは定期的にファイルの変更を検知し、ブラウザへ反映
       - CHOKIDAR_USEPOLLING=true
   
+  # 名前付きボリュームを作成
 volumes:
   db-volume:
 
