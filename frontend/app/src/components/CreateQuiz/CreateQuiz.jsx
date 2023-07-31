@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import "./CreateQuiz.css";
 
 function CreateQuiz() {
   const [quizData, setQuizData] = useState({
@@ -59,23 +60,35 @@ function CreateQuiz() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <select value={selectedSection} onChange={handleSectionChange}> {/* セクションのプルダウン */}
+    <form className="form" onSubmit={handleSubmit}>
+      <label htmlFor="section">セクション：</label>
+      <select id="section" value={selectedSection} onChange={handleSectionChange}> {/* セクションのプルダウン */}
         {sections.map(section => (
           <option key={section.id} value={section.id}>{section.section_name}</option>
         ))}
       </select>
 
-      <input type="text" name="question_text" placeholder="問題文を入力してください" onChange={handleQuestionChange} />
+      <br/>
 
+      <label htmlFor="question_text">問題文:</label>
+      <textarea id="question_text" type="text" name="question_text" placeholder="問題文を入力してください" onChange={handleQuestionChange} />
+
+      <br/>
+
+      <label htmlFor="choice_text">選択肢:</label>
       {quizData.choices_attributes.map((choice, index) => (
-        <div key={index}>
+        <div id='choice_text' key={index}>
           <input type="text" name="choice_text" value={choice.choice_text} placeholder="選択肢を入力してください" onChange={e => handleInputChange(e, index)} />
           <input type="checkbox" name="is_correct" checked={choice.is_correct} onChange={e => handleInputChange(e, index)} />正解
         </div>
       ))}
+      
+      <br/>
 
-      <input type="text" name="explanation_text" placeholder="解説を入力してください" onChange={handleExplanationChange} />
+      <label htmlFor="explanation_text">解説:</label>
+      <textarea id='explanation_text' type="text" name="explanation_text" placeholder="解説を入力してください" onChange={handleExplanationChange} />
+
+      <br/>
 
       <button type="submit">Submit</button>
     </form>
