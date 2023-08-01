@@ -14,8 +14,8 @@ function CreateQuiz() {
     explanation_text: "", 
   });
 
-  const [sections, setSections] = useState([]); 
-  const [selectedSection, setSelectedSection] = useState("");
+  const [sections, setSections] = useState([]);  // ユーザーに表示するセクションの選択肢
+  const [selectedSection, setSelectedSection] = useState(""); // ユーザーが選択した特定のセクションを保持
 
   useEffect(() => {
     axios.get('http://localhost:3001/sections')
@@ -32,30 +32,30 @@ function CreateQuiz() {
       });
   }, []);
 
-  const handleInputChange = (event, index) => {
-    const { name, value, type, checked } = event.target;  // 下記returnの変更イベントからname, value, type, checkedを取得
-    const actualValue = type === "checkbox" ? checked : value;  // checkboxの場合はcheckedの値を、それ以外の場合はvalueをactualValueとする
-    const list = [...quizData.choices_attributes];  // 現在のchoices_attributes(問題の選択肢を保持する配列)の内容をコピーしてlistに格納
-    list[index][name] = actualValue;  // 選択肢の該当するindexの部分を更新
-    setQuizData({ ...quizData, choices_attributes: list });  // quizDataを更新し、choices_attributesだけを変更
+  const handleSectionChange = (event) => {
+    setSelectedSection(event.target.value);
   };
 
-  const handleQuestionChange = (event) => { // スプレッド演算子
+  const handleQuestionChange = (event) => { // スプレッド演算子と変更したいオブジェクトの値で、特定のプロパティのみを更新
     setQuizData({ ...quizData, question_text: event.target.value });
+  };
+
+  const handleInputChange = (event, index) => {
+    const { name, value, type, checked } = event.target;  // 下記returnの変更イベントからname(どのプロパティか), value(4つのどの選択肢か), type(テキストかチェックか), checked(ture or false)を取得
+    const actualValue = type === "checkbox" ? checked : value;  // typeがcheckboxであれば真偽値、checkboxでなければ文字列の値
+    const list = [...quizData.choices_attributes];  // 4つの選択肢（choice_text: "", is_correct: false）をlistに格納
+    list[index][name] = actualValue;  // 4つの選択肢におけるどの配列番号の、どのプロパティかを指定して更新
+    setQuizData({ ...quizData, choices_attributes: list });
   };
 
   const handleExplanationChange = (event) => {
     setQuizData({ ...quizData, explanation_text: event.target.value });
   };
 
-  const handleSectionChange = (event) => {
-    setSelectedSection(event.target.value);
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();  // デフォルト設定のページリロードを停止
     const sectionId = selectedSection;  // 現在選ばれているセクションをsectionIdに格納
-    const response = await axios.post(`http://localhost:3001/sections/${sectionId}/quizzes`, quizData);
+    const response = await axios.post(`http://localhost:3001/sections/${sectionId}/quizzes`, quizData); // setQuizDataを通じてフォームに入力されたクイズの情報(quizData オブジェクト)をサーバーへ送信
     console.log(response.data);
   };
 
@@ -77,15 +77,16 @@ function CreateQuiz() {
 
         <label htmlFor="choice_text_label">選択肢:</label>
         {quizData.choices_attributes.map((choice, index) => (
-          <div id='choice_text_label' key={index}>
-           <input type="text" name="choice_text" value={choice.choice_text} placeholder="選択肢を入力してください" onChange={e => handleInputChange(e, index)} />
-           <input type="checkbox" name="is_correct" checked={choice.is_correct} onChange={e => handleInputChange(e, index)} />正解
+          <div id="choice_text_label" key={index}> 
+           <input type="text" name="choice_text" value={choice.choice_text} placeholder="選択肢を入力してください" onChange={event => handleInputChange(event, index)} />
+           <input type="checkbox" name="is_correct" checked={choice.is_correct} onChange={event => handleInputChange(event, index)} />正解
           </div>
         ))}
 
         <label htmlFor="explanation_text_label">解説:</label>
         <textarea id='explanation_text_label' type="text" name="explanation_text" placeholder="解説を入力してください" onChange={handleExplanationChange} />
 
+        <br />
         <button type="submit">Submit</button>
       </div>
     </form>
