@@ -130,16 +130,17 @@ if (!questions.length) {
   }
 
   return (
-    <div className="quiz-container">
-      {/* クイズが開始されていなく、結果も表示されていない場合に表示するスタート画面 */}
+    <div className="quiz-container"> 
       {!quizStarted && !showResult ? (
+        // クイズが開始されていなく、結果も表示されていない場合に表示するスタート画面
         <div className="quiz-start">
           <h2>Are you ready?</h2>
           <button onClick={startQuiz}>Start</button>
         </div>
-      ) : showResult ? {/* onClickNextより最後の問題であれば、クイズ結果を表示する画面。各問題とその解答、解説をリストアップして表示する */}
+      ) : showResult ?
       (
-        <div className="result">
+        // onClickNextより最後の問題であれば、クイズ結果を表示する画面。各問題とその解答、解説をリストアップして表示する
+        <div className="result"> 
           <h3>結果:<span>{result.correctAnswers}/{questions.length}</span></h3>
           {questions.map((questionItem, index) => {
             const { question_text: reviewQuestion, choices: reviewChoices, explanation: { explanation_text: reviewExplanation } = {} } = questionItem;
@@ -156,8 +157,8 @@ if (!questions.length) {
           <button onClick={onTryAgain}>Try again</button>
           <button onClick={backToSections}>Back to Sections</button>
         </div>
-      ) : {/* クイズが進行中の表示画面。選択肢と問題文が表示される */}
-      (
+      ) :
+      ( 
         <>
           {showAnswerTimer && <Answertimer key={currentQuestion} duration={10} onTimeUp={handleTimeUp} />}
           <span className="active-question-no">{currentQuestion + 1}</span>

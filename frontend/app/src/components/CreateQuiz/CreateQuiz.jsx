@@ -42,9 +42,11 @@ function CreateQuiz() {
 
   const handleInputChange = (event, index) => {
     const { name, value, type, checked } = event.target;  // 下記returnの変更イベントからname(どのプロパティか), value(4つのどの選択肢か), type(テキストかチェックか), checked(ture or false)を取得
+
     const actualValue = type === "checkbox" ? checked : value;  // typeがcheckboxであれば真偽値、checkboxでなければ文字列の値
     const list = [...quizData.choices_attributes];  // 4つの選択肢（choice_text: "", is_correct: false）をlistに格納
     list[index][name] = actualValue;  // 4つの選択肢におけるどの配列番号の、どのプロパティかを指定して更新
+    
     setQuizData({ ...quizData, choices_attributes: list });
   };
 
