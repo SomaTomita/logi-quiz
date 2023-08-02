@@ -14,7 +14,7 @@ function Section() {
       setSections(response.data);
     }
     fetchSections(); // 非同期関数の呼び出し
-  }, []); // 依存配列が空 = コンポーネントが初めて描画された直後（マウント時）に1回だけ実行
+  }, []); // 依存配列が空 = コンポーネントが初めてレンダリングされた直後（マウント時）に1回だけ実行
 
   
   function handleSectionClick(sectionId) {   // クリックされた特定のセクション(引数:sectionId)に画面遷移を行う関数を定義

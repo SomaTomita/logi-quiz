@@ -8,7 +8,7 @@
 
 .answer-loader-container .progress{
     height: 5px;
-    transition-duration: 0.1s;
-    width: 0;
-    transition-timing-function: linear;
+    transition-duration: 0.1s; /* 0.1秒の変化時間で滑らかに進捗バーが右へ */
+    width: 0; /* 初期幅は0 */
+    transition-timing-function: linear;  /* 変更を一定の速度に */
 }
