@@ -8,12 +8,14 @@ const Quiz = () => {
   const { sectionId } = useParams();  // URLからsectionIdを取得
 
   const [questions, setQuestions] = useState([]);  // 問題を格納する配列
-  const [currentQuestion, setCurrentQuestion] = useState(0);  // 現在の問題のインデックス
-  const [answerIndex, setAnswerIndex] = useState(null);  // 選択した回答のインデックス
+  const [currentQuestion, setCurrentQuestion] = useState(0);  // 上の配列questionsの中から現在アクティブな質問を参照するためのインデックスまたはキー
+  const [answerIndex, setAnswerIndex] = useState(null);  // 選択した回答が4つ中どれか
   const [answer, setAnswer] = useState(null);  // 答えが正しいかどうかの真偽値
-  const [showResult, setShowResult] = useState(false);  // 結果を表示するかどうかの真偽値
+  const [showResult, setShowResult] = useState(false);  // 結果画面を表示するかどうかの真偽値
+  
   const [quizStarted, setQuizStarted] = useState(false);  // クイズが開始されたかどうかの真偽値
   const [showAnswerTimer, setShowAnswerTimer] = useState(true);  // 回答タイマーを表示するかどうかの真偽値
+
   const [question, setQuestion] = useState("");  // 現在の問題のテキスト
   const [choices, setChoices] = useState([]);  // 現在の問題の選択肢
   const [correctAnswer, setCorrectAnswer] = useState("");  // 正解の選択肢のテキスト
@@ -24,34 +26,35 @@ const Quiz = () => {
   const [result, setResult] = useState(resultInitialState);  // 結果のステート
   const navigate = useNavigate();  // ページ遷移のためのフック
 
-// クイズデータをフェッチするためのuseEffectフック
+
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
         const response = await axios.get(`http://localhost:3001/sections/${sectionId}/quizzes`);
         setQuestions(response.data);
-        console.log("Quiz data:", response.data); // これでQuizデータをログに出力
+        console.log("Quiz data:", response.data); // Quizデータをログに出力
       } catch (error) {
         console.error('Error:', error);
       }
     }
     fetchQuizzes();
-  }, [sectionId]);
+  }, [sectionId]); // 異なるセクション間で遷移する際には、sectionIdを依存配列に含める
 
-  // currentQuestionやquestionsが変更されたときに問題の情報を更新するためのuseEffectフック
+
   useEffect(() => {
     if (!questions.length || !questions[currentQuestion]) {
-      return;
+      return; // 上のuseEffectで設定したquestionsのデータが正しく取得されていなければ何もせずに終了
     }
 
     console.log("Current question data:", questions[currentQuestion]);
 
+    // 現在の問題データから、問題文、選択肢、説明を抽出
     const { question_text, choices, explanation } = questions[currentQuestion];
 
     setQuestion(question_text);
     setChoices(choices || []);
-    setCorrectAnswer(choices?.find(choice => choice.is_correct)?.choice_text || ''); 
-    setExplanation(explanation?.explanation_text || '');
+    setCorrectAnswer(choices?.find(choice => choice.is_correct)?.choice_text || '');  // choices配列からis_correctプロパティがtrueである最初の選択肢のchoice_textプロパティ(正解)を取得
+    setExplanation(explanation?.explanation_text || ''); // explanationオブジェクトからexplanation_textプロパティを取得 // オプショナルチェイニングでエラー回避
 }, [currentQuestion, questions]);
 
 // 問題がロード中、またはされていないときの表示
@@ -59,18 +62,17 @@ if (!questions.length) {
   return 'Loading...';
 }
 
-  // 選択肢がクリックされたときの処理
+
   const onAnswerClick = (choice, index) => {
     setAnswerIndex(index);
-    if (choice.choice_text === correctAnswer) {
+    if (choice.choice_text === correctAnswer) { // 正解を判別
       setAnswer(true);
     } else {
       setAnswer(false);
     }
   };
 
-  // 次の問題へ行く時
-  const onClickNext = (finalAnswer) => {
+  const onClickNext = (finalAnswer) => { // 次の問題へ行く際
     setAnswerIndex(null);  // 回答選択をリセット
     setShowAnswerTimer(false); // タイマー表示をオフ
     // スコアと回答結果を更新。回答が正しかったらスコアを10増やし、正答数を1増やす。
@@ -101,15 +103,6 @@ if (!questions.length) {
     });
   };
 
-  // クイズ再開回答
-  const onTryAgain = () => {
-    setResult(resultInitialState);  // スコアと回答結果をリセット
-    setShowResult(false);  // 結果表示をオフ
-    setCurrentQuestion(0);  // 現在の問題を最初(配列の0)の問題にリセット
-    setAnswerIndex(null);  // 回答選択をリセット
-    setQuizStarted(false);  // クイズ開始状態をオフ
-    setShowAnswerTimer(false);  // タイマー表示をオフ
-  };
 
   // クイズを開始
   const startQuiz = () => {
@@ -118,13 +111,23 @@ if (!questions.length) {
     setShowAnswerTimer(true);  // タイマー表示をオン
   };
 
-  // タイマーが終了したときの処理
+  // タイマーが終了した際
   const handleTimeUp = () => {
-    setAnswer(false);
-    onClickNext(false);
+    setAnswer(false); // 間違いと認識して
+    onClickNext(false); // 次の問題へ
   };
 
-   // セクション一覧に戻るための処理
+  // クイズ再開回答
+  const onTryAgain = () => {
+    setResult(resultInitialState);  // スコアと回答結果をリセット
+    setShowResult(false);  // 結果画面表示をオフ
+    setCurrentQuestion(0);  // 現在の問題を最初(配列の0)の問題にリセット
+    setAnswerIndex(null);  // 回答選択をリセット
+    setQuizStarted(false);  // クイズ開始状態をオフ
+    setShowAnswerTimer(false);  // タイマー表示をオフ
+  };
+
+   // セクション一覧に戻る
   const backToSections = () => {
     navigate('/sections');
   }
@@ -132,14 +135,14 @@ if (!questions.length) {
   return (
     <div className="quiz-container"> 
       {!quizStarted && !showResult ? (
-        // クイズが開始されていなく、結果も表示されていない場合に表示するスタート画面
+        // クイズが開始されていなく、結果も表示されていない場合に表示する画面 // startQuizのquizStartedが真になり、クイズスタート
         <div className="quiz-start">
           <h2>Are you ready?</h2>
           <button onClick={startQuiz}>Start</button>
         </div>
       ) : showResult ?
       (
-        // onClickNextより最後の問題であれば、クイズ結果を表示する画面。各問題とその解答、解説をリストアップして表示する
+        // onClickNextより最後の問題であれば、showResuletが真になりクイズ結果を表示する画面
         <div className="result"> 
           <h3>結果:<span>{result.correctAnswers}/{questions.length}</span></h3>
           {questions.map((questionItem, index) => {
@@ -158,7 +161,7 @@ if (!questions.length) {
           <button onClick={backToSections}>Back to Sections</button>
         </div>
       ) :
-      ( 
+      ( // クイズが開始されていて、結果が表示されていない場合クイズの現在の画面が表示
         <>
           {showAnswerTimer && <Answertimer key={currentQuestion} duration={10} onTimeUp={handleTimeUp} />}
           <span className="active-question-no">{currentQuestion + 1}</span>
