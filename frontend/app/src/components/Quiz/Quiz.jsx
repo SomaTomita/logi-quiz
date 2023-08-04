@@ -20,11 +20,10 @@ const Quiz = () => {
   const [choices, setChoices] = useState([]);  // 現在の問題の選択肢
   const [correctAnswer, setCorrectAnswer] = useState("");  // 正解の選択肢のテキスト
   const [explanation, setExplanation] = useState("");  // 現在の問題の解説
+  const [correctAnswersIndex, setCorrectAnswersIndex] = useState([]); // 正解した問題のインデックスを保存
 
-  // 結果のステートの初期値
-  const resultInitialState = { score: 0, correctAnswers: 0, wrongAnswers: 0 };
-  const [result, setResult] = useState(resultInitialState);  // 結果のステート
   const navigate = useNavigate();  // ページ遷移のためのフック
+
 
 
   useEffect(() => {
@@ -45,12 +44,10 @@ const Quiz = () => {
     if (!questions.length || !questions[currentQuestion]) {
       return; // 上のuseEffectで設定したquestionsのデータが正しく取得されていなければ何もせずに終了
     }
-
     console.log("Current question data:", questions[currentQuestion]);
 
     // 現在の問題データから、問題文、選択肢、説明を抽出
     const { question_text, choices, explanation } = questions[currentQuestion];
-
     setQuestion(question_text);
     setChoices(choices || []);
     setCorrectAnswer(choices?.find(choice => choice.is_correct)?.choice_text || '');  // choices配列からis_correctプロパティがtrueである最初の選択肢のchoice_textプロパティ(正解)を取得
@@ -74,20 +71,11 @@ if (!questions.length) {
 
   const onClickNext = (finalAnswer) => { // 次の問題へ行く際
     setAnswerIndex(null);  // 回答選択をリセット
-    setShowAnswerTimer(false); // タイマー表示をオフ
+    setShowAnswerTimer(false); // タイマー表示をオフにしてリセット
     // スコアと回答結果を更新。回答が正しかったらスコアを10増やし、正答数を1増やす。
-    setResult((prev) =>
-      finalAnswer
-        ? {
-            ...prev,
-            score: prev.score + 10,
-            correctAnswers: prev.correctAnswers + 1,
-          }
-        : {
-            ...prev,
-            wrongAnswers: prev.wrongAnswers + 1,
-          }
-    );
+    if (finalAnswer) {
+      setCorrectAnswersIndex(prev => [...prev, currentQuestion]);
+    };
 
     // 現在の問題が最後の問題でなければ次の問題へ進む。最後の問題だったら最初の問題に戻し、結果を表示
     if (currentQuestion !== questions.length - 1) {
@@ -119,7 +107,6 @@ if (!questions.length) {
 
   // クイズ再開回答
   const onTryAgain = () => {
-    setResult(resultInitialState);  // スコアと回答結果をリセット
     setShowResult(false);  // 結果画面表示をオフ
     setCurrentQuestion(0);  // 現在の問題を最初(配列の0)の問題にリセット
     setAnswerIndex(null);  // 回答選択をリセット
@@ -144,22 +131,24 @@ if (!questions.length) {
       (
         // onClickNextより最後の問題であれば、showResuletが真になりクイズ結果を表示する画面
         <div className="result"> 
-          <h3>結果:<span>{result.correctAnswers}/{questions.length}</span></h3>
-          {questions.map((questionItem, index) => {
+          <h3>結果:<span>{correctAnswersIndex.length}/{questions.length}</span></h3>
+            {questions.map((questionItem, index) => {
             const { question_text: reviewQuestion, choices: reviewChoices, explanation: { explanation_text: reviewExplanation } = {} } = questionItem;
             const reviewCorrectAnswerChoice = reviewChoices.find(choice => choice.is_correct);
             const reviewCorrectAnswer = reviewCorrectAnswerChoice ? reviewCorrectAnswerChoice.choice_text : '';
-            return (
-              <div className="reviewItem" key={index}>
-                <p>問題: <span>{reviewQuestion}</span></p>
-                <p>正解: <span>{reviewCorrectAnswer}</span></p>
-                <p>解説: <span>{reviewExplanation}</span></p>
-              </div>
-            );
-          })}
-          <button onClick={onTryAgain}>Try again</button>
-          <button onClick={backToSections}>Back to Sections</button>
+          return (
+            <div className="reviewItem" key={index}>
+             <p>問題: <span>{reviewQuestion}</span></p>
+             <p>正解: <span>{reviewCorrectAnswer}</span></p>
+             <p>{correctAnswersIndex.includes(index) ? '〇' : '✕'}</p>
+             <p>解説: <span>{reviewExplanation}</span></p>
         </div>
+    );
+  })}
+  <button onClick={onTryAgain}>Try again</button>
+  <button onClick={backToSections}>Back to Sections</button>
+</div>
+
       ) :
       ( // クイズが開始されていて、結果が表示されていない場合クイズの現在の画面が表示
         <>
