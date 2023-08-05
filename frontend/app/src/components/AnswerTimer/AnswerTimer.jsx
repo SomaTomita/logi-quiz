@@ -13,7 +13,7 @@ function AnswerTimer({ duration, onTimeUp }) {
     }, 100); // setInterval関数で100ミリ秒ごとに0.1を増やす
 
     return () => clearInterval(intervalRef.current); // アンマウントされるときにsetIntervalを停止(引数=停止したいタイマー)
-  }, []); // マウント時に実行
+  }, []);
 
 
   useEffect(() => {
