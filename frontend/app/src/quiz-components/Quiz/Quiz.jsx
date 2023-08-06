@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Answertimer from "../AnswerTimer/AnswerTimer";
 import "./Quiz.css";
 import axios from "axios"
+import { Oval } from 'react-loader-spinner';
+
 
 const Quiz = () => {
   const { sectionId } = useParams();  // URLからsectionIdを取得
@@ -56,6 +58,13 @@ const Quiz = () => {
 if (!questions.length) {
   return (
     <div className="loading-container">
+      <Oval ariaLabel="loading-indicator"
+        height={100}
+        width={100}
+        strokeWidth={5}
+        strokeWidthSecondary={1}
+        color="blue"
+        secondaryColor="white" />
       'Loading...'
     </div>
   );
