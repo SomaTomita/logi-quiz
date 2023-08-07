@@ -1,33 +1,23 @@
 import "./Login.css";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-function UserLogin() {
+function SignUpFor() {
   const {register, handleSubmit, formState: { errors } } = useForm({ mode: "onBlur" });
 
-  const navigate = useNavigate();
-  const goToNewAccount = () => {
-    navigate('/login-create');
-  };
-
-  const onSubmit = async (data) => {
-    try {
-      const response = await axios.post('http://localhost:3001/login', data)
-      if(response.data.status === 'SUCCESS') {
-        navigate('/sections');
-      } else {
-        console.error('Login failed.');
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  const onSubmit = data => {
+    axios.post('http://localhost:3001/users', data)
+      .then(response => {
+        console.log(response);
+      }).catch(error => {
+        console.error(error);
+      });
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className="form-container">
-      <h1>Login Form</h1>
+      <h1>Register New Account</h1>
         <label htmlFor="name">
           name:
           <input id="name" type="text" {...register("name", { required: "名前は必須です。" })} />
@@ -45,10 +35,9 @@ function UserLogin() {
         </label>
 
         <button type="submit">Submit</button>
-        <button onClick={goToNewAccount}>Create New Account</button>
       </form>
     </div>
   );
 }
 
-export default UserLogin;
+export default SignUpFor;
