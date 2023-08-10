@@ -1,11 +1,22 @@
 Rails.application.routes.draw do
-  mount_devise_token_auth_for 'User', at: 'auth'
-  # 既存のユーザーがログインするためのルーティング
-  post '/signin', to: 'sessions#create'
+  # 名前空間で、URLやコントローラーの階層を整理
+  namespace :api do
+    namespace :v1 do
+      # テスト用のルーティング
+      resources :test, only: %i[index]
 
-  # POSTリクエストを/users URLに送ると、Usersコントローラのcreateアクションが呼び出され
-  resources :users, only: [:create]
-  
+      # 認証を扱うモデル, at: ルーティングのエンドポイントの接頭辞, コントローラーを指定
+      mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+        registrations: 'api/v1/auth/registrations'
+      }
+
+      namespace :auth do
+        resources :sessions, only: %i[index]
+      end
+    end
+  end
+end
+
   # /sections URLに送ると、Sectionsコントローラのindexアクションが呼び出される
   get '/sections', to: 'sections#index'
 
