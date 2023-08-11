@@ -1,6 +1,6 @@
 # アカウント作成用コントローラー
 class Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
-  wrap_parameters false 
+  wrap_parameters false # registration キーの下にネストされた情報を送信せずにユーザーを登録
 
   # コールバックを追加
   after_action :log_errors, only: [:create], if: -> { response.status == 500 }

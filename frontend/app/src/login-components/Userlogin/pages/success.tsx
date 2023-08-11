@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { AuthContext } from "App";
 
 // 認証済みユーザーの名前やメールアドレスを表示
-const Home: React.FC = () => {
+const Success: React.FC = () => {
   const { isSignedIn, currentUser } = useContext(AuthContext);
 
   return (
@@ -23,4 +23,4 @@ const Home: React.FC = () => {
   );
 }
 
-export default Home;
+export default Success;
