@@ -7,7 +7,6 @@ ENV CI=true
 
 # Node.js の依存関係をインストールし、アプリケーションコードをコピーする
 COPY ./app/package.json ./app/yarn.lock /front/
-RUN yarn install
 
 # 残りのフロントエンドのアプリケーションのソースコードをコンテナに取り込み、コンテナ起動時にアプリケーションが実行できる状態に
 COPY ./app /front
