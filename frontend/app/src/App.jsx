@@ -5,11 +5,11 @@ import Section from "./quiz-components/Section/Section";
 import CreateQuiz from "./quiz-components/AdminQuiz/CreateQuiz/CreateQuiz";
 import CreateSection from "./quiz-components/AdminQuiz/CreateSection/CreateSection";
 
-import CommonLayout from "./login-components/Userlogin/layout/CommonLayout"
+import CommonLayout from "./login-components/Userlogin/layout/CommonLayout";
 import { getCurrentUser } from "./login-components/Userlogin/api/auth";
-import Home from "./login-components/Userlogin/pages/Home.tsx";
 import SignIn from './login-components/Userlogin/pages/SignIn';
 import SignUp  from "./login-components/Userlogin/pages/SignUp";
+import Success from "login-components/Userlogin/pages/success";
 
 export const AuthContext = createContext();
 
@@ -68,7 +68,7 @@ function App() {
         <Routes>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} /> 
-          <Route path="/" element={<Private><Home /></Private>} />
+          <Route path="/confirmation-success" element={<Private><Success /></Private>} />
 
           <Route path="/create-quiz" element={<CreateQuiz />} />
           <Route path="/create-section" element={<CreateSection />} />
