@@ -2,8 +2,8 @@ import { createContext, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import Quiz from "./quiz-components/Quiz/Quiz";
 import Section from "./quiz-components/Section/Section";
-import CreateQuiz from "./quiz-components/CreateQuiz/CreateQuiz";
-import CreateSection from "./quiz-components/CreateSection/CreateSection";
+import CreateQuiz from "./quiz-components/AdminQuiz/CreateQuiz/CreateQuiz";
+import CreateSection from "./quiz-components/AdminQuiz/CreateSection/CreateSection";
 
 import CommonLayout from "./login-components/Userlogin/layout/CommonLayout"
 import { getCurrentUser } from "./login-components/Userlogin/api/auth";
