@@ -4,13 +4,13 @@ export interface SignUpParams {
     email: string
     password: string
     passwordConfirmation: string
-}
+};
 
 // サインイン
 export interface SignInParams {
     email: string
     password: string
-}
+};
 
 // ユーザー
 export interface User {
@@ -24,4 +24,4 @@ export interface User {
     allowPasswordChange: boolean
     created_at: Date
     updated_at: Date
-}
+};
