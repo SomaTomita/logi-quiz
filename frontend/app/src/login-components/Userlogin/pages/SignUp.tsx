@@ -9,7 +9,7 @@ import CardHeader from "@mui/material/CardHeader";
 import Button from "@mui/material/Button";
 
 import { AuthContext } from "App";
-import AlertMessage from "../Utils/AlertMessage";
+import AlertMessage from "../utils/alertMessage";
 import { signUp } from "../Api/Auth";
 import { SignUpParams } from "../Interfaces";
 
