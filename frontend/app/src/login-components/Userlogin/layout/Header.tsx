@@ -13,14 +13,14 @@ import { signOut } from "../Api/Auth";
 import { AuthContext } from "App";
 
 const Header: React.FC = () => {
-  const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
+  const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);  // AuthContextから必要なステートと関数を取得
   const navigate = useNavigate();
 
   const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
       const res = await signOut();
 
-      if (res.data.success === true) {
+      if (res.data.success === true) { // サインアウトが成功した場合 signInまたはUpでsetしたCookieを削除
         Cookies.remove("_access_token");
         Cookies.remove("_client");
         Cookies.remove("_uid");
@@ -36,16 +36,17 @@ const Header: React.FC = () => {
     }
   };
 
-  const AuthButtons = () => {
+  // 認証状態に基づいてヘッダーのボタンを変更
+  const HeaderButtons = () => {
     if (!loading) {
-      if (isSignedIn) {
+      if (isSignedIn) { // サインイン済状態
         return (
           <Button color="inherit" sx={{ textTransform: "none" }} onClick={handleSignOut}>
             Sign out
           </Button>
         );
       } else {
-        return (
+        return ( // サインインしていない状態
           <>
             <Button component={Link} to="/signin" color="inherit" sx={{ textTransform: "none" }}>
               Sign in
@@ -57,10 +58,10 @@ const Header: React.FC = () => {
         );
       }
     } else {
-      return <></>;
+      return <></>; // ロード中は何も表示しない
     }
   };
-
+  // ヘッダーのUI
   return (
     <>
       <AppBar position="static">
@@ -71,7 +72,7 @@ const Header: React.FC = () => {
           <Typography variant="h6" sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }}>
             貿易クイズ
           </Typography>
-          <AuthButtons />
+          <HeaderButtons />
         </Toolbar>
       </AppBar>
     </>
