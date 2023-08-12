@@ -9,9 +9,9 @@ import CardHeader from "@mui/material/CardHeader";
 import Button from "@mui/material/Button";
 
 import { AuthContext } from "App";
-import AlertMessage from "../Utils/AlertMessage";
-import { signUp } from "../Api/Auth";
-import { SignUpParams } from "../Interfaces";
+import AlertMessage from "../utils/alertMessage";
+import { signUp } from "../api/auth";
+import { SignUpParams } from "../interfaces";
 
 // サインアップ用ページ
 const SignUp: React.FC = () => {

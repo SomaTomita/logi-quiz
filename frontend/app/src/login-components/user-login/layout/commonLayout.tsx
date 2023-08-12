@@ -1,5 +1,5 @@
 import { Container, Grid } from "@mui/material";
-import Header from "./Header";
+import Header from "./header";
 
 interface CommonLayoutProps {
   children: React.ReactElement;

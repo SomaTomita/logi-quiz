@@ -1,4 +1,4 @@
-import "./AnswerTimer.css";
+import "./answerTimer.css";
 import { useEffect, useState, useRef } from "react";
 
 
