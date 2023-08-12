@@ -23,7 +23,7 @@ const Success: React.FC = () => {
             <h1>Signed in successfully!</h1>
             <h2>Email: {currentUser?.email}</h2>
             <h2>Name: {currentUser?.name}</h2>
-            <h4>・・・ホーム画面に移動します・・・</h4>
+            <h4>まもなくホーム画面に移動します</h4>
           </>
         ) : (
           <h1>Not signed in</h1>
