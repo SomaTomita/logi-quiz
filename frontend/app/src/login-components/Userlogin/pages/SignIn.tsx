@@ -13,9 +13,9 @@ import {
 } from "@mui/material";
 
 import { AuthContext } from "App";
-import AlertMessage from "../utils/AlertMessage";
-import { signIn } from "../api/auth";
-import { SignInParams } from "../interfaces";
+import AlertMessage from "../Utils/AlertMessage";
+import { signIn } from "../Api/Auth";
+import { SignInParams } from "../Interfaces";
 
 // サインイン用ページ
 const SignIn: React.FC = () => {
