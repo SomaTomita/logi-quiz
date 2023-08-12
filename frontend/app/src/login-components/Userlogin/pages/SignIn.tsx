@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 import { AuthContext } from "App";
-import AlertMessage from "../Utils/AlertMessage";
+import AlertMessage from "../utils/alertMessage";
 import { signIn } from "../Api/Auth";
 import { SignInParams } from "../Interfaces";
 
