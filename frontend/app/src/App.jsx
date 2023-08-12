@@ -14,16 +14,17 @@ import Success from "login-components/Userlogin/Pages/Success";
 export const AuthContext = createContext();
 
 function App() {
+  // ローディング、ログイン状態、現在のユーザー情報を管理するためのstate
   const [loading, setLoading] = useState(true);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState();
 
   const handleGetCurrentUser = async () => {
     try {
-      const res = await getCurrentUser();
+      const res = await getCurrentUser(); // Authで定義したメソッドでユーザー情報をAPIから取得
 
-      if (res?.data.isLogin === true) {
-        setIsSignedIn(true);
+      if (res?.data.isLogin === true) { // ユーザーはログインしている場合
+        setIsSignedIn(true); // ユーザーがログインしているというステートをtrueに更新
         setCurrentUser(res?.data.data);
         console.log(res?.data.data);
       } else {
@@ -35,24 +36,26 @@ function App() {
     setLoading(false);
   };
 
-  useEffect(() => {
+  useEffect(() => { // 現在のユーザー情報を取得
     handleGetCurrentUser();
   }, [setCurrentUser]);
 
-  const Private = ({ children }) => {
+  const Private = ({ children }) => { // 子要素を受け取り、ログイン状態に応じて子要素を表示またはリダイレクトを行う
     const navigate = useNavigate(); 
 
     if (!loading) {
       if (isSignedIn) {
         return children;
       } else {
-        navigate("/signin");  
+        navigate("/signin");  // 未ログイン時はログインページにリダイレクト
       }
     } else {
       return <></>;
     }
   };
+
   return (
+    // AuthContextを提供して、子コンポーネントで認証情報にアクセス可能にする
     <AuthContext.Provider
       value={{
         loading,

@@ -47,9 +47,7 @@ const SignUp: React.FC = () => {
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
 
-        setTimeout(() => {
-            navigate("/sections");
-          }, 2000);  // successページが開いてから2秒待ってから/sectionsへ遷移
+        navigate("/confirmation-success");
       } else {
         setAlertMessageOpen(true);
       }
