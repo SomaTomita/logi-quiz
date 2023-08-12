@@ -1,4 +1,4 @@
-import client from "./client"
+import client from "./Client"
 
 // 動作確認用
 export const execTest = () => {
