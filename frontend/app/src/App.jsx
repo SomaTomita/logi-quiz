@@ -5,11 +5,11 @@ import Section from "./quiz-components/Section/Section";
 import CreateQuiz from "./quiz-components/AdminQuiz/CreateQuiz/CreateQuiz";
 import CreateSection from "./quiz-components/AdminQuiz/CreateSection/CreateSection";
 
-import CommonLayout from "./login-components/Userlogin/layout/CommonLayout";
-import { getCurrentUser } from "./login-components/Userlogin/api/auth";
-import SignIn from './login-components/Userlogin/pages/SignIn';
-import SignUp  from "./login-components/Userlogin/pages/SignUp";
-import Success from "login-components/Userlogin/pages/success";
+import CommonLayout from "./login-components/Userlogin/Layout/CommonLayout";
+import { getCurrentUser } from "./login-components/Userlogin/Api/Auth";
+import SignIn from './login-components/Userlogin/Pages/SignIn';
+import SignUp  from "./login-components/Userlogin/Pages/SignUp";
+import Success from "login-components/Userlogin/Pages/Success";
 
 export const AuthContext = createContext();
 

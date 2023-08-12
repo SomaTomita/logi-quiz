@@ -32,7 +32,7 @@
 ### フロントエンド
 * React
 * TypeScript
-* Material UI v5
+* Material UI 5
 
 ### インフラ
 * Docker/Docker-compos
