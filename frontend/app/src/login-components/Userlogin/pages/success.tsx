@@ -10,7 +10,7 @@ const Success: React.FC = () => {
   useEffect(() => {
     if (isSignedIn && currentUser) { // サインインしていて、currentUserが存在する場合2.5秒でセクション画面に遷移
       setTimeout(() => {
-        navigate("/sections");
+        navigate("/home");
       }, 2500);
     }
   }, [isSignedIn]); // ユーザーのログインを判別するステートが更新された際に遷移

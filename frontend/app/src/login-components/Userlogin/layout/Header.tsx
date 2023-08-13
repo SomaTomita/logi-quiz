@@ -41,9 +41,20 @@ const Header: React.FC = () => {
     if (!loading) {
       if (isSignedIn) { // サインイン済状態
         return (
+          <>
+          <Button component={Link} to="/home" color="inherit" sx={{ textTransform: "none" }}>
+            Home
+          </Button>
+          <Button component={Link} to="/sections" color="inherit" sx={{ textTransform: "none" }}>
+            Sections
+          </Button>
+          <Button href="https://forms.gle/RxFuJeaLW65w4pg48" color="inherit" sx={{ textTransform: "none" }} onClick={handleSignOut}>
+            Contact
+          </Button>
           <Button color="inherit" sx={{ textTransform: "none" }} onClick={handleSignOut}>
             Sign out
           </Button>
+          </>
         );
       } else {
         return ( // サインインしていない状態

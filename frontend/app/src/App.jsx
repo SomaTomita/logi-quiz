@@ -5,6 +5,8 @@ import Section from "./quiz-components/section/section";
 import CreateQuiz from "./quiz-components/adminQuiz/createQuiz/createQuiz";
 import CreateSection from "quiz-components/adminQuiz/createSection/createSection";
 
+import Home from "home";
+
 import CommonLayout from "login-components/userLogin/layout/commonLayout";
 import { getCurrentUser } from "./login-components/userLogin/api/auth";
 import SignIn from "login-components/userLogin/pages/signIn";
@@ -36,9 +38,11 @@ function App() {
     setLoading(false);
   };
 
+
   useEffect(() => { // 現在のユーザー情報を取得
     handleGetCurrentUser();
   }, [setCurrentUser]);
+
 
   const Private = ({ children }) => { // 子要素を受け取り、ログイン状態に応じて子要素を表示またはリダイレクトを行う
     const navigate = useNavigate(); 
@@ -72,6 +76,8 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} /> 
           <Route path="/confirmation-success" element={<Private><Success /></Private>} />
+
+          <Route path="/home" element={<Home />} />
 
           <Route path="/create-quiz" element={<CreateQuiz />} />
           <Route path="/create-section" element={<CreateSection />} />
