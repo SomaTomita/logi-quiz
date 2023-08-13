@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
-import Answertimer from "../AnswerTimer/AnswerTimer";
-import "./Quiz.css";
+import Answertimer from "../answerTimer/answerTimer";
+import "./quiz.css";
 import axios from "axios"
 import { Oval } from 'react-loader-spinner';
 

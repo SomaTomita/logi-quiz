@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
-import { signOut } from "../Api/Auth";
+import { signOut } from "../api/auth";
 import { AuthContext } from "App";
 
 const Header: React.FC = () => {
