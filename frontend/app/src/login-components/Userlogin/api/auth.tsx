@@ -1,5 +1,5 @@
-import { SignInParams, SignUpParams } from "../Interfaces";
-import client from "./Client";
+import { SignInParams, SignUpParams } from "../interfaces";
+import client from "./client";
 import Cookies from "js-cookie";
 
 // サインアップ

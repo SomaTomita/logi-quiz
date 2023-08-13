@@ -1,15 +1,15 @@
 import { createContext, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
-import Quiz from "./quiz-components/Quiz/Quiz";
-import Section from "./quiz-components/Section/Section";
-import CreateQuiz from "./quiz-components/AdminQuiz/CreateQuiz/CreateQuiz";
-import CreateSection from "./quiz-components/AdminQuiz/CreateSection/CreateSection";
+import Quiz from "./quiz-components/quiz/quiz";
+import Section from "./quiz-components/section/section";
+import CreateQuiz from "./quiz-components/adminQuiz/createQuiz/createQuiz";
+import CreateSection from "quiz-components/adminQuiz/createSection/createSection";
 
-import CommonLayout from "./login-components/Userlogin/Layout/CommonLayout";
-import { getCurrentUser } from "./login-components/Userlogin/Api/Auth";
-import SignIn from './login-components/Userlogin/Pages/SignIn';
-import SignUp  from "./login-components/Userlogin/Pages/SignUp";
-import Success from "login-components/Userlogin/Pages/Success";
+import CommonLayout from "login-components/userLogin/layout/commonLayout";
+import { getCurrentUser } from "./login-components/userLogin/api/auth";
+import SignIn from "login-components/userLogin/pages/signIn";
+import SignUp from "login-components/userLogin/pages/signUp";
+import Success from "login-components/userLogin/pages/success";
 
 export const AuthContext = createContext();
 

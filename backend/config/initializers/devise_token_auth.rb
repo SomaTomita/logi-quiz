@@ -65,5 +65,4 @@ DeviseTokenAuth.setup do |config|
   # config.send_confirmation_email = true
 
   config.default_confirm_success_url = "http://localhost3000/confirmation-success"
-  config.allowed_cors_origins = ['http://localhost:3000']
 end

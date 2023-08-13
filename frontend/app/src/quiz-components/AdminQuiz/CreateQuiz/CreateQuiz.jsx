@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import "./CreateQuiz.css";
+import "./createQuiz.css";
 
 function CreateQuiz() {
   const [quizData, setQuizData] = useState({
