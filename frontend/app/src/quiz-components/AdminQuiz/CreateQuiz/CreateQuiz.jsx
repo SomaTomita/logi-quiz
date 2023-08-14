@@ -1,6 +1,23 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import "./createQuiz.css";
+import { TextField, Checkbox, FormControlLabel, Button, MenuItem, Paper, Grid, styled } from '@mui/material';
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  fontSize: '16px',
+  textAlign: 'center',
+  padding: '20px',
+  backgroundColor: '#D3D3D3',
+  cursor: 'pointer',
+  transition: 'background-color 0.3s, color 0.3s',
+  '&:hover': {
+    backgroundColor: '#1976d2',
+    color: '#ffffff',
+  },
+  '& p': {
+    margin: 0,
+  },
+}));
+
 
 function CreateQuiz() {
   const [quizData, setQuizData] = useState({
@@ -62,35 +79,74 @@ function CreateQuiz() {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="section_label">セクション：</label>
-           {/* ドロップダウンメニューからセクションを選択するとselectedSectionを更新 */}
-        <select id="section_label" value={selectedSection} onChange={handleSectionChange}>
-          {sections.map(section => (
-           <option key={section.id} value={section.id}>{section.section_name}</option>
-        ))}
-        </select>
+    <form onSubmit={handleSubmit}>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <TextField
+            select
+            label="セクション"
+            value={selectedSection}
+            onChange={handleSectionChange}
+            sx={{ marginTop: 2, width: '50%' }}
+          >
+            {sections.map((section) => (
+              <MenuItem key={section.id} value={section.id}>
+                {section.section_name}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
 
-        <br />
-        <label htmlFor="question_text_label">問題文:</label>
-        <textarea id="question_text_label" type="text" name="question_text" placeholder="問題文を入力してください" onChange={handleQuestionChange} />
-        <br />
+        <Grid item xs={12}>
+          <TextField
+            label="問題文"
+            placeholder="問題文を入力してください"
+            multiline
+            onChange={handleQuestionChange}
+            sx={{ marginTop: 2, marginBottom: 2, width: '50%' }}
+          />
+        </Grid>
 
-        <label htmlFor="choice_text_label">選択肢:</label>
         {quizData.choices_attributes.map((choice, index) => (
-          <div id="choice_text_label" key={index}> 
-           <input type="text" name="choice_text" value={choice.choice_text} placeholder="選択肢を入力してください" onChange={event => handleInputChange(event, index)} />
-           <input type="checkbox" name="is_correct" checked={choice.is_correct} onChange={event => handleInputChange(event, index)} />正解
-          </div>
+          <Grid item xs={12} key={index}>
+            <TextField
+              label={`選択肢 ${index + 1}`}
+              name="choice_text"
+              value={choice.choice_text}
+              placeholder="選択肢を入力してください"
+              onChange={(event) => handleInputChange(event, index)}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={choice.is_correct}
+                  onChange={(event) => handleInputChange(event, index)}
+                  name="is_correct"
+                  sx={{ marginLeft: 2, alignItems:'center', justifyContent:'center'}}
+                />
+              }
+              label="正解"
+            />
+          </Grid>
         ))}
 
-        <label htmlFor="explanation_text_label">解説:</label>
-        <textarea id='explanation_text_label' type="text" name="explanation_text" placeholder="解説を入力してください" onChange={handleExplanationChange} />
+        <Grid item xs={12}>
+          <TextField
+            label="解説"
+            placeholder="解説を入力してください"
+            fullWidth
+            multiline
+            onChange={handleExplanationChange}
+            sx={{ marginTop: 2, width: '50%' }}
+          />
+        </Grid>
 
-        <br />
-        <button type="submit">Submit</button>
-      </div>
+        <Grid item xs={12}>
+          <Button variant="contained" color="primary" type="submit" sx={{ marginTop: 2, marginBottom: 2 }}>
+            Submit
+          </Button>
+        </Grid>
+      </Grid>
     </form>
   );
 }
