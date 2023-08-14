@@ -1,22 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { TextField, Checkbox, FormControlLabel, Button, MenuItem, Paper, Grid, styled } from '@mui/material';
-
-const StyledPaper = styled(Paper)(({ theme }) => ({
-  fontSize: '16px',
-  textAlign: 'center',
-  padding: '20px',
-  backgroundColor: '#D3D3D3',
-  cursor: 'pointer',
-  transition: 'background-color 0.3s, color 0.3s',
-  '&:hover': {
-    backgroundColor: '#1976d2',
-    color: '#ffffff',
-  },
-  '& p': {
-    margin: 0,
-  },
-}));
+import { TextField, Checkbox, FormControlLabel, Button, MenuItem, Paper, Grid } from '@mui/material';
 
 
 function CreateQuiz() {
