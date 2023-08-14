@@ -6,8 +6,9 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+
+
+import DirectionsBoatIcon from '@mui/icons-material/DirectionsBoat';
 
 import { signOut } from "../api/auth";
 import { AuthContext } from "App";
@@ -72,16 +73,15 @@ const Header: React.FC = () => {
       return <></>; // ロード中は何も表示しない
     }
   };
+
   // ヘッダーのUI
   return (
     <>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" color="inherit" sx={{ marginRight: 2 }}>
-            <MenuIcon />
-          </IconButton>
+        <DirectionsBoatIcon sx={{ marginRight: 1.5 }}></DirectionsBoatIcon>
           <Typography variant="h6" sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }}>
-            貿易クイズ
+            国際物流クイズ
           </Typography>
           <HeaderButtons />
         </Toolbar>

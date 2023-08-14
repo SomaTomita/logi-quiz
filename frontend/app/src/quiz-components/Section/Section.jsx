@@ -1,7 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import './section.css';
+import { Grid, Paper } from '@mui/material';
+import { styled } from '@mui/system';
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  fontSize: '16px',
+  textAlign: 'center',
+  padding: '20px',
+  backgroundColor: '#D3D3D3',
+  cursor: 'pointer',
+  transition: 'background-color 0.3s, color 0.3s',
+  '&:hover': {
+    backgroundColor: '#1976d2',
+    color: '#ffffff',
+  },
+  '& p': {
+    margin: 0,
+  },
+}));
+
 
 function Section() {
   const [sections, setSections] = useState([]); // セクションデータ格納
@@ -22,14 +40,15 @@ function Section() {
   }
 
   return (
-    <div className="section-container">
-      {/* 引数sectionに渡ってきた各セクションオブジェクトのsection_nameプロパティを参照 */}
-      {sections.map(section => (
-        <div key={section.id} className="section-block" onClick={() => handleSectionClick(section.id)}>
+    <Grid container spacing={3} className="section-container">
+    {sections.map(section => (
+      <Grid item xs={12} sm={6} md={4} key={section.id} onClick={() => handleSectionClick(section.id)}>
+        <StyledPaper elevation={3}>
           <p>{section.section_name}</p>
-        </div>
-      ))}
-    </div>
+        </StyledPaper>
+      </Grid>
+    ))}
+  </Grid>
   );
 }
 

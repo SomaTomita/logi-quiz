@@ -6,17 +6,8 @@ const Home: React.FC = () => {
   return (
     <Container maxWidth="sm">
       <Paper sx={{ padding: 4, marginTop: 8 }}>
-        <Typography variant="h4" gutterBottom>
-          貿易クイズ
-        </Typography>
-        <Typography variant="body1" paragraph>
-          国際物流の知識を手軽に復習できるクイズアプリです。<br />
-          復習したい内容や学習テーマに合わせて復習することが出来ます。
-        </Typography>
-
-
-        <Typography variant="body1" paragraph>
-         下のボタンから学びたい分野を選ぼう！
+        <Typography variant="h4" paragraph sx={{ marginTop: 2 }}>
+         学びたい分野を選ぼう。
         </Typography>
         <Button
           variant="contained"
@@ -25,8 +16,19 @@ const Home: React.FC = () => {
           to="/sections"
           sx={{ marginTop: 2 }}
         >
-          Go to sections
+          Go to Sections
         </Button>
+        <Paper sx={{ padding: 4, marginTop: 8 }}>
+        <Typography variant="h6" paragraph>
+          ルール
+        </Typography>
+        <Typography variant="body1">
+          <ul>
+            <li>1セクション10問あり、4つの選択問題だ。</li>
+            <li>1問につき、15秒以内に答えよう。</li>
+          </ul>
+        </Typography>
+        </Paper>
       </Paper>
     </Container>
   );

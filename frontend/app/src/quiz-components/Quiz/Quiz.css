@@ -15,7 +15,6 @@
  }
  
  .quiz-container .quiz-start button {
-   background:#19B3D3;
    border-radius: 9px;
    font-size: 18px;
    color: #000000;
@@ -47,16 +46,16 @@
    text-decoration: none;
    list-style: none;
    color: #2d264b;
-   font-size: 16px;
+   font-size: 18px;
    background: #ffffff;
    border: 1px solid #9c9c9c;
-   padding: 11px;
+   padding: 17px;
    margin-top: 15px;
    cursor: pointer;
  }
  
  .quiz-container .selected-answer {
-   background: #19B3D3;
+   background: #1976d2;
    color: #000000;
  }
  
@@ -66,7 +65,6 @@
  }
  
  .quiz-container .footer button {
-   background:#19B3D3;
    border-radius: 9px;
    font-size: 18px;
    color: #000000;
@@ -105,7 +103,6 @@
 }
 
 .quiz-container .result button {
- background:#19B3D3;
  border-radius: 9px;
  font-size: 18px;
  color: #000000;

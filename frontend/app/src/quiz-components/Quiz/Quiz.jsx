@@ -4,6 +4,8 @@ import Answertimer from "../answerTimer/answerTimer";
 import "./quiz.css";
 import axios from "axios"
 import { Oval } from 'react-loader-spinner';
+import Button from "@mui/material/Button";
+import { Paper, Grid, Box } from "@mui/material"
 
 
 const Quiz = () => {
@@ -65,7 +67,7 @@ if (!questions.length) {
         strokeWidthSecondary={1}
         color="blue"
         secondaryColor="white" />
-      'Loading...'
+        'Loading...'
     </div>
   );
 }
@@ -136,7 +138,7 @@ if (!questions.length) {
         // クイズが開始されておらず、結果も表示されていない場合に表示する画面 // startQuiz関数のquizStartedが真になり、クイズスタート
         <div className="quiz-start">
           <h2>Are you ready?</h2>
-          <button onClick={startQuiz}>Start</button>
+          <Button variant="contained" onClick={startQuiz} sx={{ margin: 2 }}>Start</Button>
         </div>
       ) : showResult ?
       (
@@ -147,18 +149,20 @@ if (!questions.length) {
             const { question_text: reviewQuestion, choices: reviewChoices, explanation: {explanation_text: reviewExplanation} } = questionItem;
             const reviewCorrectAnswer = reviewChoices.find(choice => choice.is_correct)?.choice_text || '';
           return (
+            <Paper>
             <div className="reviewItem" key={index}>
              <p>問題: {reviewQuestion}</p>
              <p>正解: {reviewCorrectAnswer}</p>
-             <p>正誤:{correctAnswersIndex.includes(index) ? '⭕️' : '✖︎'}</p> 
+             <p>あなたの回答:{correctAnswersIndex.includes(index) ? '⭕️' : '✖︎'}</p> 
              <p>解説: {reviewExplanation}</p>
             </div>
+            </Paper>
             // includesで特定の配列があるかチェック
           );
           })}
             <div className="result-button">
-             <button onClick={onTryAgain}>Try again</button>
-             <button onClick={backToSections}>Back to Sections</button>
+             <Button variant="contained" onClick={onTryAgain} sx={{ margin: 2 }}>Try again</Button>
+             <Button variant="contained" onClick={backToSections} sx={{ margin: 2 }}>Back to Sections</Button>
             </div>
         </div>
       ) :
@@ -179,12 +183,13 @@ if (!questions.length) {
             ))}
           </ul>
           <div className="footer">
-            <button 
+            <Button
+              variant="contained" 
               onClick={ () => onClickNext(answer)} // 引数には現在の回答
               // 選択肢が選択されていない場合、ボタンは無効化されます。
               disabled={answerIndex === null}>
              {currentQuestion === questions.length - 1 ? "Finish" : "Next"}
-            </button>
+            </Button>
           </div>
         </div>
       )}
