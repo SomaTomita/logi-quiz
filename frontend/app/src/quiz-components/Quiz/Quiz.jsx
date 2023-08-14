@@ -3,9 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Answertimer from "../answerTimer/answerTimer";
 import "./quiz.css";
 import axios from "axios"
+
 import { Oval } from 'react-loader-spinner';
 import Button from "@mui/material/Button";
-import { Paper, Grid, Box } from "@mui/material"
+import { Paper } from "@mui/material"
 
 
 const Quiz = () => {
@@ -168,7 +169,7 @@ if (!questions.length) {
       ) :
       ( // クイズが開始されていて、結果が表示されていない場合、クイズの現在の画面が表示
         <div> 
-          {showAnswerTimer && <Answertimer key={currentQuestion} duration={10} onTimeUp={handleTimeUp} />}
+          {showAnswerTimer && <Answertimer key={currentQuestion} duration={15} onTimeUp={handleTimeUp} />}
           <span className="active-question-no">{currentQuestion + 1}</span><span className="total-question">/{questions.length}</span>
           <h2>{question}</h2>
           <ul>
