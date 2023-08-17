@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { TextField, Checkbox, FormControlLabel, Button, MenuItem, Paper, Grid } from '@mui/material';
+import { TextField, Checkbox, FormControlLabel, Button, MenuItem, Grid } from '@mui/material';
 
 
 function CreateQuiz() {

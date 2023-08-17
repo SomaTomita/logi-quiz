@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+
 import Quiz from "./quiz-components/quiz/quiz";
 import Section from "./quiz-components/section/section";
 import CreateQuiz from "./quiz-components/adminQuiz/createQuiz";
@@ -13,7 +14,9 @@ import SignIn from "login-components/userLogin/pages/signIn";
 import SignUp from "login-components/userLogin/pages/signUp";
 import Success from "login-components/userLogin/pages/success";
 
+
 export const AuthContext = createContext();
+
 
 function App() {
   // ローディング、ログイン状態、現在のユーザー情報を管理するためのstate
@@ -23,11 +26,11 @@ function App() {
 
   const handleGetCurrentUser = async () => {
     try {
-      const res = await getCurrentUser(); // Authで定義したメソッドでユーザー情報をAPIから取得
+      const res = await getCurrentUser(); // Authで定義した(/auth/sessionsでユーザー情報をgetした)メソッドでユーザー情報をAPIから取得
 
-      if (res?.data.isLogin === true) { // ユーザーはログインしている場合
-        setIsSignedIn(true); // ユーザーがログインしているというステートをtrueに更新
-        setCurrentUser(res?.data.data);
+      if (res?.data.isLogin === true) { // 取得したデータが"is_login": trueである(ユーザーはログインしている)場合
+        setIsSignedIn(true);
+        setCurrentUser(res?.data.data); // APIのレスポンスdata本体のdataキー内のオブジェクト(ID、メールアドレス、名前)を取得してcurrentUserに
         console.log(res?.data.data);
       } else {
         console.log("no current user");
@@ -44,12 +47,12 @@ function App() {
   }, [setCurrentUser]);
 
 
-  const Private = ({ children }) => { // 子要素を受け取り、ログイン状態に応じて子要素を表示またはリダイレクトを行う
+  const Private = ({ children }) => { // <private>子要素<pricate/> こちらのように子要素を受け取り、ログイン状態に応じて子要素を表示またはリダイレクトを行う
     const navigate = useNavigate(); 
 
     if (!loading) {
       if (isSignedIn) {
-        return children;
+        return children; // ログインしている場合は、子要素をreturn以下で言う<Success />を表示
       } else {
         navigate("/signin");  // 未ログイン時はログインページにリダイレクト
       }
