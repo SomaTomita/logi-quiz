@@ -1,11 +1,13 @@
+// App.jsxでは、全ページのコンポーネントをchidlrenとして、ヘッダーコンポーネントを表示し、コンテナの最大幅で中央揃えでレンダリングする
+
 import { Container, Grid } from "@mui/material";
 import Header from "./header"
 
 interface CommonLayoutProps {
-  children: React.ReactElement;
+  children: React.ReactElement; // ReactElement = コンポーネント（または DOM タグ）の型、それが受け取る props、そして子要素を保持する型付け
 }
 
-const CommonLayout = ({ children }: CommonLayoutProps) => {
+const CommonLayout = ({ children }: CommonLayoutProps) => { // <CommonLayout> ~~ </CommonLayout> ~~ 部分をchildrenとしてCommonLayoutコンポーネントに渡され ~~ の位置ににレンダリング
   return (
     <>
       <header>

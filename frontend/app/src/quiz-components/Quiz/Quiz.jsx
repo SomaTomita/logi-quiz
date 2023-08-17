@@ -139,7 +139,7 @@ if (!questions.length) {
         // クイズが開始されておらず、結果も表示されていない場合に表示する画面 // startQuiz関数のquizStartedが真になり、クイズスタート
         <div className="quiz-start">
           <h2>Are you ready?</h2>
-          <Button variant="contained" onClick={startQuiz} sx={{ margin: 2 }}>Start</Button>
+          <Button variant="contained" onClick={startQuiz} sx={{ margin: 2, textDecoration: "none" }}>Start</Button>
         </div>
       ) : showResult ?
       (
@@ -162,8 +162,8 @@ if (!questions.length) {
           );
           })}
             <div className="result-button">
-             <Button variant="contained" onClick={onTryAgain} sx={{ margin: 2 }}>Try again</Button>
-             <Button variant="contained" onClick={backToSections} sx={{ margin: 2 }}>Back to Sections</Button>
+             <Button variant="contained" onClick={onTryAgain} sx={{ margin: 2, textTransform: "none" }}>Try again</Button>
+             <Button variant="contained" onClick={backToSections} sx={{ margin: 2, textTransform: "none" }}>Back to Sections</Button>
             </div>
         </div>
       ) :

@@ -11,7 +11,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   backgroundColor: '#D3D3D3',
   cursor: 'pointer',
   transition: 'background-color 0.3s, color 0.3s',
-  '&:hover': {
+  '&:hover': { // ホバー時に背景の文字の色変更
     backgroundColor: '#1976d2',
     color: '#ffffff',
   },

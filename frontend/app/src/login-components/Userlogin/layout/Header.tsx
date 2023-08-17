@@ -19,14 +19,14 @@ const Header: React.FC = () => {
 
   const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
-      const res = await signOut();
+      const res = await signOut(); // auth定義 => ユーザーのセッションを終了
 
-      if (res.data.success === true) { // サインアウトが成功した場合 signInまたはUpでsetしたCookieを削除
+      if (res.data.success === true) { // サインアウトが成功した場合 signInまたはUpでsetしたCookieを削除(ブラウザ上の認証情報等が削除され、次回ページを訪問した際にユーザーは未ログインの状態に)
         Cookies.remove("_access_token");
         Cookies.remove("_client");
         Cookies.remove("_uid");
 
-        setIsSignedIn(false);
+        setIsSignedIn(false); // サインイン状態を解除
         navigate("/signin");
         console.log("Succeeded in sign out");
       } else {
