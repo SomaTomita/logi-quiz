@@ -21,7 +21,7 @@ import { SignInParams } from "../interfaces";
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
 
-  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
+  const { setIsSignedIn, setCurrentUser, setIsAdmin } = useContext(AuthContext);
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -39,7 +39,8 @@ const SignIn: React.FC = () => {
 
     try {
       const res = await signIn(params);
-      console.log(res);
+      console.log("Full Response:", res);  // レスポンス全体を確認
+      console.log("User Data:", res.data.data);  // 期待するユーザーデータの部分だけを確認  
 
       if (res.status === 200) {  // サーバーからのレスポンスのヘッダーにある認証情報をCookieにセット
         // 第一引数の特定のクッキーの名前（キー）に、第二引数のクッキーの値を関連付けて保存
@@ -49,6 +50,10 @@ const SignIn: React.FC = () => {
 
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
+        console.log(res.data.data);
+
+        setIsAdmin(res?.data.data.admin);
+        console.log(res?.data.data.admin);
 
         navigate("/confirmation-success");
         console.log("Signed in successfully!");

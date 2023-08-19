@@ -14,7 +14,7 @@ import { signOut } from "../api/auth";
 import { AuthContext } from "App";
 
 const Header: React.FC = () => {
-  const { loading, isSignedIn, setIsSignedIn } = useContext(AuthContext);  // AuthContextから必要なステートと関数を取得
+  const { loading, isSignedIn, setIsSignedIn, isAdmin } = useContext(AuthContext);  // AuthContextから必要なステートと関数を取得
   const navigate = useNavigate();
 
   const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -40,7 +40,21 @@ const Header: React.FC = () => {
   // 認証状態に基づいてヘッダーのボタンを変更
   const HeaderButtons = () => {
     if (!loading) {
-      if (isSignedIn) { // サインイン済状態
+      if (isAdmin) { // 管理者の場合
+        return (
+          <>
+            <Button component={Link} to="/create-quiz" color="inherit" sx={{ textTransform: "none" }}>
+              Create Quiz
+            </Button>
+            <Button component={Link} to="/create-section" color="inherit" sx={{ textTransform: "none" }}>
+              Create Section
+            </Button>
+            <Button color="inherit" sx={{ textTransform: "none" }} onClick={handleSignOut}>
+            Sign out
+          </Button>
+          </>
+        );
+      } else if (isSignedIn) { // 管理者ではなく、サインイン済状態
         return (
           <>
           <Button component={Link} to="/home" color="inherit" sx={{ textTransform: "none" }}>
@@ -74,13 +88,12 @@ const Header: React.FC = () => {
     }
   };
 
-  // ヘッダーのUI
   return (
     <>
       <AppBar position="static">
         <Toolbar>
         <DirectionsBoatIcon sx={{ marginRight: 1.5 }}></DirectionsBoatIcon>
-          <Typography variant="h6" sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }}>
+          <Typography component={Link} to="/home" variant="h6" sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }}>
             国際物流クイズ
           </Typography>
           <HeaderButtons />
