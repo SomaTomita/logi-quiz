@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import clientRaw from '../api/clientRaw';
 import Cookies from 'js-cookie';
-import { TextField, Checkbox, FormControlLabel, Button, MenuItem, Grid } from '@mui/material';
+import { Link } from "react-router-dom";
+import { TextField, Checkbox, FormControlLabel, Button, MenuItem, Grid, Typography, Fab, Paper } from '@mui/material';
+import EditNoteIcon from '@mui/icons-material/EditNote';
 
 
 function CreateQuiz() {
@@ -76,71 +78,84 @@ function CreateQuiz() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <TextField
-            select
-            label="セクション"
-            value={selectedSection}
-            onChange={handleSectionChange}
-            sx={{ marginTop: 2, width: '50%' }}
-          >
-            {sections.map((section) => (
-              <MenuItem key={section.id} value={section.id}>
-                {section.section_name} 
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
+      <Typography variant="h5">Add Quiz</Typography>
 
-        <Grid item xs={12}>
-          <TextField
-            label="問題文"
-            placeholder="問題文を入力してください"
-            multiline
-            onChange={handleQuestionChange}
-            sx={{ marginTop: 2, marginBottom: 2, width: '50%' }}
-          />
-        </Grid>
-
-        {quizData.choices_attributes.map((choice, index) => (
-          <Grid item xs={12} key={index}>
+      <Paper elevation={3} sx={{ padding: 3, marginTop: 2, marginBottom: 3 }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
             <TextField
-              label={`選択肢 ${index + 1}`}
-              name="choice_text"
-              value={choice.choice_text}
-              placeholder="選択肢を入力してください"
-              onChange={(event) => handleInputChange(event, index)}
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={choice.is_correct}
-                  onChange={(event) => handleInputChange(event, index)}
-                  name="is_correct"
-                  sx={{ marginLeft: 2, alignItems:'center', justifyContent:'center'}}
-                />
-              }
-              label="正解"
+              select
+              label="セクション"
+              value={selectedSection}
+              onChange={handleSectionChange}
+              sx={{ marginTop: 2, width: '50%' }}
+            >
+              {sections.map((section) => (
+                <MenuItem key={section.id} value={section.id}>
+                  {section.section_name}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              label="問題文"
+              placeholder="問題文を入力してください"
+              multiline
+              onChange={handleQuestionChange}
+              sx={{ marginTop: 2, marginBottom: 2, width: '50%' }}
             />
           </Grid>
-        ))}
 
-        <Grid item xs={12}>
-          <TextField
-            label="解説"
-            placeholder="解説を入力してください"
-            fullWidth
-            multiline
-            onChange={handleExplanationChange}
-            sx={{ marginTop: 2, width: '50%' }}
-          />
+          {quizData.choices_attributes.map((choice, index) => (
+            <Grid item xs={12} key={index}>
+              <TextField
+                label={`選択肢 ${index + 1}`}
+                name="choice_text"
+                value={choice.choice_text}
+                placeholder="選択肢を入力してください"
+                onChange={(event) => handleInputChange(event, index)}
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={choice.is_correct}
+                    onChange={(event) => handleInputChange(event, index)}
+                    name="is_correct"
+                    sx={{ marginLeft: 2, alignItems: 'center', justifyContent: 'center' }}
+                  />
+                }
+                label="正解"
+              />
+            </Grid>
+          ))}
+
+          <Grid item xs={12}>
+            <TextField
+              label="解説"
+              placeholder="解説を入力してください"
+              fullWidth
+              multiline
+              onChange={handleExplanationChange}
+              sx={{ marginTop: 2, width: '50%' }}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <Button variant="contained" color="primary" type="submit" sx={{ marginTop: 2, marginBottom: 2, textTransform: "none" }}>
+              Submit
+            </Button>
+          </Grid>
         </Grid>
+      </Paper>
 
+      <Grid container justifyContent="center" alignItems="center">
         <Grid item xs={12}>
-          <Button variant="contained" color="primary" type="submit" sx={{ marginTop: 2, marginBottom: 2 }}>
-            Submit
-          </Button>
+          <Fab variant="extended" component={Link} to="/update-quiz" color="primary" sx={{ marginTop: 4, marginBottom: 2, textTransform: "none" }}>
+            <EditNoteIcon sx={{ mr: 1 }} />
+            Edit Quiz
+          </Fab>
         </Grid>
       </Grid>
     </form>
