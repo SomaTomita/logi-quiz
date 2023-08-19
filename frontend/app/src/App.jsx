@@ -1,5 +1,10 @@
 import { createContext, useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 
 import Quiz from "./quiz-components/quiz/quiz";
 import Section from "./quiz-components/section/section";
@@ -8,30 +13,30 @@ import CreateSection from "quiz-components/adminQuiz/createSection";
 
 import Home from "home";
 
-import CommonLayout from "login-components/userLogin/layout/commonLayout";
-import { getCurrentUser } from "./login-components/userLogin/api/auth";
-import SignIn from "login-components/userLogin/pages/signIn";
-import SignUp from "login-components/userLogin/pages/signUp";
-import Success from "login-components/userLogin/pages/success";
-
+import CommonLayout from "login-components/layout/commonLayout";
+import { getCurrentUser } from "./login-components/api/auth";
+import SignIn from "login-components/pages/signIn";
+import SignUp from "login-components/pages/signUp";
+import Success from "login-components/pages/success";
 
 export const AuthContext = createContext();
-
 
 function App() {
   // ローディング、ログイン状態、現在のユーザー情報を管理するためのstate
   const [loading, setLoading] = useState(true);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState();
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const handleGetCurrentUser = async () => {
     try {
       const res = await getCurrentUser(); // Authで定義した(/auth/sessionsでユーザー情報をgetした)メソッドでユーザー情報をAPIから取得
 
-      if (res?.data.isLogin === true) { // 取得したデータが"is_login": trueである(ユーザーはログインしている)場合
+      if (res?.data.isLogin === true) {
+        // 取得したデータが"is_login": trueである(ユーザーはログインしている)場合
         setIsSignedIn(true);
         setCurrentUser(res?.data.data); // APIのレスポンスdata本体のdataキー内のオブジェクト(ID、メールアドレス、名前)を取得してcurrentUserに
-        console.log(res?.data.data);
+        setIsAdmin(res?.data.data.admin); // data内のadminがtrueであれば、setAdminを渡りisAdminがtrueになる(adminユーザーであるかどうかの判定)
       } else {
         console.log("no current user");
       }
@@ -41,23 +46,45 @@ function App() {
     setLoading(false);
   };
 
-
-  useEffect(() => { // 現在のユーザー情報を取得
+  useEffect(() => {
+    // 現在のユーザー情報を取得
     handleGetCurrentUser();
   }, [setCurrentUser]);
 
+  const Private = ({ children }) => {
+    // <private>子要素<pricate/> こちらのように子要素を受け取り、ログイン状態に応じて子要素を表示またはリダイレクトを行う
+    const navigate = useNavigate();
 
-  const Private = ({ children }) => { // <private>子要素<pricate/> こちらのように子要素を受け取り、ログイン状態に応じて子要素を表示またはリダイレクトを行う
-    const navigate = useNavigate(); 
+    useEffect(() => {
+      if (!loading && !isSignedIn) {
+        navigate("/home");
+      }
+    }, [loading, isSignedIn, navigate]);
 
     if (!loading) {
       if (isSignedIn) {
         return children; // ログインしている場合は、子要素をreturn以下で言う<Success />を表示
       } else {
-        navigate("/signin");  // 未ログイン時はログインページにリダイレクト
+        return <></>;
       }
-    } else {
-      return <></>;
+    }
+  };
+
+  const AdminPrivate = ({ children }) => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      if (!loading && (!isSignedIn || !isAdmin)) {
+        navigate("/home");
+      }
+    }, [loading, isSignedIn, isAdmin, navigate]);
+
+    if (!loading) {
+      if (isSignedIn && isAdmin) {
+        return children; // ログインしており、かつadminの場合は、子要素をreturn
+      } else {
+        return <></>;
+      }
     }
   };
 
@@ -71,6 +98,8 @@ function App() {
         setIsSignedIn,
         currentUser,
         setCurrentUser,
+        isAdmin,
+        setIsAdmin,
       }}
     >
       <Router>
@@ -78,19 +107,20 @@ function App() {
         <Routes>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} /> 
+
           <Route path="/confirmation-success" element={<Private><Success /></Private>} />
+          <Route path="/home" element={<Private><Home /></Private>} />
+          <Route path="/sections" element={<Private><Section /></Private>} />
+          <Route path="/sections/:sectionId/quizzes" element={<Private><Quiz /></Private>} />
 
-          <Route path="/home" element={<Home />} />
+          <Route path="/create-quiz" element={<AdminPrivate><CreateQuiz /></AdminPrivate>} />
+          <Route path="/create-section" element={<AdminPrivate><CreateSection /></AdminPrivate>} />
 
-          <Route path="/create-quiz" element={<CreateQuiz />} />
-          <Route path="/create-section" element={<CreateSection />} />
-          <Route path="/sections" element={<Section />} />
-          <Route path="/sections/:sectionId/quizzes" element={<Quiz />} />
         </Routes>
       </CommonLayout>
       </Router>
     </AuthContext.Provider>
-);
+  );
 }
 
 export default App;
