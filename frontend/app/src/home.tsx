@@ -20,7 +20,7 @@ const Home: React.FC = () => {
         <Typography variant="h6" paragraph>
           Rule
         </Typography>
-        <Typography variant="body1">
+        <Typography variant="body1" component="div">
           <ul>
             <li>1セクション10問あり、4つの選択問題だ。</li>
             <li>1問につき、15秒以内に答えよう。</li>
