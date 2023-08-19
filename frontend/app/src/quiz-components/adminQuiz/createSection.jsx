@@ -1,5 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
+import clientRaw from '../api/clientRaw';
+import Cookies from "js-cookie";
 import { TextField, Button, Grid} from "@mui/material";
 
 function CreateSection() {
@@ -13,8 +14,14 @@ function CreateSection() {
   const handleSubmit = async (event) => {
     event.preventDefault(); // フォームのデフォルトの送信動作をキャンセル
     // サーバーへsection_nameとして、リアルタイムで更新されるsectionNameの値を送信
-    const response = await axios.post(`http://localhost:3001/sections`, {section_name: sectionName,});
-    console.log(response.data); // レスポンスデータをコンソールに出力
+    const response = await clientRaw.post(`/admin/sections`, {section_name: sectionName}, {
+      headers: {
+          "access-token": Cookies.get("_access_token"),
+          client: Cookies.get("_client"),
+          uid: Cookies.get("_uid"),
+      },
+  });
+    console.log(response.data);
   };
 
   return (

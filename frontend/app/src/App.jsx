@@ -13,11 +13,11 @@ import CreateSection from "quiz-components/adminQuiz/createSection";
 
 import Home from "home";
 
-import CommonLayout from "login-components/layout/commonLayout";
+import CommonLayout from "./login-components/layout/commonLayout";
 import { getCurrentUser } from "./login-components/api/auth";
-import SignIn from "login-components/pages/signIn";
-import SignUp from "login-components/pages/signUp";
-import Success from "login-components/pages/success";
+import SignIn from "./login-components/pages/signIn";
+import SignUp from "./login-components/pages/signUp";
+import Success from "./login-components/pages/success";
 
 export const AuthContext = createContext();
 
@@ -46,10 +46,12 @@ function App() {
     setLoading(false);
   };
 
+
   useEffect(() => {
     // 現在のユーザー情報を取得
     handleGetCurrentUser();
   }, [setCurrentUser]);
+
 
   const Private = ({ children }) => {
     // <private>子要素<pricate/> こちらのように子要素を受け取り、ログイン状態に応じて子要素を表示またはリダイレクトを行う
@@ -69,6 +71,7 @@ function App() {
       }
     }
   };
+
 
   const AdminPrivate = ({ children }) => {
     const navigate = useNavigate();

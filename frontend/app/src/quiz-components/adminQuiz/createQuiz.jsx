@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import clientRaw from '../api/clientRaw';
+import Cookies from 'js-cookie';
 import { TextField, Checkbox, FormControlLabel, Button, MenuItem, Grid } from '@mui/material';
 
 
@@ -19,7 +20,7 @@ function CreateQuiz() {
   const [selectedSection, setSelectedSection] = useState(""); // ユーザーが選択した特定のセクションを保持
 
   useEffect(() => {
-    axios.get('http://localhost:3001/sections')
+    clientRaw.get('/sections')
       .then(response => {  // セクションデータを取得後then以降が実行
         console.log("Sections Data: ", response.data);
         setSections(response.data);  // ユーザーに表示するセクションの選択肢 (下記selectより)
@@ -58,8 +59,19 @@ function CreateQuiz() {
   const handleSubmit = async (event) => {
     event.preventDefault();  // デフォルト設定のページリロードを停止
     const sectionId = selectedSection;  // 現在選ばれているセクションをsectionIdに格納
-    const response = await axios.post(`http://localhost:3001/sections/${sectionId}/quizzes`, quizData); // setQuizDataを通じてフォームに入力されたクイズの情報(quizData オブジェクト)をサーバーへ送信
+    
+    try {
+     const response = await clientRaw.post(`/admin/sections/${sectionId}/quizzes`, quizData, {
+      headers: {
+        "access-token": Cookies.get("_access_token"),
+        client: Cookies.get("_client"),
+        uid: Cookies.get("_uid"),
+      },
+    }); // setQuizDataを通じてフォームに入力されたクイズの情報(quizData オブジェクト)をサーバーへ送信
     console.log(response.data);
+  } catch (error) {
+    console.error('There was an error posting the data!', error);
+    }
   };
 
   return (
@@ -75,7 +87,7 @@ function CreateQuiz() {
           >
             {sections.map((section) => (
               <MenuItem key={section.id} value={section.id}>
-                {section.section_name}
+                {section.section_name} 
               </MenuItem>
             ))}
           </TextField>

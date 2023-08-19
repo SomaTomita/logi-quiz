@@ -17,7 +17,7 @@ import { SignUpParams } from "../interfaces";
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
 
-  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
+  const { setIsSignedIn, setCurrentUser, setIsAdmin } = useContext(AuthContext);
 
   // ユーザーの入力を管理するためのローカルステート
   const [name, setName] = useState<string>("");
@@ -48,6 +48,7 @@ const SignUp: React.FC = () => {
 
         setIsSignedIn(true);
         setCurrentUser(res.data.data); // APIのレスポンスdata本体のdataキー内のオブジェクト(ID、メールアドレス、名前)を取得してcurrentUserに
+        setIsAdmin(res?.data.data.admin);
 
         navigate("/confirmation-success");
       } else {

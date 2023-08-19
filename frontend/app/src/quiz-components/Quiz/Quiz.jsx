@@ -150,13 +150,13 @@ if (!questions.length) {
             const { question_text: reviewQuestion, choices: reviewChoices, explanation: {explanation_text: reviewExplanation} } = questionItem;
             const reviewCorrectAnswer = reviewChoices.find(choice => choice.is_correct)?.choice_text || '';
           return (
-            <Paper>
-            <div className="reviewItem" key={index}>
-             <p>問題: {reviewQuestion}</p>
-             <p>正解: {reviewCorrectAnswer}</p>
-             <p>あなたの回答:{correctAnswersIndex.includes(index) ? '⭕️' : '✖︎'}</p> 
-             <p>解説: {reviewExplanation}</p>
-            </div>
+            <Paper key={index}>
+             <div className="reviewItem" key={index}>
+              <p>問題: {reviewQuestion}</p>
+              <p>正解: {reviewCorrectAnswer}</p>
+              <p>あなたの回答:{correctAnswersIndex.includes(index) ? '⭕️' : '✖︎'}</p> 
+              <p>解説: {reviewExplanation}</p>
+             </div>
             </Paper>
             // includesで特定の配列があるかチェック
           );
