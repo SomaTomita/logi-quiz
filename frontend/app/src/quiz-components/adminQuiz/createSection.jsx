@@ -1,7 +1,9 @@
 import { useState } from "react";
 import clientRaw from '../api/clientRaw';
 import Cookies from "js-cookie";
-import { TextField, Button, Grid} from "@mui/material";
+import { Link } from "react-router-dom";
+import { TextField, Button, Grid, Typography, Fab, Paper } from "@mui/material";
+import EditNoteIcon from '@mui/icons-material/EditNote';
 
 function CreateSection() {
   // 初期値を空文字列に設定。入力されたセクション名を更新するための関数
@@ -27,6 +29,9 @@ function CreateSection() {
   return (
     // フォームが送信されたときにhandleSubmit関数、inputの値が変わればhandleInputChange関数を呼び出すよう設定
     <form onSubmit={handleSubmit}>
+      <Typography variant="h5">Add Section</Typography>
+
+      <Paper elevation={3} sx={{ padding: 3, marginTop: 2, marginBottom: 3 }}>
       <Grid
         container
         spacing={2}
@@ -45,11 +50,21 @@ function CreateSection() {
           />
         </Grid>
         <Grid item xs={12} sx={{ marginTop: 2}}>
-          <Button variant="contained" color="primary" type="submit">
+          <Button variant="contained" color="primary" type="submit" sx={{ marginTop: 2, marginBottom: 2, textTransform: "none" }}>
             Submit
           </Button>
-        </Grid>
-      </Grid>
+          </Grid>
+          </Grid>
+          </Paper>
+
+          <Grid container justifyContent="center" alignItems="center">
+           <Grid item xs={12}>
+          <Fab variant="extended" component={Link} to="/update-section" color="primary" sx={{ marginTop: 4, marginBottom: 2, textTransform: "none" }}>
+            <EditNoteIcon sx={{ mr: 1 }} />
+            Edit Section
+          </Fab>
+          </Grid>
+         </Grid>
     </form>
   );
 }
