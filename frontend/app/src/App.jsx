@@ -9,7 +9,9 @@ import {
 import Quiz from "./quiz-components/quiz/quiz";
 import Section from "./quiz-components/section/section";
 import CreateQuiz from "./quiz-components/adminQuiz/createQuiz";
-import CreateSection from "quiz-components/adminQuiz/createSection";
+import CreateSection from "./quiz-components/adminQuiz/createSection";
+import UpdateSection from  "./quiz-components/adminQuiz/updateSection";
+import UpdateQuiz from  "./quiz-components/adminQuiz/updateQuiz";
 
 import Home from "home";
 
@@ -118,6 +120,8 @@ function App() {
 
           <Route path="/create-quiz" element={<AdminPrivate><CreateQuiz /></AdminPrivate>} />
           <Route path="/create-section" element={<AdminPrivate><CreateSection /></AdminPrivate>} />
+          <Route path="/update-quiz" element={<AdminPrivate><UpdateQuiz /></AdminPrivate>} />
+          <Route path="/update-section" element={<AdminPrivate><UpdateSection /></AdminPrivate>} />
 
         </Routes>
       </CommonLayout>
