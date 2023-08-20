@@ -30,12 +30,15 @@ class Admin::QuizzesController < ApplicationController
         render json: @question, include: [:choices, :explanation], status: :ok
     end
       
-
     def update
+        Rails.logger.debug("Original question: #{@question.inspect}")
+        Rails.logger.debug("Submitted params: #{question_params.inspect}")
+    
         if @question.update(question_params)
-            @question = Question.includes(:choices, :explanation).find(@question.id)
+            Rails.logger.debug("Updated question: #{@question.inspect}")
             render json: @question
         else
+            Rails.logger.debug("Update errors: #{@question.errors.full_messages.join(', ')}")
             render json: { errors: @question.errors.full_messages }, status: :unprocessable_entity
         end
     end
