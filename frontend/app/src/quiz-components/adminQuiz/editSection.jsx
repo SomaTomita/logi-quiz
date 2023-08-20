@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import clientRaw from "../clientRaw";
 import { Grid, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,} from "@mui/material";
 import { styled } from "@mui/system";
+import Cookies from "js-cookie";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   fontSize: "16px",
@@ -66,11 +67,21 @@ function EditSection() {
 
   const handleSaveClick = async (sectionId) => {
     try {
-      await clientRaw.put(`/admin/sections/${sectionId}`, {
+      await clientRaw.put(`/admin/sections/${sectionId}`, 
+       {
         section: {
-          section_name: updatedSectionName,
+         section_name: updatedSectionName,
         },
-      });
+       },
+       {
+         headers: {
+          "access-token": Cookies.get("_access_token"),
+          client: Cookies.get("_client"),
+          uid: Cookies.get("_uid"),
+         },
+        }
+      );
+
       // セクションリストを更新
       const updatedSections = sections.map((section) =>
         section.id === sectionId
@@ -87,7 +98,13 @@ function EditSection() {
 
   const handleDeleteClick = async (sectionId) => {
     try {
-      await clientRaw.delete(`/admin/sections/${sectionId}`);
+      await clientRaw.delete(`/admin/sections/${sectionId}`, {
+        headers: {
+          "access-token": Cookies.get("_access_token"),
+          client: Cookies.get("_client"),
+          uid: Cookies.get("_uid"),
+        },
+      });
       // セクションリストから削除したセクションを除外
       const remainingSections = sections.filter(
         (section) => section.id !== sectionId
