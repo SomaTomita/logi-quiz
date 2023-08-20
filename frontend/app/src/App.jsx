@@ -1,19 +1,13 @@
 import { createContext, useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate,} from "react-router-dom";
 
 import Quiz from "./quiz-components/quiz/quiz";
 import Section from "./quiz-components/section/section";
 import CreateQuiz from "./quiz-components/adminQuiz/createQuiz";
 import CreateSection from "./quiz-components/adminQuiz/createSection";
-import UpdateSection from  "./quiz-components/adminQuiz/updateSection";
-import UpdateQuiz from  "./quiz-components/adminQuiz/updateQuiz";
-
-import Home from "home";
+import EditSection from  "./quiz-components/adminQuiz/editSection";
+import EditQuiz from "./quiz-components/adminQuiz/editQuiz";
+import Home from "./home";
 
 import CommonLayout from "./login-components/layout/commonLayout";
 import { getCurrentUser } from "./login-components/api/auth";
@@ -120,8 +114,8 @@ function App() {
 
           <Route path="/create-quiz" element={<AdminPrivate><CreateQuiz /></AdminPrivate>} />
           <Route path="/create-section" element={<AdminPrivate><CreateSection /></AdminPrivate>} />
-          <Route path="/update-quiz" element={<AdminPrivate><UpdateQuiz /></AdminPrivate>} />
-          <Route path="/update-section" element={<AdminPrivate><UpdateSection /></AdminPrivate>} />
+          <Route path="/update-quiz" element={<AdminPrivate><EditQuiz /></AdminPrivate>} />
+          <Route path="/update-section" element={<AdminPrivate><EditSection /></AdminPrivate>} />
 
         </Routes>
       </CommonLayout>
