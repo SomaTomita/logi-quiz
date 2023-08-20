@@ -152,7 +152,7 @@ function CreateQuiz() {
 
       <Grid container justifyContent="center" alignItems="center">
         <Grid item xs={12}>
-          <Fab variant="extended" component={Link} to="/update-quiz" color="primary" sx={{ marginTop: 4, marginBottom: 2, textTransform: "none" }}>
+          <Fab variant="extended" component={Link} to="/edit-quiz" color="primary" sx={{ marginTop: 4, marginBottom: 2, textTransform: "none" }}>
             <EditNoteIcon sx={{ mr: 1 }} />
             Edit Quiz
           </Fab>
