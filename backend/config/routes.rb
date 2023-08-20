@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # adminユーザーのルーティング
   namespace :admin do
     resources :sections, only: %i[create update destroy] do
-      resources :quizzes, only: %i[create update destroy]
+      resources :quizzes, only: %i[index show create update destroy]
     end
   end
 

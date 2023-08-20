@@ -1,6 +1,16 @@
 class Admin::QuizzesController < ApplicationController
     before_action :ensure_admin
-    before_action :set_question, only: [:update, :destroy]
+    before_action :set_question, only: [:show, :update, :destroy]
+
+    def index
+        if params[:section_id]
+            section = Section.find(params[:section_id])
+            quizzes = section.questions # セクションに関連付けられているすべてのクイズを取得する
+            render json: quizzes, status: :ok
+        else
+            render json: { error: "Section ID is required" }, status: :bad_request
+        end
+    end
 
     def create
         section = Section.find(params[:section_id])
@@ -14,10 +24,16 @@ class Admin::QuizzesController < ApplicationController
           render json: { errors: @question.errors.full_messages + explanation.errors.full_messages }, status: :unprocessable_entity
         end
     end
+
+    def show
+        @question = Question.includes(:choices, :explanation).find(params[:id])
+        render json: @question, include: [:choices, :explanation], status: :ok
+    end
       
 
     def update
         if @question.update(question_params)
+            @question = Question.includes(:choices, :explanation).find(@question.id)
             render json: @question
         else
             render json: { errors: @question.errors.full_messages }, status: :unprocessable_entity
