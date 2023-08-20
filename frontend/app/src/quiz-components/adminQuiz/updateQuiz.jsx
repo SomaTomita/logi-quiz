@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import clientRaw from "../clientRaw";
-import { TextField, Button, FormControlLabel, Checkbox } from "@mui/material";
+import { TextField, Button, FormControlLabel, Checkbox, Box } from "@mui/material";
 import Cookies from "js-cookie";
 
 function UpdateQuiz() {
@@ -52,7 +52,6 @@ function UpdateQuiz() {
       console.error("Error updating quiz:", error);
     }
   };
-  
 
   return (
     <div>
@@ -62,20 +61,26 @@ function UpdateQuiz() {
         fullWidth
         value={quiz.question_text}
         onChange={(e) => setQuiz({ ...quiz, question_text: e.target.value })}
+        sx={{ marginTop: 2 }}
       />
 
       {(quiz.choices || []).map((choice, index) => (
-        <div key={index}>
+        <Box
+          key={index}
+          display="flex"
+          alignItems="center"
+          sx={{ marginTop: 2 }}
+        >
           <TextField
             label={`Choice ${index + 1}`}
             variant="outlined"
-            fullWidth
             value={choice.choice_text}
             onChange={(e) => {
               const updatedChoices = [...quiz.choices];
               updatedChoices[index].choice_text = e.target.value;
               setQuiz({ ...quiz, choices: updatedChoices });
             }}
+            sx={{ flex: 1 }} // フレックスボックス内での項目をフル幅にする
           />
           <FormControlLabel
             control={
@@ -89,8 +94,9 @@ function UpdateQuiz() {
               />
             }
             label="Is Correct"
+            sx={{ marginLeft: 2 }} // チェックボックスとテキストフィールドの間のスペースを増やす
           />
-        </div>
+        </Box>
       ))}
 
       <TextField
@@ -100,19 +106,34 @@ function UpdateQuiz() {
         multiline
         value={quiz.explanation ? quiz.explanation.explanation_text : ""}
         onChange={(e) => {
-          const updatedExplanation = { ...quiz.explanation, explanation_text: e.target.value };
+          const updatedExplanation = {
+            ...quiz.explanation,
+            explanation_text: e.target.value,
+          };
           setQuiz({ ...quiz, explanation: updatedExplanation });
         }}
+        sx={{ marginTop: 2 }}
       />
 
-      <Button variant="contained" color="primary" onClick={saveChanges}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={saveChanges}
+        sx={{ marginTop: 2, marginBottom: 2, textTransform: "none" }}
+      >
         Save Changes
       </Button>
 
       <Button
         variant="outlined"
-        color="secondary"
+        color="primary"
         onClick={() => navigate("/edit-quiz")}
+        sx={{
+          marginTop: 2,
+          marginBottom: 2,
+          marginLeft: 2,
+          textTransform: "none",
+        }}
       >
         Cancel
       </Button>
