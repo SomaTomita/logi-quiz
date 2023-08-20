@@ -1,8 +1,7 @@
 class Question < ApplicationRecord
-    has_many :choices
+    has_many :choices, dependent: :destroy
     belongs_to :section
-    has_one :explanation
-  
+    has_one :explanation, dependent: :destroy
     # Questionモデルのquestion_text属性が存在して、空ではないことの確認 (空の文字列（""）のような状態で保存されることを防ぐため)
     validates :question_text, presence: true
   

@@ -40,6 +40,7 @@ const StyledTextField = styled(TextField)({
   },
 });
 
+
 function EditSection() {
   const [sections, setSections] = useState([]);
   const [editingSectionId, setEditingSectionId] = useState(null); // 編集中のセクションID
@@ -132,6 +133,7 @@ function EditSection() {
     closeDeleteDialog();
   };
 
+  
   return (
     <>
       <Grid container spacing={3} className="section-container">
