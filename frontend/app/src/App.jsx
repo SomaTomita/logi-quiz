@@ -8,6 +8,7 @@ import CreateSection from "./quiz-components/adminQuiz/createSection";
 import EditSection from  "./quiz-components/adminQuiz/editSection";
 import EditQuiz from "./quiz-components/adminQuiz/editQuiz";
 import UpdateQuiz from "./quiz-components/adminQuiz/updateQuiz";
+import DashBoard from "./quiz-components/dashBoard";
 import Home from "./home";
 
 import CommonLayout from "./login-components/layout/commonLayout";
@@ -112,6 +113,7 @@ function App() {
           <Route path="/home" element={<Private><Home /></Private>} />
           <Route path="/sections" element={<Private><Section /></Private>} />
           <Route path="/sections/:sectionId/quizzes" element={<Private><Quiz /></Private>} />
+          <Route path="/dashboard" element={<Private><DashBoard /></Private>} />
 
           <Route path="/create-quiz" element={<AdminPrivate><CreateQuiz /></AdminPrivate>} />
           <Route path="/create-section" element={<AdminPrivate><CreateSection /></AdminPrivate>} />
