@@ -20,4 +20,11 @@ Rails.application.routes.draw do
   resources :sections do
     resources :quizzes, only: %i[index create]
   end
+
+  # ダッシュボードのデータ取得
+  resources :users, only: [] do
+    member do # こちらのブロックの使用により、URLは特定のユーザーのIDを持つ形に
+      get :dashboard_data
+    end
+  end
 end

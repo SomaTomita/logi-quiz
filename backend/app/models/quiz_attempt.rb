@@ -1,2 +1,0 @@
-class QuizAttempt < ApplicationRecord
-end
