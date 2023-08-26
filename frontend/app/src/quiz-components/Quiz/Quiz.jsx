@@ -29,7 +29,7 @@ const Quiz = () => {
   const [correctAnswersIndex, setCorrectAnswersIndex] = useState([]); // 正解した問題のインデックスを保存
 
   const [totalPlayTime, setTotalPlayTime] = useState(0); //　プレイ時間を管理
-  const [sectionClearCount, setSectionClearCount] = useState([]); // クリアしたセクションの数を管理
+  const [sectionClearCount, setSectionClearCount] = useState(0); // クリアしたセクションの数を管理
   
 
   const navigate = useNavigate();  // ページ遷移のためのフック
@@ -114,13 +114,14 @@ if (!questions.length) {
     if (currentQuestion !== questions.length - 1) {
       setCurrentQuestion(prevQuestion => prevQuestion + 1);
     } else {
+      setSectionClearCount(prev => { // セクションのクリア回数が増える
+        const newCount = prev + 1;
+        UserDashboardData(newCount)});
       setCurrentQuestion(0);
       setShowResult(true);
-      setSectionClearCount(prevSectionClear => [...prevSectionClear, 1]);  // セクションのクリア回数が増える
-      UserDashboardData();
     }
     
-    // 少し遅延させてからタイマー表示をオン
+    // 少し遅延させてからタイマー表示をオン + ダッシュボードに必要なデータのpost
     setTimeout(() => {
       setShowAnswerTimer(true);
     });
@@ -131,9 +132,10 @@ if (!questions.length) {
     setCurrentQuestion(0);  // 現在の問題を最初の問題にリセット
     setQuizStarted(true);  // クイズ開始状態をオン
     setShowAnswerTimer(true);  // タイマー表示をオン
+    setTotalPlayTime(0); // プレイ時間は0からスタートに(リセット)
   };
 
-const UserDashboardData = async () => {
+const UserDashboardData = async (newCount = sectionClearCount) => {
   const userId = currentUser.id;
 
   // ユーザーのダッシュボードデータを構築
@@ -146,7 +148,7 @@ const UserDashboardData = async () => {
     },
     learningStack: {
       date: new Date().toISOString().split("T")[0], // "YYYY-MM-DD" の形式の文字列だけを記録
-      totalClear: sectionClearCount, // 問題終了したら1加算されていき、1日でクリアしたセクションの合計数を記録
+      totalClear: newCount, // 問題終了したら1加算されていき、1日でクリアしたセクションの合計数を記録
     }
   }
   console.log('Constructed dashboardData:', dashboardData);
@@ -173,6 +175,9 @@ const UserDashboardData = async () => {
     setAnswerIndex(null);  // 回答選択をリセット
     setQuizStarted(false);  // クイズ開始状態をオフ
     setShowAnswerTimer(false);  // タイマー表示をオフ
+    setTotalPlayTime(0); // ダッシュボードに使うプレイ時間のカウントを0から(リセット)
+    setCorrectAnswersIndex([]); // 正解インデックスの配列をリセット
+    setSectionClearCount(0);
   };
 
    // セクション一覧に戻る
