@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import clientRaw from "../clientRaw";
+import clientRaw from "../quizApi/clientRaw";
 import { TextField, Button, FormControlLabel, Checkbox, Box } from "@mui/material";
 import Cookies from "js-cookie";
 

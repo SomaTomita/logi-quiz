@@ -11,7 +11,7 @@ import UpdateQuiz from "./quiz-components/adminQuiz/updateQuiz";
 import DashBoard from "./quiz-components/dashBoard";
 import Home from "./home";
 
-import CommonLayout from "./login-components/layout/commonLayout";
+import CommonLayout from "./layout/commonLayout";
 import { getCurrentUser } from "./login-components/api/auth";
 import SignIn from "./login-components/pages/signIn";
 import SignUp from "./login-components/pages/signUp";
