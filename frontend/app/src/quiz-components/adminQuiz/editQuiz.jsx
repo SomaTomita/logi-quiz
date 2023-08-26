@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import clientRaw from "../clientRaw";
+import clientRaw from "../quizApi/clientRaw";
 import {
   Grid,
   Paper,

@@ -22,9 +22,10 @@ Rails.application.routes.draw do
   end
 
   # ダッシュボードのデータ取得
-  resources :users, only: [] do
+  resources :dashboard, only: [] do
     member do # こちらのブロックの使用により、URLは特定のユーザーのIDを持つ形に
       get :dashboard_data
+      post :section_cleared
     end
   end
 end
