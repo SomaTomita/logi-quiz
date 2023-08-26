@@ -50,10 +50,8 @@ const SignIn: React.FC = () => {
 
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
-        console.log(res.data.data);
 
         setIsAdmin(res?.data.data.admin);
-        console.log(res?.data.data.admin);
 
         navigate("/confirmation-success");
         console.log("Signed in successfully!");
@@ -61,7 +59,6 @@ const SignIn: React.FC = () => {
         setAlertMessageOpen(true);
       }
     } catch (err) {
-      console.log(err);
       setAlertMessageOpen(true); // APIコールでエラーが発生した場合もアラートを表示
     }
   };

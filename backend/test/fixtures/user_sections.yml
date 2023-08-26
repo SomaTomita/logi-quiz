@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  section: one
+  correct_answers_count: 1
+  cleared_at: 2023-08-26 10:30:48
+
+two:
+  user: two
+  section: two
+  correct_answers_count: 1
+  cleared_at: 2023-08-26 10:30:48

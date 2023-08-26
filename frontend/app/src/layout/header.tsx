@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 
 import DirectionsBoatIcon from '@mui/icons-material/DirectionsBoat';
 
-import { signOut } from "../api/auth";
+import { signOut } from "../login-components/api/auth";
 import { AuthContext } from "App";
 
 const Header: React.FC = () => {
@@ -57,8 +57,8 @@ const Header: React.FC = () => {
       } else if (isSignedIn) { // 管理者ではなく、サインイン済状態
         return (
           <>
-          <Button component={Link} to="/home" color="inherit" sx={{ textTransform: "none" }}>
-            Home
+          <Button component={Link} to="/dashboard" color="inherit" sx={{ textTransform: "none" }}>
+            DashBoard
           </Button>
           <Button component={Link} to="/sections" color="inherit" sx={{ textTransform: "none" }}>
             Sections

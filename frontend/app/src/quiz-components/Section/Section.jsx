@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import clientRaw from "../quizApi/clientRaw"
+
 import { Grid, Paper } from '@mui/material';
 import { styled } from '@mui/system';
 
@@ -28,7 +29,7 @@ function Section() {
   useEffect(() => {
     // APIからセクションデータを取得する処理が終了するまで次の行(response)には進まない
     const fetchSections = async () => {
-      const response = await axios.get('http://localhost:3001/sections');
+      const response = await clientRaw.get('/sections');
       setSections(response.data);
     }
     fetchSections(); // 非同期関数の呼び出し

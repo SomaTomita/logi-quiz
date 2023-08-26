@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import Answertimer from "../answerTimer/answerTimer";
 import "./quiz.css";
-import axios from "axios"
+import clientRaw from "../quizApi/clientRaw"
+import { saveDashboardData } from "../quizApi/dashBoardApi"
+import { AuthContext } from "App";
 
 import { Oval } from 'react-loader-spinner';
 import Button from "@mui/material/Button";
@@ -11,13 +13,13 @@ import { Paper } from "@mui/material"
 
 const Quiz = () => {
   const { sectionId } = useParams();  // URLからsectionIdを取得
+  const { currentUser } = useContext(AuthContext);  // ユーザー情報を取得
 
   const [questions, setQuestions] = useState([]);  // 問題データを格納する配列
   const [currentQuestion, setCurrentQuestion] = useState(0);  // 上の配列questionsの中から現在アクティブな質問を参照するためのインデックスまたはキー
   const [answerIndex, setAnswerIndex] = useState(null);  // 選択した回答が4つ中どれか
   const [answer, setAnswer] = useState(null);  // 答えが正しいかどうかの真偽値
   const [showResult, setShowResult] = useState(false);  // 結果画面を表示するかどうかの真偽値
-  
   const [quizStarted, setQuizStarted] = useState(false);  // クイズが開始されたかどうかの真偽値
   const [showAnswerTimer, setShowAnswerTimer] = useState(true);  // 回答タイマーを表示するかどうかの真偽値
 
@@ -26,14 +28,32 @@ const Quiz = () => {
   const [correctAnswer, setCorrectAnswer] = useState("");  // 現在の正解の選択肢のテキスト
   const [correctAnswersIndex, setCorrectAnswersIndex] = useState([]); // 正解した問題のインデックスを保存
 
+  const [totalPlayTime, setTotalPlayTime] = useState(0); //　プレイ時間を管理
+  const [sectionClearCount, setSectionClearCount] = useState([]); // クリアしたセクションの数を管理
+  
+
   const navigate = useNavigate();  // ページ遷移のためのフック
 
+
+  // クイズが開始されてから終了するまでの時間を計測
+  useEffect(() => {
+   let timer;
+   if (quizStarted) {
+     timer = setInterval(() => {
+       setTotalPlayTime(prevTime => prevTime + 1);
+     }, 1000);
+  } else {
+    clearInterval(timer);
+  }
+
+  return () => clearInterval(timer); // アンマウント時にタイマーをクリア
+}, [quizStarted]);
 
 
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/sections/${sectionId}/quizzes`);
+        const response = await clientRaw.get(`/sections/${sectionId}/quizzes`);
         setQuestions(response.data);
         console.log("Quiz data:", response.data); // Quizデータをログに出力
       } catch (error) {
@@ -42,7 +62,6 @@ const Quiz = () => {
     }
     fetchQuizzes();
   }, [sectionId]); // 異なるセクション間で遷移する際には、sectionIdを依存配列に含める
-
 
   useEffect(() => {
     if (!questions.length || !questions[currentQuestion]) {
@@ -71,7 +90,7 @@ if (!questions.length) {
         'Loading...'
     </div>
   );
-}
+};
 
 
   const onAnswerClick = (choice, index) => {
@@ -97,6 +116,8 @@ if (!questions.length) {
     } else {
       setCurrentQuestion(0);
       setShowResult(true);
+      setSectionClearCount(prevSectionClear => [...prevSectionClear, 1]);  // セクションのクリア回数が増える
+      UserDashboardData();
     }
     
     // 少し遅延させてからタイマー表示をオン
@@ -105,13 +126,39 @@ if (!questions.length) {
     });
   };
 
-
   // クイズを開始
   const startQuiz = () => {
     setCurrentQuestion(0);  // 現在の問題を最初の問題にリセット
     setQuizStarted(true);  // クイズ開始状態をオン
     setShowAnswerTimer(true);  // タイマー表示をオン
   };
+
+const UserDashboardData = async () => {
+  const userId = currentUser.id;
+
+  // ユーザーのダッシュボードデータを構築
+  const dashboardData = {
+    playTime: totalPlayTime, // プレイ時間
+    questions_cleared: correctAnswersIndex.length, // 全正解数を足すため、正解数を記録
+    sectionResult: {
+      sectionId,
+      correctAnswers: correctAnswersIndex.length // こちらは各セクションに基づいて正解した数を記録
+    },
+    learningStack: {
+      date: new Date().toISOString().split("T")[0], // "YYYY-MM-DD" の形式の文字列だけを記録
+      totalClear: sectionClearCount, // 問題終了したら1加算されていき、1日でクリアしたセクションの合計数を記録
+    }
+  }
+  console.log('Constructed dashboardData:', dashboardData);
+
+  // saveDashboardData関数を使用してデータを保存
+  try {
+    await saveDashboardData(dashboardData, userId);
+    console.log('Dashboard data saved successfully!');
+  } catch (error) {
+    console.error('Error saving dashboard data:', error);
+  }
+};
 
   // タイマーが終了した際
   const handleTimeUp = () => {
