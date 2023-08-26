@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import clientRaw from "../clientRaw";
+import clientRaw from "../quizApi/clientRaw";
 import { Grid, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,} from "@mui/material";
 import { styled } from "@mui/system";
 import Cookies from "js-cookie";
