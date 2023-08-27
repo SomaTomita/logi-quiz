@@ -61,17 +61,8 @@ const SignUp: React.FC = () => {
     <>
       <form noValidate autoComplete="off">
       {/* off = 過去に入力された値が自動的に表示されるのを防ぐ等 */}
-        <Card
-          sx={{
-            marginTop: 6,
-            padding: 2,
-            maxWidth: 400
-          }}
-        >
-          <CardHeader
-            sx={{
-              textAlign: "center"
-            }}
+        <Card sx={{ marginTop: 6, padding: 2, maxWidth: 400 }}>
+          <CardHeader sx={{ textAlign: "center" }}
             title="Sign Up"
           />
           <CardContent>
@@ -117,21 +108,10 @@ const SignUp: React.FC = () => {
               onChange={event => setPasswordConfirmation(event.target.value)}
             />
 
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              fullWidth
-              disabled={
-                !name || !email || !password || !passwordConfirmation ? true : false
-              }
-              sx={{
-                mt: 2,
-                flexGrow: 1,
-                textTransform: "none"
-              }}
-              onClick={handleSubmit}
-            >
+            <Button type="submit" variant="contained" size="large" fullWidth
+              disabled={ !name || !email || !password || !passwordConfirmation ? true : false }
+              sx={{ mt: 2, flexGrow: 1, textTransform: "none" }}
+              onClick={handleSubmit}>
               Submit
             </Button>
           </CardContent>

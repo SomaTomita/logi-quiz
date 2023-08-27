@@ -9,7 +9,7 @@ import EditSection from  "./quiz-components/adminQuiz/editSection";
 import EditQuiz from "./quiz-components/adminQuiz/editQuiz";
 import UpdateQuiz from "./quiz-components/adminQuiz/updateQuiz";
 import DashBoard from "./quiz-components/dashBoard";
-import Home from "./home";
+import Home from "./quiz-components/home";
 
 import CommonLayout from "./layout/commonLayout";
 import { getCurrentUser } from "./login-components/api/auth";
@@ -48,7 +48,7 @@ function App() {
   useEffect(() => {
     // 現在のユーザー情報を取得
     handleGetCurrentUser();
-  }, [setCurrentUser]);
+  }, []);
 
 
   const Private = ({ children }) => {

@@ -1,13 +1,18 @@
 import { useEffect, useState, useContext } from "react";
-import { Paper, Typography, CircularProgress, Grid, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { useNavigate } from 'react-router-dom';
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
+
+import { Paper, Typography, CircularProgress, Grid, Table, TableBody, TableCell, TableHead, TableRow, Fab } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import NavigationIcon from '@mui/icons-material/Navigation';
+
 import { fetchDashboardData } from "./quizApi/dashBoardApi";
 import { AuthContext } from "App";
 
 const DashboardWrapper = styled("div")({
   padding: "24px",
+  marginBottom: "70px",
 });
 
 const ClearedSectionInfo = styled("div")({
@@ -24,8 +29,10 @@ const colorScale = [
   "#196127", // 6: 一番濃い色
 ];
 
+
 const DashBoard = () => {
   const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -56,7 +63,7 @@ const DashBoard = () => {
       }
     }
     fetchData();
-  }, []);
+  }, [currentUser.id]);
   if (loading) {
     return <CircularProgress />; // ローディング中の表示
   }
@@ -66,7 +73,7 @@ const DashBoard = () => {
 
   return (
     <DashboardWrapper>
-      <Typography variant="h4" gutterBottom sx={{ marginBottom: 4 }}>
+      <Typography variant="h4" gutterBottom sx={{ marginBottom: 6 }}>
         {currentUser.name}さんのダッシュボード
       </Typography>
 
@@ -76,7 +83,7 @@ const DashBoard = () => {
             elevation={3}
             style={{ padding: "16px", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}
             >
-            <Typography variant="h6">総プレイ時間</Typography>
+            <Typography variant="h6" sx={{ marginBottom: 1.5 }}>総プレイ時間</Typography>
             <Typography variant="h4">
               {Math.floor(dashboardData.total_play_time / 60)}分
             </Typography>
@@ -87,7 +94,7 @@ const DashBoard = () => {
           <Paper elevation={3}
             style={{ padding: "16px", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}
           >
-            <Typography variant="h6">総問題クリア数</Typography>
+            <Typography variant="h6" sx={{ marginBottom: 1.5 }}>総問題クリア数</Typography>
             <Typography variant="h4">
               {dashboardData.total_questions_cleared}回
             </Typography>
@@ -96,7 +103,7 @@ const DashBoard = () => {
         <Grid item md={1.5}></Grid>
         <Grid item xs={12} md={8}>
           <Paper elevation={3} style={{ padding: "16px" }}>
-            <Typography variant="h6">履歴</Typography>
+            <Typography variant="h6" sx={{ marginBottom: 1.5 }}>過去10回の履歴</Typography>
             <ClearedSectionInfo>
               <Table stickyHeader size="small">
                 <TableHead>
@@ -129,7 +136,7 @@ const DashBoard = () => {
           <Paper elevation={3}
             style={{ padding: "16px", paddingBottom: "40px", overflowX: "auto", position: "relative" }}
           >
-            <Typography variant="h6" sx={{ marginBottom: 1 }}>
+            <Typography variant="h6" sx={{ marginBottom: 1.5 }}>
               学習記録
             </Typography>
             <CalendarHeatmap
@@ -156,9 +163,16 @@ const DashBoard = () => {
               <span style={{ fontSize: "10px", marginLeft: "5px" }}>More</span>
             </Grid>
           </Paper>
-        </Grid>
+         </Grid>
       </Grid>
+      <Fab variant="extended" color="primary" sx={{ position: 'fixed', bottom: '24px', right: '24px' }}
+          onClick={() => navigate("/home")}
+      >
+         <NavigationIcon sx={{ mr: 1, textTransform: "none"}} />
+         Home
+      </Fab>
     </DashboardWrapper>
   );
 };
+
 export default DashBoard;

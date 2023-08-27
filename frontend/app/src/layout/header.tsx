@@ -2,16 +2,26 @@ import { useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-
-
+import { AppBar, Toolbar, Typography, Button } from "@mui/material";
+import { styled } from "@mui/system";
 import DirectionsBoatIcon from '@mui/icons-material/DirectionsBoat';
 
 import { signOut } from "../login-components/api/auth";
 import { AuthContext } from "App";
+
+const AppBarContent = styled('div')(({ theme }) => ({
+  maxWidth: "1200px",
+  marginLeft: "auto",
+  marginRight: "auto",
+  width: '100%',
+  [theme.breakpoints.down("md")]: {
+    maxWidth: "960px",
+  },
+  [theme.breakpoints.down("sm")]: {
+    maxWidth: "728px",
+  }
+}));
+
 
 const Header: React.FC = () => {
   const { loading, isSignedIn, setIsSignedIn, isAdmin } = useContext(AuthContext);  // AuthContextから必要なステートと関数を取得
@@ -50,25 +60,25 @@ const Header: React.FC = () => {
               Create Section
             </Button>
             <Button color="inherit" sx={{ textTransform: "none" }} onClick={handleSignOut}>
-            Sign out
-          </Button>
+              Sign out
+            </Button>
           </>
         );
       } else if (isSignedIn) { // 管理者ではなく、サインイン済状態
         return (
           <>
-          <Button component={Link} to="/dashboard" color="inherit" sx={{ textTransform: "none" }}>
-            DashBoard
-          </Button>
-          <Button component={Link} to="/sections" color="inherit" sx={{ textTransform: "none" }}>
-            Sections
-          </Button>
-          <Button href="https://forms.gle/RxFuJeaLW65w4pg48" color="inherit" sx={{ textTransform: "none" }} onClick={handleSignOut}>
-            Contact
-          </Button>
-          <Button color="inherit" sx={{ textTransform: "none" }} onClick={handleSignOut}>
-            Sign out
-          </Button>
+            <Button component={Link} to="/dashboard" color="inherit" sx={{ textTransform: "none" }}>
+              DashBoard
+            </Button>
+            <Button component={Link} to="/sections" color="inherit" sx={{ textTransform: "none" }}>
+              Sections
+            </Button>
+            <Button href="https://forms.gle/RxFuJeaLW65w4pg48" color="inherit" sx={{ textTransform: "none" }} onClick={handleSignOut}>
+              Contact
+            </Button>
+            <Button color="inherit" sx={{ textTransform: "none" }} onClick={handleSignOut}>
+              Sign out
+            </Button>
           </>
         );
       } else {
@@ -91,13 +101,16 @@ const Header: React.FC = () => {
   return (
     <>
       <AppBar position="static">
-        <Toolbar>
-        <DirectionsBoatIcon sx={{ marginRight: 1.5 }}></DirectionsBoatIcon>
-          <Typography component={Link} to="/home" variant="h6" sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }}>
-            国際物流クイズ
-          </Typography>
-          <HeaderButtons />
-        </Toolbar>
+        <AppBarContent>
+          <Toolbar>
+            <DirectionsBoatIcon sx={{ marginRight: 1.5 }}></DirectionsBoatIcon>
+            <Typography component={isSignedIn ? Link : "div"} to={isSignedIn ? "/home" : "#"} 
+                        variant="h6" sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }}>
+              国際物流クイズ
+            </Typography>
+            <HeaderButtons />
+          </Toolbar>
+        </AppBarContent>
       </AppBar>
     </>
   );
