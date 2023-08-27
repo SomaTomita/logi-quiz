@@ -1,8 +1,9 @@
-import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import clientRaw from "../quizApi/clientRaw"
 
-import { Grid, Paper, Typography } from '@mui/material';
+import { Grid, Paper, Typography, Fab } from '@mui/material';
+import NavigationIcon from '@mui/icons-material/Navigation';
 import { styled } from '@mui/system';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -41,8 +42,8 @@ function Section() {
   }
 
   return (
-    <div className="section-wrapper"> 
-    <Typography variant="h4" gutterBottom sx={{ marginBottom: 3.5 }}>セクション選択</Typography>
+   <div className="section-wrapper" style={{ marginBottom: '80px' }}> 
+    <Typography variant="h4" gutterBottom sx={{ marginBottom: 5 }}>セクション選択</Typography>
 
     <Grid container spacing={3} className="section-container">
     {sections.map(section => (
@@ -52,8 +53,13 @@ function Section() {
         </StyledPaper>
       </Grid>
     ))}
-   </Grid>
-  </div>
+    </Grid>
+    <Fab variant="extended" color="primary" sx={{ position: 'fixed', bottom: '24px', right: '24px' }}
+      onClick={() => navigate("/home")}
+    >
+      <NavigationIcon sx={{ mr: 1, textTransform: "none"}} />Home
+    </Fab>
+   </div>
   );
 }
 
