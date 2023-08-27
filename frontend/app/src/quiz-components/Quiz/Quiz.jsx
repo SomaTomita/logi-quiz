@@ -6,9 +6,7 @@ import clientRaw from "../quizApi/clientRaw"
 import { saveDashboardData } from "../quizApi/dashBoardApi"
 import { AuthContext } from "App";
 
-import { Oval } from 'react-loader-spinner';
-import Button from "@mui/material/Button";
-import { Paper } from "@mui/material"
+import {Button, Paper, LinearProgress } from "@mui/material"
 
 
 const Quiz = () => {
@@ -79,13 +77,7 @@ const Quiz = () => {
 if (!questions.length) {
   return (
     <div className="loading-container">
-      <Oval ariaLabel="loading-indicator"
-        height={100}
-        width={100}
-        strokeWidth={5}
-        strokeWidthSecondary={1}
-        color="blue"
-        secondaryColor="white" />
+      <LinearProgress />
         'Loading...'
     </div>
   );
