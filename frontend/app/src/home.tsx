@@ -5,8 +5,8 @@ const Home: React.FC = () => {
   return (
     <Container maxWidth="sm">
       <Paper sx={{ padding: 4, marginTop: 8 }}>
-        <Typography variant="h4" paragraph sx={{ marginTop: 2 }}>
-        学びたい分野を選ぼう
+        <Typography variant="h3" paragraph sx={{ marginTop: 2 }}>
+        学びたい分野を選んで問題に挑戦しよう
         </Typography>
         <Button
           variant="contained"
