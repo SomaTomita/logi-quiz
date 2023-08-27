@@ -2,15 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
-import {
-  Typography,
-  TextField,
-  Card,
-  CardContent,
-  CardHeader,
-  Button,
-  Box,
-} from "@mui/material";
+import { Typography, TextField, Card, CardContent, CardHeader, Button, Box } from "@mui/material";
 
 import { AuthContext } from "App";
 import AlertMessage from "../utils/alertMessage";
@@ -68,21 +60,10 @@ const SignIn: React.FC = () => {
     <>
       <form noValidate autoComplete="off"> 
       {/* off = 過去に入力された値が自動的に表示されるのを防ぐ等 */}
-        <Card
-          sx={{
-            padding: (theme) => theme.spacing(2),
-            maxWidth: 400,
-          }}
-        >
-          <CardHeader
-            title="Sign In"
-            sx={{
-              textAlign: "center",
-            }}
-          />
+        <Card sx={{ padding: (theme) => theme.spacing(2), maxWidth: 400 }}>
+          <CardHeader title="Sign In" sx={{ textAlign: "center" }} />
           <CardContent>
-            <TextField
-              variant="outlined"
+            <TextField variant="outlined"
               required  // このフィールドは必須であることを示す
               fullWidth
               label="Email"
@@ -108,21 +89,14 @@ const SignIn: React.FC = () => {
               size="large"
               fullWidth
               disabled={!email || !password} // emailまたはpasswordが空の場合、ボタンを無効化
-              sx={{
-                marginTop: (theme) => theme.spacing(2),
-                flexGrow: 1,
+              sx={{ marginTop: (theme) => theme.spacing(2), flexGrow: 1, 
                 textTransform: "none", // ボタンのテキスト変換を無効にする（大文字変換などを防ぐ）
               }}
               onClick={handleSubmit}
             >
               Submit
             </Button>
-            <Box
-              textAlign="center"
-              sx={{
-                marginTop: "2rem",
-              }}
-            >
+            <Box textAlign="center" sx={{marginTop: "2rem" }}>
               <Typography variant="body2">
                 Don't have an account? &nbsp;
                 <Box component={Link} to="/signup" sx={{ textDecoration: "none" }}>
