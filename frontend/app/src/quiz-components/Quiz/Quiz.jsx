@@ -6,7 +6,7 @@ import clientRaw from "../quizApi/clientRaw"
 import { saveDashboardData } from "../quizApi/dashBoardApi"
 import { AuthContext } from "App";
 
-import {Button, Paper, LinearProgress } from "@mui/material"
+import {Button, Paper, CircularProgress } from "@mui/material"
 
 
 const Quiz = () => {
@@ -35,7 +35,7 @@ const Quiz = () => {
 
   // クイズが開始されてから終了するまでの時間を計測
   useEffect(() => {
-   let timer;
+   let timer; // スコープ外では使われていないため、再レンダリング時に保持する必要なし
    if (quizStarted) {
      timer = setInterval(() => {
        setTotalPlayTime(prevTime => prevTime + 1);
@@ -77,9 +77,9 @@ const Quiz = () => {
 if (!questions.length) {
   return (
     <div className="loading-container">
-      <LinearProgress />
-        'Loading...'
-    </div>
+    <CircularProgress />
+    <div>'Loading...'</div>
+  </div>
   );
 };
 
@@ -167,7 +167,7 @@ const UserDashboardData = async (newCount = sectionClearCount) => { // デフォ
     setQuizStarted(false);  // クイズ開始状態をオフ
     setShowAnswerTimer(false);  // タイマー表示をオフ
     setTotalPlayTime(0); // ダッシュボードに使うプレイ時間のカウントを0から(リセット)
-    setCorrectAnswersIndex(null); // 正解インデックスの配列をリセット
+    setCorrectAnswersIndex([]); // 正解インデックスの配列をリセット
     setSectionClearCount(0); // クリアしたセクションの数をリセット (backendのコントローラーでは既存のstudy_timeに足していくので0にしておく)
   };
 

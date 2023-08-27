@@ -2,11 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
-import TextField from "@mui/material/TextField";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardHeader from "@mui/material/CardHeader";
-import Button from "@mui/material/Button";
+import { TextField, Card, CardContent, CardHeader, Button}  from "@mui/material";
 
 import { AuthContext } from "App";
 import AlertMessage from "../utils/alertMessage";
