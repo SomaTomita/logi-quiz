@@ -27,6 +27,7 @@
 ### バックエンド
 * Ruby 3.2.2
 * Rails 7.0.6
+* RSpec（テスト）
 
 ### フロントエンド
 * React 18.2.0
@@ -39,9 +40,11 @@
 * Docker/Docker-compos（開発、テスト、本番予定）
 * AWS(未定)
 
-### 開発環境
+### 開発環境/その他
 * Git/GitHub （Issues、pull requestで擬似チーム開発）
 * VScode
+* Postman
+* Sequel ace
 
 ## 実装予定機能
 * 認証機能

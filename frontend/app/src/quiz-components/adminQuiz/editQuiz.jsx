@@ -1,17 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import clientRaw from "../quizApi/clientRaw";
-import {
-  Grid,
-  Paper,
-  Typography,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@mui/material";
+import { Grid, Paper, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { styled } from "@mui/system";
 import Cookies from "js-cookie";
 
@@ -119,18 +109,10 @@ function EditQuiz() {
             <Grid item xs={12} sm={6} md={4} key={quiz.id}>
               <StyledPaper elevation={3}>
                 <p>{quiz.question_text}</p>
-                <StyledButton
-                  variant="outlined"
-                  onClick={() => navigate(`/update-quiz/${selectedSection}/${quiz.id}`)}
-                  sx={{ textTransform: "none" }}
-                >
+                <StyledButton variant="outlined" onClick={() => navigate(`/update-quiz/${selectedSection}/${quiz.id}`)} sx={{ textTransform: "none" }}>
                   Edit
                 </StyledButton>
-                <StyledButton
-                  variant="outlined"
-                  onClick={() => openDeleteDialog(quiz.id)}
-                  sx={{ textTransform: "none" }}
-                >
+                <StyledButton variant="outlined" onClick={() => openDeleteDialog(quiz.id)} sx={{ textTransform: "none" }}>
                   Delete
                 </StyledButton>
               </StyledPaper>
