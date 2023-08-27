@@ -55,7 +55,6 @@ const Quiz = () => {
       try {
         const response = await clientRaw.get(`/sections/${sectionId}/quizzes`);
         setQuestions(response.data);
-        console.log("Quiz data:", response.data); // Quizデータをログに出力
       } catch (error) {
         console.error('Error:', error);
       }
@@ -94,7 +93,7 @@ if (!questions.length) {
 
 
   const onAnswerClick = (choice, index) => {
-    setAnswerIndex(index);
+    setAnswerIndex(index); // 選択肢をクリックしたかを追跡
     if (choice.choice_text === correctAnswer) { // 正解を判別
       setAnswer(true);
     } else {
@@ -114,8 +113,8 @@ if (!questions.length) {
     if (currentQuestion !== questions.length - 1) {
       setCurrentQuestion(prevQuestion => prevQuestion + 1);
     } else {
-      setSectionClearCount(prev => { // セクションのクリア回数が増える
-        const newCount = prev + 1;
+      setSectionClearCount(prev => {
+        const newCount = prev + 1; // newCountはprevのsectionClearCountよりも1大きい値になる
         UserDashboardData(newCount)});
       setCurrentQuestion(0);
       setShowResult(true);
@@ -135,7 +134,7 @@ if (!questions.length) {
     setTotalPlayTime(0); // プレイ時間は0からスタートに(リセット)
   };
 
-const UserDashboardData = async (newCount = sectionClearCount) => {
+const UserDashboardData = async (newCount = sectionClearCount) => { // デフォルト値にすることでもしUserDashboardData関数を引数なしで呼び出した場合、newCountはsectionClearCountの値になる
   const userId = currentUser.id;
 
   // ユーザーのダッシュボードデータを構築
@@ -148,7 +147,7 @@ const UserDashboardData = async (newCount = sectionClearCount) => {
     },
     learningStack: {
       date: new Date().toISOString().split("T")[0], // "YYYY-MM-DD" の形式の文字列だけを記録
-      totalClear: newCount, // 問題終了したら1加算されていき、1日でクリアしたセクションの合計数を記録
+      totalClear: newCount, // newCountは関数の内部でdashboardDataオブジェクトのlearningStack.totalClearプロパティに設定(1日のstudy_timeを記録)
     }
   }
   console.log('Constructed dashboardData:', dashboardData);
@@ -176,8 +175,8 @@ const UserDashboardData = async (newCount = sectionClearCount) => {
     setQuizStarted(false);  // クイズ開始状態をオフ
     setShowAnswerTimer(false);  // タイマー表示をオフ
     setTotalPlayTime(0); // ダッシュボードに使うプレイ時間のカウントを0から(リセット)
-    setCorrectAnswersIndex([]); // 正解インデックスの配列をリセット
-    setSectionClearCount(0);
+    setCorrectAnswersIndex(null); // 正解インデックスの配列をリセット
+    setSectionClearCount(0); // クリアしたセクションの数をリセット (backendのコントローラーでは既存のstudy_timeに足していくので0にしておく)
   };
 
    // セクション一覧に戻る
