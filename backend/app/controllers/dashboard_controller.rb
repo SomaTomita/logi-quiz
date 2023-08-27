@@ -17,7 +17,7 @@ class DashboardController < ApplicationController
         correct_answers = params[:correct_answers].to_i
 
         # 既存のユーザーセクションのレコードを探すか、新しいレコードを初期化
-        user_section = UserSection.find_or_initialize_by(user_id: current_user.id, section_id: current_section.id)
+        user_section = UserSection.new(user_id: current_user.id, section_id: current_section.id)
         user_section.correct_answers_count = correct_answers
         user_section.cleared_at = Time.current
         user_section.save
@@ -39,7 +39,7 @@ class DashboardController < ApplicationController
 
     # ダッシュボードに表示するためのデータを生成するメソッド
     def data_for_dashboard(user)
-        start_date = 1.month.ago.to_date # 過去1ヶ月前の日付を取得
+      start_date = 1.year.ago.to_date # 過去1年の日付を取得
         end_date = Date.today # 今日の日付を取得
     
         # 現在のユーザーに関連するUserSectionのレコードを取得します。
@@ -62,7 +62,7 @@ class DashboardController < ApplicationController
           total_play_time: user.total_play_time, # 合計プレイ時間
           total_questions_cleared: user.total_questions_cleared, # 合計クリア問題数
           cleared_sections: cleared_sections, # クリアしたセクションの過去10回の情報の配列
-          study_logs_past_month: StudyLog.where(user_id: user.id, date: start_date..end_date)
+          study_logs_past_year: StudyLog.where(user_id: user.id, date: start_date..end_date)
                                 .order(date: :asc)
                                 .map { |log| { date: log.date, study_time: log.study_time } } # 過去1ヶ月間の学習ログ
         }

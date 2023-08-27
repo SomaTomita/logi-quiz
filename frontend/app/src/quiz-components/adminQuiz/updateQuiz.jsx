@@ -55,25 +55,15 @@ function UpdateQuiz() {
 
   return (
     <div>
-      <TextField
-        label="Question Text"
-        variant="outlined"
-        fullWidth
+      <TextField label="Question Text" variant="outlined" fullWidth
         value={quiz.question_text}
         onChange={(e) => setQuiz({ ...quiz, question_text: e.target.value })}
         sx={{ marginTop: 2 }}
       />
 
       {(quiz.choices || []).map((choice, index) => (
-        <Box
-          key={index}
-          display="flex"
-          alignItems="center"
-          sx={{ marginTop: 2 }}
-        >
-          <TextField
-            label={`Choice ${index + 1}`}
-            variant="outlined"
+        <Box key={index} display="flex" alignItems="center" sx={{ marginTop: 2 }}>
+          <TextField label={`Choice ${index + 1}`} variant="outlined"
             value={choice.choice_text}
             onChange={(e) => {
               const updatedChoices = [...quiz.choices];
@@ -99,11 +89,7 @@ function UpdateQuiz() {
         </Box>
       ))}
 
-      <TextField
-        label="Explanation"
-        variant="outlined"
-        fullWidth
-        multiline
+      <TextField label="Explanation" variant="outlined" fullWidth multiline
         value={quiz.explanation ? quiz.explanation.explanation_text : ""}
         onChange={(e) => {
           const updatedExplanation = {
@@ -115,26 +101,14 @@ function UpdateQuiz() {
         sx={{ marginTop: 2 }}
       />
 
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={saveChanges}
+      <Button variant="contained" color="primary" onClick={saveChanges}
         sx={{ marginTop: 2, marginBottom: 2, textTransform: "none" }}
       >
         Save Changes
       </Button>
 
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={() => navigate("/edit-quiz")}
-        sx={{
-          marginTop: 2,
-          marginBottom: 2,
-          marginLeft: 2,
-          textTransform: "none",
-        }}
-      >
+      <Button variant="outlined" color="primary" onClick={() => navigate("/edit-quiz")}
+        sx={{ marginTop: 2, marginBottom: 2, marginLeft: 2, textTransform: "none" }}>
         Cancel
       </Button>
     </div>

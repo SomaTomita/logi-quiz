@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import clientRaw from "../quizApi/clientRaw"
 
-import { Grid, Paper } from '@mui/material';
+import { Grid, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -41,6 +41,9 @@ function Section() {
   }
 
   return (
+    <div className="section-wrapper"> 
+    <Typography variant="h4" gutterBottom sx={{ marginBottom: 3.5 }}>セクション選択</Typography>
+
     <Grid container spacing={3} className="section-container">
     {sections.map(section => (
       <Grid item xs={12} sm={6} md={4} key={section.id} onClick={() => handleSectionClick(section.id)}>
@@ -49,7 +52,8 @@ function Section() {
         </StyledPaper>
       </Grid>
     ))}
-  </Grid>
+   </Grid>
+  </div>
   );
 }
 
