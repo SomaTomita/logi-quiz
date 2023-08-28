@@ -47,6 +47,13 @@ const Quiz = () => {
 
 
   useEffect(() => {
+    if (showResult) {  // showResultがtrueの場合のみダッシュボードに必要な情報をpost
+      UserDashboardData();
+    }
+  }, [correctAnswersIndex, showResult]);
+
+
+  useEffect(() => {
     const fetchQuizzes = async () => {
       try {
         const response = await clientRaw.get(`/sections/${sectionId}/quizzes`);
@@ -83,7 +90,7 @@ const Quiz = () => {
     );
   }
 
-  
+
   const onAnswerClick = (choice, index) => {
     setAnswerIndex(index); // 選択肢をクリックしたかを追跡
     if (choice.choice_text === correctAnswer) {
@@ -112,13 +119,13 @@ const Quiz = () => {
     } else {
       setSectionClearCount((prev) => {
         const newCount = prev + 1; // newCountはprevのsectionClearCountよりも1大きい値になる
-        UserDashboardData(newCount);
+        return newCount;
       });
-      setCurrentQuestion(0);
       setShowResult(true);
+      setCurrentQuestion(0);
     }
 
-    // 少し遅延させてからタイマー表示をオン + ダッシュボードに必要なデータのpost
+    // 少し遅延させてからタイマー表示をオン
     setTimeout(() => {
       setShowAnswerTimer(true);
     });
@@ -131,6 +138,7 @@ const Quiz = () => {
     setShowAnswerTimer(true); // タイマー表示をオン
     setTotalPlayTime(0); // プレイ時間は0からスタートに(リセット)
   };
+
 
   const UserDashboardData = async (newCount = sectionClearCount) => {
     // デフォルト値にすることでもしUserDashboardData関数を引数なしで呼び出した場合、newCountはsectionClearCountの値になる
@@ -160,6 +168,7 @@ const Quiz = () => {
     }
   };
 
+
   // タイマーが終了した際
   const handleTimeUp = () => {
     setAnswer(false); // 間違いと認識
@@ -185,9 +194,7 @@ const Quiz = () => {
 
 
   return (
-    <Card
-      sx={{ width: 500, borderRadius: 4, mt: 10, p: "30px 60px", marginBottom: 5, boxSizing: "border-box", position: "relative",}}
-    >
+    <Card sx={{ width: 500, borderRadius: 4, mt: 10, p: "30px 60px", marginBottom: 5, boxSizing: "border-box", position: "relative",}}>
       {!quizStarted && !showResult ? (
         <Box textAlign="center">
           <Typography variant="h5" gutterBottom>
@@ -195,15 +202,14 @@ const Quiz = () => {
           </Typography>
           <Button variant="contained" size="large"
             onClick={startQuiz}
-            sx={{ textDecoration: "none", marginTop: 3, }}
-          >
+            sx={{ textDecoration: "none", marginTop: 3, }}>
             Start
           </Button>
         </Box>
       ) : showResult ? (
         <Box sx={{ borderRadius: 4, }}>
           <Typography variant="h4" align="center" gutterBottom sx={{ marginBottom: 4, borderRadius: 4, }}>
-            正答数:{" "}
+            正答数 : {" "}
             <Typography component="span" color="#150080" fontSize="36px">
               {correctAnswersIndex.length}/{questions.length}
             </Typography>
@@ -218,13 +224,8 @@ const Quiz = () => {
             return (
               <Paper elevation={5} key={index} sx={{ backgroundColor: '#D3D3D3', p: "20px 0", mb: 2 }}>
                 <Typography gutterBottom sx={{ margin: 2 }}>問題: {reviewQuestion}</Typography>
-                <Typography gutterBottom sx={{ margin: 2 }}>
-                  正解: {reviewCorrectAnswer}
-                </Typography>
-                <Typography gutterBottom sx={{ margin: 2 }}>
-                  あなたの回答:{" "}
-                  {correctAnswersIndex.includes(index) ? "⭕️" : "❌"}
-                </Typography>
+                <Typography gutterBottom sx={{ margin: 2 }}> 正解: {reviewCorrectAnswer} </Typography>
+                <Typography gutterBottom sx={{ margin: 2 }}> あなたの回答:{" "} {correctAnswersIndex.includes(index) ? "⭕️" : "❌"} </Typography>
                 <Typography gutterBottom sx={{ margin: 2 }}>解説: {reviewExplanation}</Typography>
               </Paper>
             );
@@ -256,8 +257,7 @@ const Quiz = () => {
               <ListItem onClick={() => onAnswerClick(choice, index)} key={choice.choice_text}
                 sx={{ background: answerIndex === index ? "#1976d2" : "#ffffff", 
                 color: answerIndex === index ? "#FFFFFF" : "#2d264b", 
-                mb: 1, borderRadius: 1, fontSize: "18px", padding: "12px 24px", border: "1px solid #d0d0d0",}}
-              >
+                mb: 1, borderRadius: 1, fontSize: "18px", padding: "12px 24px", border: "1px solid #d0d0d0",}}>
                 {choice.choice_text}
               </ListItem>
             ))}
