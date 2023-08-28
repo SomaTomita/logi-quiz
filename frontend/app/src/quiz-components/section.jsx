@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import clientRaw from "../quizApi/clientRaw"
+import clientRaw from "./quizApi/clientRaw"
 
 import { Grid, Paper, Typography, Fab } from '@mui/material';
 import NavigationIcon from '@mui/icons-material/Navigation';

@@ -97,7 +97,7 @@ const SignIn: React.FC = () => {
               Submit
             </Button>
             <Box textAlign="center" sx={{marginTop: "2rem" }}>
-              <Typography variant="body2">
+              <Typography variant="body1">
                 Don't have an account? &nbsp;
                 <Box component={Link} to="/signup" sx={{ textDecoration: "none" }}>
                 Sign Up now!
