@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate,} from "react-router-dom";
 
-import Quiz from "./quiz-components/quiz/quiz";
-import Section from "./quiz-components/section/section";
+import Quiz from "./quiz-components/quiz";
+import Section from "./quiz-components/section";
 import CreateQuiz from "./quiz-components/adminQuiz/createQuiz";
 import CreateSection from "./quiz-components/adminQuiz/createSection";
 import EditSection from  "./quiz-components/adminQuiz/editSection";

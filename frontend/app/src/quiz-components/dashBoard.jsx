@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 
-import { Paper, Typography, CircularProgress, Grid, Table, TableBody, TableCell, TableHead, TableRow, Fab } from "@mui/material";
+import { Paper, Typography, CircularProgress, Grid, Table,TableContainer, TableBody, TableCell, TableHead, TableRow, Fab } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import NavigationIcon from '@mui/icons-material/Navigation';
+import NavigationIcon from "@mui/icons-material/Navigation";
 
 import { fetchDashboardData } from "./quizApi/dashBoardApi";
 import { AuthContext } from "App";
@@ -50,6 +50,7 @@ const DashBoard = () => {
     return `${formattedDate} ${formattedTime}`;
   };
 
+
   useEffect(() => {
     const userId = currentUser.id;
     async function fetchData() {
@@ -79,11 +80,12 @@ const DashBoard = () => {
 
       <Grid container spacing={4}>
         <Grid item xs={12} md={5}>
-          <Paper
-            elevation={3}
-            style={{ padding: "16px", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}
-            >
-            <Typography variant="h6" sx={{ marginBottom: 1.5 }}>総プレイ時間</Typography>
+          <Paper elevation={3}
+            sx={{ padding: "16px", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", marginBottom: 3, }}
+          >
+            <Typography variant="h5" sx={{ marginBottom: 1.5 }}>
+              総プレイ時間
+            </Typography>
             <Typography variant="h4">
               {Math.floor(dashboardData.total_play_time / 60)}分
             </Typography>
@@ -92,20 +94,22 @@ const DashBoard = () => {
         <Grid item xs={12} md={1}></Grid> {/*中央のスペース */}
         <Grid item xs={12} md={5}>
           <Paper elevation={3}
-            style={{ padding: "16px", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}
+            sx={{ padding: "16px", borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", marginBottom: 3, }}
           >
-            <Typography variant="h6" sx={{ marginBottom: 1.5 }}>総問題クリア数</Typography>
+            <Typography variant="h5" sx={{ marginBottom: 1.5 }}>
+              総問題クリア数
+            </Typography>
             <Typography variant="h4">
               {dashboardData.total_questions_cleared}回
             </Typography>
           </Paper>
         </Grid>
-        <Grid item md={1.5}></Grid>
+        <Grid item md={2}></Grid>
         <Grid item xs={12} md={8}>
-          <Paper elevation={3} style={{ padding: "16px" }}>
-            <Typography variant="h6" sx={{ marginBottom: 1.5 }}>過去10回の履歴</Typography>
+          <Paper elevation={3} sx={{ padding: "24px", borderRadius: 4,  }}>
+            <Typography variant="h5" sx={{ marginBottom: 2 }}>過去10回の履歴</Typography>
             <ClearedSectionInfo>
-              <Table stickyHeader size="small">
+              <Table stickyHeader size="small" sx={{ marginBottom: 2 }}>
                 <TableHead>
                   <TableRow>
                     <TableCell>セクション名</TableCell>
@@ -133,16 +137,15 @@ const DashBoard = () => {
           </Paper>
         </Grid>
         <Grid item xs={12} md={12}>
-          <Paper elevation={3}
-            style={{ padding: "16px", paddingBottom: "40px", overflowX: "auto", position: "relative" }}
+          <Paper
+            elevation={3}
+            sx={{ padding: "16px", marginTop: 2, borderRadius: 4, paddingBottom: "40px", overflowX: "auto", position: "relative", }}
           >
-            <Typography variant="h6" sx={{ marginBottom: 1.5 }}>
+            <Typography variant="h5" sx={{ marginBottom: 1.5 }}>
               学習記録
             </Typography>
             <CalendarHeatmap
-              startDate={
-                new Date(new Date().setFullYear(new Date().getFullYear() - 1))
-              }
+              startDate={ new Date(new Date().setFullYear(new Date().getFullYear() - 1))}
               endDate={new Date()}
               values={dashboardData.study_logs_past_year}
               classForValue={(value) => {
@@ -151,25 +154,24 @@ const DashBoard = () => {
               }}
             />
             <Grid
-              style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", position: "absolute", bottom: "8px", right: "16px" }}
+              sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end", position: "absolute", bottom: "8px", right: "16px", }}
             >
               <span style={{ fontSize: "10px", marginRight: "5px" }}>Less</span>
               {colorScale.map((color, index) => (
-                <Grid
-                  key={index}
-                  style={{ width: "15px", height: "15px", backgroundColor: color, margin: "0px 2px" }}
+                <Grid key={index}
+                  style={{ width: "15px", height: "15px", backgroundColor: color, margin: "0px 2px", }}
                 />
               ))}
               <span style={{ fontSize: "10px", marginLeft: "5px" }}>More</span>
             </Grid>
           </Paper>
-         </Grid>
+        </Grid>
       </Grid>
-      <Fab variant="extended" color="primary" sx={{ position: 'fixed', bottom: '24px', right: '24px' }}
-          onClick={() => navigate("/home")}
+      <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: "24px", right: "24px" }}
+        onClick={() => navigate("/home")}
       >
-         <NavigationIcon sx={{ mr: 1, textTransform: "none"}} />
-         Home
+        <NavigationIcon sx={{ mr: 1, textTransform: "none" }} />
+        Home
       </Fab>
     </DashboardWrapper>
   );
