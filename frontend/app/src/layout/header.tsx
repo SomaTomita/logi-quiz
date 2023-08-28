@@ -100,7 +100,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="static" sx={{ borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px', overflow: 'hidden'}}>
         <AppBarContent>
           <Toolbar>
             <DirectionsBoatIcon sx={{ marginRight: 1.5 }}></DirectionsBoatIcon>

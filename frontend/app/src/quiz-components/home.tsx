@@ -4,7 +4,7 @@ import { Button, Container, Typography, Paper } from "@mui/material";
 const Home: React.FC = () => {
   return (
     <Container maxWidth="md">
-      <Paper sx={{ padding: 4, marginTop: 2, marginBottom: 3 }}>
+      <Paper sx={{ padding: 4, marginTop: 2, marginBottom: 3, borderRadius: 5, }}>
         <Typography variant="h5" paragraph sx={{ marginTop: 2, fontWeight: 'bold' }}>
           まず学びたい分野を選んで問題に挑戦しましょう。
         </Typography>
@@ -30,7 +30,7 @@ const Home: React.FC = () => {
           </ul>
         </Typography>
       </Paper>
-      <Paper sx={{ padding: 4, marginTop: 3.5, marginBottom: 3 }}>
+      <Paper sx={{ padding: 4, marginTop: 3.5, marginBottom: 3, borderRadius: 5, }}>
         <Typography variant="h5" paragraph sx={{ fontWeight: 'bold' }}>
           次に学習状況を確認しましょう。
         </Typography>
