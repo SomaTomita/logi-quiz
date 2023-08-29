@@ -6,7 +6,9 @@ import clientRaw from "./quizApi/clientRaw";
 import { saveDashboardData } from "./quizApi/dashBoardApi";
 import { AuthContext } from "App";
 
-import { Button, Paper, CircularProgress, Card, Typography, ListItem, Box, } from "@mui/material";
+import { Button, Paper, CircularProgress, Card, Typography, ListItem, Box, ButtonBase, Fab } from "@mui/material";
+import NavigationIcon from '@mui/icons-material/Navigation';
+
 
 const Quiz = () => {
   const { sectionId } = useParams(); // URLからsectionIdを取得
@@ -47,7 +49,8 @@ const Quiz = () => {
 
 
   useEffect(() => {
-    if (showResult) {  // showResultがtrueの場合のみダッシュボードに必要な情報をpost
+    if (showResult && currentUser) {
+      // showResultがtrueに加えてログインしている場合のみダッシュボードに必要な情報をpost
       UserDashboardData();
     }
   }, [correctAnswersIndex, showResult]);
@@ -83,9 +86,11 @@ const Quiz = () => {
   // 問題がロード中、またはされていないときの表示
   if (!questions.length) {
     return (
-      <Box  display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="100vh">
+      <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" height="100vh">
         <CircularProgress />
-        <Typography variant="h6" mt={2}>Loading...</Typography>
+        <Typography variant="h6" mt={2}>
+          Loading...
+        </Typography>
       </Box>
     );
   }
@@ -139,7 +144,6 @@ const Quiz = () => {
     setTotalPlayTime(0); // プレイ時間は0からスタートに(リセット)
   };
 
-
   const UserDashboardData = async (newCount = sectionClearCount) => {
     // デフォルト値にすることでもしUserDashboardData関数を引数なしで呼び出した場合、newCountはsectionClearCountの値になる
     const userId = currentUser.id;
@@ -168,7 +172,6 @@ const Quiz = () => {
     }
   };
 
-
   // タイマーが終了した際
   const handleTimeUp = () => {
     setAnswer(false); // 間違いと認識
@@ -192,9 +195,9 @@ const Quiz = () => {
     navigate("/sections");
   };
 
-
   return (
-    <Card sx={{ width: 500, borderRadius: 4, mt: 10, p: "30px 60px", marginBottom: 5, boxSizing: "border-box", position: "relative",}}>
+    <Card
+      sx={{ width: 500, borderRadius: 4, mt: 10, p: "30px 60px", marginBottom: 5, boxSizing: "border-box", position: "relative", }}>
       {!quizStarted && !showResult ? (
         <Box textAlign="center">
           <Typography variant="h5" gutterBottom>
@@ -202,15 +205,19 @@ const Quiz = () => {
           </Typography>
           <Button variant="contained" size="large"
             onClick={startQuiz}
-            sx={{ textDecoration: "none", marginTop: 3, }}>
+            sx={{ padding: '1rem 2.5rem', textDecoration: "none", marginTop: 4, textTransform: "none", fontSize: '1.1rem', }}>
             Start
           </Button>
+          <Fab variant="extended" color="primary" sx={{ position: 'fixed', bottom: '24px', right: '24px' }}
+            onClick={() => navigate("/home")}>
+           <NavigationIcon sx={{ mr: 1, textTransform: "none", }} />Home
+           </Fab>
         </Box>
       ) : showResult ? (
-        <Box sx={{ borderRadius: 4, }}>
-          <Typography variant="h4" align="center" gutterBottom sx={{ marginBottom: 4, borderRadius: 4, }}>
-            正答数 : {" "}
-            <Typography component="span" color="#150080" fontSize="36px">
+        <Box sx={{ borderRadius: 4 }}>
+          <Typography variant="h5" align="center" gutterBottom sx={{ marginBottom: 4, borderRadius: 4 }}>
+            正答数 :{" "}
+            <Typography component="span" color="#150080" fontSize="32px">
               {correctAnswersIndex.length}/{questions.length}
             </Typography>
           </Typography>
@@ -220,13 +227,27 @@ const Quiz = () => {
               choices: reviewChoices,
               explanation: { explanation_text: reviewExplanation },
             } = questionItem;
-            const reviewCorrectAnswer = reviewChoices.find((choice) => choice.is_correct)?.choice_text || "";
+            const reviewCorrectAnswer =
+              reviewChoices.find((choice) => choice.is_correct)?.choice_text ||
+              "";
             return (
-              <Paper elevation={5} key={index} sx={{ backgroundColor: '#D3D3D3', p: "20px 0", mb: 2 }}>
-                <Typography gutterBottom sx={{ margin: 2 }}>問題: {reviewQuestion}</Typography>
-                <Typography gutterBottom sx={{ margin: 2 }}> 正解: {reviewCorrectAnswer} </Typography>
-                <Typography gutterBottom sx={{ margin: 2 }}> あなたの回答:{" "} {correctAnswersIndex.includes(index) ? "⭕️" : "❌"} </Typography>
-                <Typography gutterBottom sx={{ margin: 2 }}>解説: {reviewExplanation}</Typography>
+              <Paper elevation={5} key={index}
+                sx={{ backgroundColor: "#D3D3D3", p: "20px 0", mb: 2, maxWidth: 450, }}>
+                <Typography gutterBottom sx={{ margin: 2 }}>
+                  問題: {reviewQuestion}
+                </Typography>
+                <Typography gutterBottom sx={{ margin: 2 }}>
+                  {" "}
+                  正解: {reviewCorrectAnswer}{" "}
+                </Typography>
+                <Typography gutterBottom sx={{ margin: 2 }}>
+                  {" "}
+                  あなたの回答:{" "}
+                  {correctAnswersIndex.includes(index) ? "⭕️" : "❌"}{" "}
+                </Typography>
+                <Typography gutterBottom sx={{ margin: 2 }}>
+                  解説: {reviewExplanation}
+                </Typography>
               </Paper>
             );
           })}
@@ -243,29 +264,52 @@ const Quiz = () => {
         <Box>
           {showAnswerTimer && (
             <Answertimer key={currentQuestion} duration={15} onTimeUp={handleTimeUp}/>
-            )}
-          <Typography variant="h5" gutterBottom sx={{ marginBottom: 4 }}>
-            <Box component="span" fontWeight="500"> {currentQuestion + 1} </Box>
+          )}
+          <Typography variant="h5" gutterBottom sx={{ marginBottom: 3 }}>
+            <Box component="span" fontWeight="500">
+              {" "}
+              {currentQuestion + 1}{" "}
+            </Box>
             /
-            <Box component="span" fontWeight="500"> {questions.length} </Box>
+            <Box component="span" fontWeight="500">
+              {" "}
+              {questions.length}{" "}
+            </Box>
           </Typography>
           <Typography variant="h5" gutterBottom sx={{ marginBottom: 3 }}>
             {question}
           </Typography>
           <Box component="ul" pl={0} mt={2}>
             {choices.map((choice, index) => (
-              <ListItem onClick={() => onAnswerClick(choice, index)} key={choice.choice_text}
-                sx={{ background: answerIndex === index ? "#1976d2" : "#ffffff", 
-                color: answerIndex === index ? "#FFFFFF" : "#2d264b", 
-                mb: 1, borderRadius: 1, fontSize: "18px", padding: "12px 24px", border: "1px solid #d0d0d0",}}>
-                {choice.choice_text}
-              </ListItem>
+              <ButtonBase
+                onClick={() => onAnswerClick(choice, index)}
+                sx={{ width: "100%", borderRadius: 1, mb: 1, }}
+                key={choice.choice_text}
+              >
+                <ListItem
+                  sx={{ width: "100%", textAlign: "left",
+                    background: answerIndex === index ? "#1976d2" : "#ffffff",
+                    color: answerIndex === index ? "#FFFFFF" : "#2d264b",
+                    fontSize: "18px", padding: "12px 24px", border: "1px solid #d0d0d0",
+                    "&:hover": {
+                      background: "#e0e0e0",
+                      cursor: "pointer",
+                    },
+                  }}
+                >
+                  {choice.choice_text}
+                </ListItem>
+              </ButtonBase>
             ))}
           </Box>
-          <Box mt={2} display="flex" justifyContent="flex-end" sx={{ marginTop: 4}}>
-            <Button variant="contained" size="large"
-             onClick={() => onClickNext(answer)} 
-             disabled={answerIndex === null} >
+          <Box mt={2} display="flex" justifyContent="flex-end" sx={{ marginTop: 4 }}>
+            <Button
+              variant="contained"
+              size="large"
+              onClick={() => onClickNext(answer)}
+              disabled={answerIndex === null}
+              sx={{ textTransform: "none", marginTop: 2 }}
+            >
               {currentQuestion === questions.length - 1 ? "Finish" : "Next"}
             </Button>
           </Box>
