@@ -60,7 +60,7 @@ const SignIn: React.FC = () => {
     <>
       <form noValidate autoComplete="off"> 
       {/* off = 過去に入力された値が自動的に表示されるのを防ぐ等 */}
-        <Card sx={{ padding: (theme) => theme.spacing(2), maxWidth: 400 }}>
+        <Card sx={{ padding: (theme) => theme.spacing(2), maxWidth: 450 }}>
           <CardHeader title="Sign In" sx={{ textAlign: "center" }} />
           <CardContent>
             <TextField variant="outlined"
@@ -97,10 +97,18 @@ const SignIn: React.FC = () => {
               Submit
             </Button>
             <Box textAlign="center" sx={{marginTop: "2rem" }}>
-              <Typography variant="body1">
+              <Typography variant="body1" sx={{ marginTop: 4,}}>
                 Don't have an account? &nbsp;
                 <Box component={Link} to="/signup" sx={{ textDecoration: "none" }}>
                 Sign Up now!
+                </Box>
+              </Typography>
+            </Box>
+            <Box textAlign="center" sx={{marginTop: "2rem" }}>
+              <Typography variant="body1" sx={{ marginTop: 4,}}>
+                Play without login? &nbsp;
+                <Box component={Link} to="/home" sx={{ textDecoration: "none" }}>
+                Let's go now!
                 </Box>
               </Typography>
             </Box>

@@ -45,7 +45,7 @@ function Section() {
    <div className="section-wrapper" style={{ marginBottom: '80px' }}> 
     <Typography variant="h4" gutterBottom sx={{ marginBottom: 5 }}>セクション選択</Typography>
 
-    <Grid container spacing={3} className="section-container">
+    <Grid container spacing={3} className="section-container" sx={{ fontSize: "1.1rem" }}>
     {sections.map(section => (
       <Grid item xs={12} sm={6} md={4} key={section.id} onClick={() => handleSectionClick(section.id)}>
         <StyledPaper elevation={3}>
@@ -57,7 +57,7 @@ function Section() {
     <Fab variant="extended" color="primary" sx={{ position: 'fixed', bottom: '24px', right: '24px' }}
       onClick={() => navigate("/home")}
     >
-      <NavigationIcon sx={{ mr: 1, textTransform: "none"}} />Home
+      <NavigationIcon sx={{ mr: 1, textTransform: "none", }} />Home
     </Fab>
    </div>
   );

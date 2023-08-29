@@ -1,8 +1,7 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
-import { TextField, Card, CardContent, CardHeader, Button}  from "@mui/material";
+import { TextField, Card, CardContent, CardHeader, Button, Alert}  from "@mui/material";
 
 import { AuthContext } from "App";
 import AlertMessage from "../utils/alertMessage";
@@ -11,7 +10,6 @@ import { SignUpParams } from "../interfaces";
 
 // サインアップ用ページ
 const SignUp: React.FC = () => {
-  const navigate = useNavigate();
 
   const { setIsSignedIn, setCurrentUser, setIsAdmin } = useContext(AuthContext);
 
@@ -21,6 +19,7 @@ const SignUp: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+  const confirmSuccessUrl = "http://localhost:3000/confirmation-success"; // signUp時のメール承認で飛ぶリンク
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => { // <button>要素のマウスイベントとして発火
     e.preventDefault();
@@ -29,7 +28,8 @@ const SignUp: React.FC = () => {
       name: name,
       email: email,
       password: password,
-      passwordConfirmation: passwordConfirmation
+      passwordConfirmation: passwordConfirmation,
+      confirmSuccessUrl: confirmSuccessUrl,
     };
   
     try {
@@ -46,7 +46,7 @@ const SignUp: React.FC = () => {
         setCurrentUser(res.data.data); // APIのレスポンスdata本体のdataキー内のオブジェクト(ID、メールアドレス、名前)を取得してcurrentUserに
         setIsAdmin(res?.data.data.admin);
 
-        navigate("/confirmation-success");
+        <Alert onClose={() => {}}>This is a success alert — check your email!</Alert>
       } else {
         setAlertMessageOpen(true);
       }
@@ -61,7 +61,7 @@ const SignUp: React.FC = () => {
     <>
       <form noValidate autoComplete="off">
       {/* off = 過去に入力された値が自動的に表示されるのを防ぐ等 */}
-        <Card sx={{ marginTop: 6, padding: 2, maxWidth: 400 }}>
+        <Card sx={{ marginTop: 6, padding: 2, maxWidth: 450 }}>
           <CardHeader sx={{ textAlign: "center" }}
             title="Sign Up"
           />

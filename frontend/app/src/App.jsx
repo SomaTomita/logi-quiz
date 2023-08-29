@@ -110,9 +110,9 @@ function App() {
           <Route path="/signin" element={<SignIn />} /> 
 
           <Route path="/confirmation-success" element={<Private><Success /></Private>} />
-          <Route path="/home" element={<Private><Home /></Private>} />
-          <Route path="/sections" element={<Private><Section /></Private>} />
-          <Route path="/sections/:sectionId/quizzes" element={<Private><Quiz /></Private>} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/sections" element={<Section />} />
+          <Route path="/sections/:sectionId/quizzes" element={<Quiz />} />
           <Route path="/dashboard" element={<Private><DashBoard /></Private>} />
 
           <Route path="/create-quiz" element={<AdminPrivate><CreateQuiz /></AdminPrivate>} />
