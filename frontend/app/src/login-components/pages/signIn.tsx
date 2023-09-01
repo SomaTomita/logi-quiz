@@ -83,6 +83,13 @@ const SignIn: React.FC = () => {
               autoComplete="current-password" // ブラウザの自動完了機能を利用して、現在のパスワードを提案
               onChange={(event) => setPassword(event.target.value)}
             />
+
+            <Box textAlign="right" sx={{ mt: 1 }}>
+            <Link to="/auth/password" style={{ fontSize: '0.8rem', textDecoration: 'none', color: 'blue', }}>
+              Forget your Password?
+            </Link>
+            </Box>
+
             <Button
               type="submit"
               variant="contained"
@@ -99,7 +106,7 @@ const SignIn: React.FC = () => {
             <Box textAlign="center" sx={{marginTop: "2rem" }}>
               <Typography variant="body1" sx={{ marginTop: 4,}}>
                 Don't have an account? &nbsp;
-                <Box component={Link} to="/signup" sx={{ textDecoration: "none" }}>
+                <Box component={Link} to="/signup" sx={{ textDecoration: "none", color: 'blue', }}>
                 Sign Up now!
                 </Box>
               </Typography>
@@ -107,8 +114,8 @@ const SignIn: React.FC = () => {
             <Box textAlign="center" sx={{marginTop: "2rem" }}>
               <Typography variant="body1" sx={{ marginTop: 4,}}>
                 Play without login? &nbsp;
-                <Box component={Link} to="/home" sx={{ textDecoration: "none" }}>
-                Let's go now!
+                <Box component={Link} to="/home" sx={{ textDecoration: "none", color: 'blue', }}>
+                Let's play quiz now!
                 </Box>
               </Typography>
             </Box>
