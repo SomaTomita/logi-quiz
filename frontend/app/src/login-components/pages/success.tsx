@@ -33,7 +33,7 @@ const Success: React.FC = () => {
               Name: {currentUser?.name}
             </Typography>
             <Typography variant="body1" color="textSecondary">
-              まもなくホーム画面に移動します
+              Go to the home screen shortly...
             </Typography>
             <div style={{ marginTop: "20px" }}>
               <CircularProgress />
