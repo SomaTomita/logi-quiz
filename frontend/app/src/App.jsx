@@ -10,6 +10,7 @@ import EditQuiz from "./quiz-components/adminQuiz/editQuiz";
 import UpdateQuiz from "./quiz-components/adminQuiz/updateQuiz";
 import DashBoard from "./quiz-components/dashBoard";
 import Home from "./quiz-components/home";
+import PasswordReset from "./login-components/password-reset/passwordReset"
 
 import CommonLayout from "./layout/commonLayout";
 import { getCurrentUser } from "./login-components/api/auth";
@@ -107,7 +108,8 @@ function App() {
        <CommonLayout>
         <Routes>
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} /> 
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/auth/password" element={<PasswordReset />} />
 
           <Route path="/confirmation-success" element={<Private><Success /></Private>} />
           <Route path="/home" element={<Home />} />
