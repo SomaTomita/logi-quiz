@@ -18,10 +18,8 @@ const SendResetMail: React.FC = () => {
   const onSubmit: SubmitHandler<SendResetMailType> = async (data) => {
     try {
       const response = await PasswordReset.sendEmail(data);
-      console.log(response);
       setIsSubmitted(true);
     } catch (err) {
-      console.log(err);
       setAlertMessageOpen(true);
     }
   };

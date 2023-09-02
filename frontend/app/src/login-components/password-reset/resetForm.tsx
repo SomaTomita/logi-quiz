@@ -22,7 +22,6 @@ const PasswordResetForm: FC<Props> = ({ resetPasswordToken }) => {
       await PasswordReset.onReset(data);
       setIsSubmitted(true);
     } catch (err) {
-      console.log(err);
       setAlertMessageOpen(true);
     }
   };
