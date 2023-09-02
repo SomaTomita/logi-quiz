@@ -69,4 +69,4 @@
 
 
 ## ER図
-![ER Diagram](public/dbdiagram_ERchart.png)
+![ER Diagram](frontend/app/public/dbdiagram_ERchart.png)

@@ -36,10 +36,9 @@ const Home: React.FC = () => {
         </Typography>
         <Typography variant="body1" component="div">
           <ul>
-            <li>1セクション10問あり、4つの選択問題です。</li>
+            <li>1セクション10問出題され、4つの選択問題です。</li>
             <li>1問につき、15秒以内に答えましょう。</li>
-            <li>解答を選んだ後、Nextボタンで次の問題へ行きましょう。</li>
-            <li>一度次の問題へ行くと、前の問題には戻れません。</li>
+            <li>一度Nextボタンで解答を終えると、前の問題には戻れません。</li>
             <li>最後の問題で、Finishボタンを押すと結果と解説が出ます。</li>
             <li>再度同じセクションをする場合は、Try againボタンを押しましょう。</li>
             <li>別の問題をしたい場合は、Back to Sectionsボタンを押しましょう。</li>
