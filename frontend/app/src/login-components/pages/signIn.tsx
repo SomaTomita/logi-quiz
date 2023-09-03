@@ -31,9 +31,7 @@ const SignIn: React.FC = () => {
 
     try {
       const res = await signIn(params);
-      console.log("Full Response:", res);  // レスポンス全体を確認
-      console.log("User Data:", res.data.data);  // 期待するユーザーデータの部分だけを確認  
-
+  
       if (res.status === 200) {  // サーバーからのレスポンスのヘッダーにある認証情報をCookieにセット
         // 第一引数の特定のクッキーの名前（キー）に、第二引数のクッキーの値を関連付けて保存
         Cookies.set("_access_token", res.headers["access-token"]);
