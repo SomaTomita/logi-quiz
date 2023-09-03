@@ -29,7 +29,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-
+  
   describe 'アソシエーション' do
     it 'ユーザーが削除された場合、関連するuser_sectionsも削除される' do
       user = create(:user)
