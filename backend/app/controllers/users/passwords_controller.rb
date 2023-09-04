@@ -1,14 +1,15 @@
 class Users::PasswordsController < Devise::PasswordsController
     respond_to :json
 
-    def set_flash_message!(*)
+    def set_flash_message!(*) # フラッシュメッセージは無効化
     end
   
     private
   
-    #Userとオプションを受け取り、適切なレスポンスを返す
+    # リソースはパスワードのリセットや再設定に関連するユーザーインスタンスを指す
     def respond_with(resource, _opts = {})
 
+      # DBに保存されている場合メール送信成功を示すメソッドを呼ぶ
       send_reset_mail_success && return unless resource.present?
       # DBに保存されている場合パスワードリセットの成功を示すメソッドを呼ぶ
       reset_password_success && return if resource.persisted?
