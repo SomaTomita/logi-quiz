@@ -34,16 +34,11 @@ class Admin::QuizzesController < ApplicationController
         render json: @question, include: [:choices, :explanation], status: :ok
     end
       
-    # todo bebug削除
     def update
-        Rails.logger.debug("Original question: #{@question.inspect}")
-        Rails.logger.debug("Submitted params: #{question_params.inspect}")
-    
         if @question.update(question_params)
-            Rails.logger.debug("Updated question: #{@question.inspect}")
+            # クイズが正常に更新された場合、更新されたクイズの詳細をJSON形式で返す
             render json: @question
         else
-            Rails.logger.debug("Update errors: #{@question.errors.full_messages.join(', ')}")
             render json: { errors: @question.errors.full_messages }, status: :unprocessable_entity
         end
     end
@@ -60,10 +55,10 @@ class Admin::QuizzesController < ApplicationController
     end
 
     def question_params
-        #データのオブジェクト名はquiz
-        params.require(:quiz).permit(
+        params.require(:quiz).permit( #データのオブジェクト名はquiz
             :question_text, 
-            choices_attributes: [:id, :choice_text, :is_correct, :_destroy], 
+            # debugの@question.inspectで調査し、update時に選択肢と解説が更新できない状態だったが、下記を追加し可能に
+            choices_attributes: [:id, :choice_text, :is_correct, :_destroy],
             explanation_attributes: [:id, :explanation_text, :_destroy]
           )
     end 
