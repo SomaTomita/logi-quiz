@@ -20,19 +20,19 @@ const Success: React.FC = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Paper elevation={3} style={{ padding: "20px", textAlign: "center", marginTop: "50px" }}>
+      <Paper elevation={3} sx={{ padding: "20px", textAlign: "center", marginTop: "50px" }}>
         {isSignedIn && currentUser ? (
           <>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h4" gutterBottom sx={{ marginBottom: 3 }}>
               Signed in successfully!
             </Typography>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" gutterBottom sx={{ marginBottom: 3 }}>
               Email: {currentUser?.email}
             </Typography>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" gutterBottom sx={{ marginBottom: 5 }}>
               Name: {currentUser?.name}
             </Typography>
-            <Typography variant="body1" color="textSecondary">
+            <Typography variant="body1" color="textSecondary" sx={{ marginBottom: 5 }}>
               Go to the home screen shortly...
             </Typography>
             <div style={{ marginTop: "20px" }}>
