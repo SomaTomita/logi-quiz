@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Quizzes", type: :request do
   describe "GET /index" do
     let!(:section) { create(:section) }
-    let!(:questions) { create_list(:question, 10, section: section) }
+    let!(:questions) { create_list(:question, 10, section: section) } # 事前に上記で作成したセクションに属する問題を10個作成
 
     before do
       get "/sections/#{section.id}/quizzes"
