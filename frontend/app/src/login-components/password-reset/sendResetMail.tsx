@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { TextField, Card, CardContent, CardHeader, Button, Alert, Typography, IconButton } from '@mui/material';
@@ -18,6 +18,7 @@ const SendResetMail: React.FC = () => {
   const onSubmit: SubmitHandler<SendResetMailType> = async (data) => {
     try {
       const response = await PasswordReset.sendEmail(data);
+      console.log(response)
       setIsSubmitted(true);
     } catch (err) {
       setAlertMessageOpen(true);
