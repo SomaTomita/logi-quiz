@@ -25,7 +25,7 @@ const Home: React.FC = () => {
           まず学びたい分野を選んで問題に挑戦しましょう。
         </Typography>
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 1.5 }}>
-          <Button variant="contained" size="large" component={Link} to="/sections"
+          <Button variant="contained" size="large" component={Link} to="/sections" role="button"
             sx={{ padding: 2, marginTop: 2, textTransform: "none", fontSize: '1.1rem',}}>
             Go to Sections
           </Button>
