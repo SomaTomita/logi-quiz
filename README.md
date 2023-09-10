@@ -77,22 +77,22 @@
 
 
 ### Sign In
-![Sign In](public/sign_in.png)
+![Sign In](frontend/app/public/sign_in.png)
 
 ### Home
-![Home](public/home.png)
+![Home](frontend/app/public/home.png)
 
 ### Section
-![Section](public/section.png)
+![Section](frontend/app/public/section.png)
 
 ### Quiz
-![Quiz](public/quiz.png)
+![Quiz](frontend/app/public/quiz.png)
 
 ### Quiz Timer
-![Quiz Timer](public/quiz_timer.png)
+![Quiz Timer](frontend/app/public/quiz_timer.png)
 
 ### Explanation
-![Explanation](public/explanation.png)
+![Explanation](frontend/app/public/explanation.png)
 
 ### Dashboard
-![Dashboard](public/dashboard.png)
+![Dashboard](frontend/app/public/dashboard.png)
