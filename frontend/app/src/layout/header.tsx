@@ -104,7 +104,7 @@ const Header: React.FC = () => {
         <AppBarContent>
           <Toolbar>
             <DirectionsBoatIcon sx={{ marginRight: 1.5 }}></DirectionsBoatIcon>
-            <Typography component={isSignedIn ? Link : "div"} to={isSignedIn ? "/home" : "#"} 
+            <Typography component={Link} to="/home" 
                         variant="h6" sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }}>
               国際物流クイズ
             </Typography>
