@@ -20,6 +20,9 @@ const Home: React.FC = () => {
 
   return (
     <Container maxWidth="md">
+      <Typography variant="h4" align="center" gutterBottom>
+        HOME
+      </Typography>
       <Paper sx={{ padding: 4, marginTop: 2, marginBottom: 5, borderRadius: 5, }}>
         <Typography variant="h5" paragraph sx={{ marginTop: 2, fontWeight: 'bold' }}>
           まず学びたい分野を選んで問題に挑戦しましょう。
@@ -60,8 +63,10 @@ const Home: React.FC = () => {
         </Typography>
         <Typography variant="body1" component="div">
           <ul>
-            <li>こちらの機能の使用は<a href="http://localhost:3000/confirmation-success" style={{ fontSize: '1.2rem', color: '#007BFF' }}>
+            {!isSignedIn && (
+              <li>こちらの機能の使用は<a href="http://localhost:3000/signin" style={{ fontSize: '1.2rem', color: '#007BFF' }}>
               ログイン</a>が必須となります。</li>
+            )}
             <li>総プレイ時間、総問題クリア数、過去10回の履歴、学習記録が見られます。</li>
             <li>学習記録では問題をクリアするだけ色が濃くなりカレンダー上に記録されます。</li>
           </ul>

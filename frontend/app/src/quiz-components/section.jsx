@@ -12,6 +12,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: '20px',
   backgroundColor: '#D3D3D3',
   cursor: 'pointer',
+  width: '70%',
   transition: 'background-color 0.3s, color 0.3s',
   '&:hover': { // ホバー時に背景の文字の色変更
     backgroundColor: '#1976d2',
@@ -47,7 +48,7 @@ function Section() {
 
     <Grid container spacing={3} className="section-container" sx={{ fontSize: "1.1rem" }}>
     {sections.map(section => (
-      <Grid item xs={12} sm={6} md={4} key={section.id} onClick={() => handleSectionClick(section.id)}>
+      <Grid item xs={12} sm={6} md={6} key={section.id} onClick={() => handleSectionClick(section.id)}>
         <StyledPaper elevation={3}>
           <p>{section.section_name}</p>
         </StyledPaper>
