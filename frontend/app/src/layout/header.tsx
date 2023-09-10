@@ -67,11 +67,11 @@ const Header: React.FC = () => {
       } else if (isSignedIn) { // 管理者ではなく、サインイン済状態
         return (
           <>
-            <Button component={Link} to="/dashboard" color="inherit" sx={{ textTransform: "none" }}>
-              DashBoard
-            </Button>
             <Button component={Link} to="/sections" color="inherit" sx={{ textTransform: "none" }}>
               Sections
+            </Button>
+            <Button component={Link} to="/dashboard" color="inherit" sx={{ textTransform: "none" }}>
+              DashBoard
             </Button>
             <Button href="https://forms.gle/RxFuJeaLW65w4pg48" color="inherit" sx={{ textTransform: "none" }} onClick={handleSignOut}>
               Contact
