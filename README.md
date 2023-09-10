@@ -76,13 +76,14 @@
 ![ER Diagram](frontend/app/public/dbdiagram_ERchart.png)
 
 
+## 画面
 ### Sign In
 ![Sign In](frontend/app/public/sign_in.png)
 
 ### Home
 ![Home](frontend/app/public/home.png)
 
-### Section
+### Section (未ログイン)
 ![Section](frontend/app/public/section.png)
 
 ### Quiz
