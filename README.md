@@ -80,7 +80,7 @@
 ### Sign In
 ![Sign In](frontend/app/public/sign_in.png)
 
-### Home
+### Home (未ログイン)
 ![Home](frontend/app/public/home.png)
 
 ### Section (未ログイン)
