@@ -1,7 +1,12 @@
-import { Typography, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, Fab } from "@mui/material";
+import { Typography, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, Fab, } from "@mui/material";
 import CalendarHeatmap from "react-calendar-heatmap";
+import { Tooltip } from "react-tooltip";
+
 import NavigationIcon from "@mui/icons-material/Navigation";
 import { styled } from "@mui/material/styles";
+
+import "./dashBoard.css";
+
 
 const DashboardWrapper = styled("div")({
   padding: "24px",
@@ -15,16 +20,11 @@ const ClearedSectionInfo = styled("div")({
   border: "1px solid #ccc",
 });
 
-const colorScale = [
-  "#ebedf0",
-  "#c6e48b",
-  "#7bc96f",
-  "#196127",
-];
+const colorScale = ["#c6e48b", "#7bc96f", "#196127", "#0a3d0a"];
 
 
-const DashBoardDisplay = ({ currentUser, dashboardData, navigate, formatDate }) => (
-    <DashboardWrapper>
+const DashBoardDisplay = ({ currentUser, dashboardData, navigate, formatDate, }) => (
+  <DashboardWrapper>
     <Typography variant="h4" gutterBottom sx={{ marginBottom: 6 }}>
       {currentUser.name}さんのダッシュボード
     </Typography>
@@ -57,8 +57,10 @@ const DashBoardDisplay = ({ currentUser, dashboardData, navigate, formatDate }) 
       </Grid>
       <Grid item md={2}></Grid>
       <Grid item xs={12} md={8}>
-        <Paper elevation={3} sx={{ padding: "24px", borderRadius: 4,  }}>
-          <Typography variant="h5" sx={{ marginBottom: 2 }}>過去10回の履歴</Typography>
+        <Paper elevation={3} sx={{ padding: "24px", borderRadius: 4 }}>
+          <Typography variant="h5" sx={{ marginBottom: 2 }}>
+            過去10回の履歴
+          </Typography>
           <ClearedSectionInfo>
             <Table stickyHeader size="small" sx={{ marginBottom: 2 }}>
               <TableHead>
@@ -98,27 +100,36 @@ const DashBoardDisplay = ({ currentUser, dashboardData, navigate, formatDate }) 
           <CalendarHeatmap
             startDate={ new Date(new Date().setFullYear(new Date().getFullYear() - 1))}
             endDate={new Date()}
-            values={dashboardData.study_logs_past_year}
+            values={(dashboardData.study_logs_past_year || []).map(log => ({
+              date: log.date,
+              count: log.study_time,
+            }))}
             classForValue={(value) => {
               if (!value) return "color-empty";
               return `color-scale-${value.count}`;
             }}
+            tooltipDataAttrs={(value) => {
+              if (!value || !value.date) {
+                return null;
+              }
+              return {
+                "data-tip": `${value.date} has study time: ${value.count}`,
+              };
+            }}
           />
-          <Grid
-            sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end", position: "absolute", bottom: "8px", right: "16px", }}
-          >
+          <Tooltip />
+          <Grid sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end", position: "absolute", bottom: "8px", right: "16px",}}>
             <span style={{ fontSize: "10px", marginRight: "5px" }}>Less</span>
             {colorScale.map((color, index) => (
-              <Grid key={index}
-                style={{ width: "15px", height: "15px", backgroundColor: color, margin: "0px 2px", }}
-              />
+              <Grid key={index} sx={{ width: "15px", height: "15px", backgroundColor: color, margin: "0px 2px",}} />
             ))}
             <span style={{ fontSize: "10px", marginLeft: "5px" }}>More</span>
           </Grid>
         </Paper>
       </Grid>
     </Grid>
-    <Fab variant="extended" color="primary" sx={{ position: "fixed", bottom: "24px", right: "24px" }}
+    <Fab variant="extended" color="primary"
+      sx={{ position: "fixed", bottom: "24px", right: "24px" }}
       onClick={() => navigate("/home")}
     >
       <NavigationIcon sx={{ mr: 1, textTransform: "none" }} />
