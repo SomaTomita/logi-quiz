@@ -1,14 +1,14 @@
 import { createContext, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate,} from "react-router-dom";
 
-import Quiz from "./quiz-components/quiz";
-import Section from "./quiz-components/section";
+import Quiz from "./quiz-components/quiz-index/quiz";
+import Section from "./quiz-components/section/section";
 import CreateQuiz from "./quiz-components/adminQuiz/createQuiz";
 import CreateSection from "./quiz-components/adminQuiz/createSection";
 import EditSection from  "./quiz-components/adminQuiz/editSection";
 import EditQuiz from "./quiz-components/adminQuiz/editQuiz";
 import UpdateQuiz from "./quiz-components/adminQuiz/updateQuiz";
-import DashBoard from "./quiz-components/dashBoard";
+import DashBoard from "./quiz-components/dashBoard/dashBoard";
 import Home from "./quiz-components/home";
 import PasswordReset from "./login-components/password-reset/passwordReset"
 
@@ -21,7 +21,6 @@ import Success from "./login-components/pages/success";
 export const AuthContext = createContext();
 
 function App() {
-  // ローディング、ログイン状態、現在のユーザー情報を管理するためのstate
   const [loading, setLoading] = useState(true);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState();
@@ -29,13 +28,12 @@ function App() {
 
   const handleGetCurrentUser = async () => {
     try {
-      const res = await getCurrentUser(); // Authで定義した(/auth/sessionsでユーザー情報をgetした)メソッドでユーザー情報をAPIから取得
+      const res = await getCurrentUser();
 
       if (res?.data.isLogin === true) {
-        // 取得したデータが"is_login": trueである(ユーザーはログインしている)場合
         setIsSignedIn(true);
-        setCurrentUser(res?.data.data); // APIのレスポンスdata本体のdataキー内のオブジェクト(ID、メールアドレス、名前)を取得してcurrentUserに
-        setIsAdmin(res?.data.data.admin); // data内のadminがtrueであれば、setAdminを渡りisAdminがtrueになる(adminユーザーであるかどうかの判定)
+        setCurrentUser(res?.data.data);
+        setIsAdmin(res?.data.data.admin);
       } else {
         console.log("no current user");
       }
@@ -45,9 +43,7 @@ function App() {
     setLoading(false);
   };
 
-
   useEffect(() => {
-    // 現在のユーザー情報を取得
     handleGetCurrentUser();
   }, []);
 
@@ -83,7 +79,7 @@ function App() {
 
     if (!loading) {
       if (isSignedIn && isAdmin) {
-        return children; // ログインしており、かつadminの場合は、子要素をreturn
+        return children;
       } else {
         return <></>;
       }

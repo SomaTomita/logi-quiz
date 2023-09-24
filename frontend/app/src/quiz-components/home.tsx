@@ -11,9 +11,9 @@ const Home: React.FC = () => {
 
   const handleDashboardClick = () => {
     if (isSignedIn) {
-      navigate("/dashboard"); // ログインしていたらダッシュボード画面へ
+      navigate("/dashboard");
     } else {
-      setShowAlert(true); // ログインしていない場合アラート表示
+      setShowAlert(true);
     }
   };
 

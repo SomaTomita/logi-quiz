@@ -14,7 +14,7 @@ interface DashboardData {
   };
 }
 
-// ダッシュボードデータを保存するための関数
+
 export const saveDashboardData = (data: DashboardData, userId: number) => {
   return clientRaw.post(`/dashboard/${userId}/section_cleared`, {
     play_time: data.playTime,
@@ -32,7 +32,7 @@ export const saveDashboardData = (data: DashboardData, userId: number) => {
   });
 };
 
-// ダッシュボードデータを取得するための関数
+
 export const fetchDashboardData = (userId: number | string) => {
   return clientRaw.get(`/dashboard/${userId}/dashboard_data`, {
     headers: {
