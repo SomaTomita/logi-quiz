@@ -9,6 +9,7 @@ import { fetchDashboardData } from "../quizApi/dashBoardApi";
 import { AuthContext } from "App";
 import DashBoardDisplay from "./dashBoadDisplay";
 
+
 const DashBoard = () => {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -50,6 +51,7 @@ const DashBoard = () => {
   if (error) {
     return <Typography color="error">エラーが発生しました</Typography>;
   }
+
 
   return (
     <DashBoardDisplay
