@@ -5,14 +5,14 @@ import { useEffect, useState, useRef } from "react";
 function AnswerTimer({ duration, onTimeUp }) {
   const [counter, setCounter] = useState(0); // タイマーのカウントアップを追跡
   const [progressLoaded, setProgressLoaded] = useState(0); // 進捗バーのロード状態
-  const intervalRef = useRef();  // 再レンダリング時にその変数がリセットされない
+  const intervalRef = useRef();  // 再レンダリング時に変数がリセットされない
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setCounter((prev) => prev + 0.1);
-    }, 100); // setInterval関数で100ミリ秒ごとに0.1を増やす
+    }, 100);
 
-    return () => clearInterval(intervalRef.current); // アンマウントされるときにsetIntervalを停止(引数=停止したいタイマー)
+    return () => clearInterval(intervalRef.current);
   }, []);
 
 
@@ -27,7 +27,7 @@ function AnswerTimer({ duration, onTimeUp }) {
         onTimeUp();
       }, 100);
     }
-  }, [counter]); // counterが変更されるたびに実行
+  }, [counter]);
   
 
   const progressBarStyle = {
