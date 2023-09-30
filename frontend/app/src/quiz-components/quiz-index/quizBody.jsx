@@ -17,7 +17,7 @@ const QuizBody = ({
   return (
     <Box>
       {showAnswerTimer && (
-        <Answertimer key={currentQuestion} duration={15} onTimeUp={handleTimeUp} />
+        <Answertimer key={currentQuestion} duration={15} onTimeUp={handleTimeUp} /> // 1クイズのdurationは15秒
       )}
       <Typography variant="h5" gutterBottom sx={{ marginBottom: 3 }}>
         <Box component="span" fontWeight="500">

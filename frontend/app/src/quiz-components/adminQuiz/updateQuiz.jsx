@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
 import clientRaw from "../quizApi/clientRaw";
-import { TextField, Button, FormControlLabel, Checkbox, Box } from "@mui/material";
 import Cookies from "js-cookie";
+import Loading from "../../layout/loading"
+
+import { TextField, Button, FormControlLabel, Checkbox, Box } from "@mui/material";
+
 
 function UpdateQuiz() {
   const { sectionId, quizId } = useParams();
@@ -31,7 +35,8 @@ function UpdateQuiz() {
     fetchQuizData();
   }, [sectionId, quizId]);
 
-  if (!quiz) return <div>Loading...</div>;
+  if (!quiz) return <Loading />;
+
 
   const saveChanges = async () => {
     try {
@@ -53,6 +58,7 @@ function UpdateQuiz() {
     }
   };
 
+
   return (
     <div>
       <TextField label="Question Text" variant="outlined" fullWidth
@@ -70,7 +76,7 @@ function UpdateQuiz() {
               updatedChoices[index].choice_text = e.target.value;
               setQuiz({ ...quiz, choices: updatedChoices });
             }}
-            sx={{ flex: 1 }} // フレックスボックス内での項目をフル幅にする
+            sx={{ flex: 1 }}
           />
           <FormControlLabel
             control={
@@ -84,7 +90,7 @@ function UpdateQuiz() {
               />
             }
             label="Is Correct"
-            sx={{ marginLeft: 2 }} // チェックボックスとテキストフィールドの間のスペースを増やす
+            sx={{ marginLeft: 2 }}
           />
         </Box>
       ))}
