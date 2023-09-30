@@ -7,15 +7,18 @@ import { CheckCircle as CheckCircleIcon } from '@mui/icons-material';
 import { PasswordReset, PasswordResetType } from './passwordAuth';
 import AlertMessage from "../utils/alertMessage";
 
+
 type Props = {
   resetPasswordToken: string;
 };
+
 
 const PasswordResetForm: FC<Props> = ({ resetPasswordToken }) => {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
   const { register, formState: { errors }, handleSubmit, watch } = useForm<PasswordResetType>({ criteriaMode: 'all' });
   const password = watch("password", "");
+
 
   const onSubmit: SubmitHandler<PasswordResetType> = async (data) => {
     try {
@@ -42,6 +45,7 @@ const PasswordResetForm: FC<Props> = ({ resetPasswordToken }) => {
     </Alert>
   );
 
+  
   return (
     <>
       <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
