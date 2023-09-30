@@ -1,50 +1,62 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Container, Paper, Typography, CircularProgress } from "@mui/material";
-
 import { AuthContext } from "App";
 
 
-const Success: React.FC = () => {
-  const { isSignedIn, currentUser } = useContext(AuthContext);  // AuthContextからisSignedInとcurrentUserの情報を取得
+import { Container, Typography, Alert, IconButton, CircularProgress, } from "@mui/material";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+
+
+const Success = () => {
+  const { isSignedIn, currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+
   useEffect(() => {
-    if (isSignedIn && currentUser) { // サインインしていて、currentUserが存在する場合3.5秒でセクション画面に遷移
+    if (isSignedIn && currentUser) {
       setTimeout(() => {
         navigate("/home");
       }, 3500);
     }
-  }, [isSignedIn]); // ユーザーのログインを判別するステートが更新された際に遷移
+  }, [isSignedIn]);
+
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Paper elevation={3} sx={{ padding: "20px", textAlign: "center", marginTop: "50px" }}>
-        {isSignedIn && currentUser ? (
-          <>
-            <Typography variant="h4" gutterBottom sx={{ marginBottom: 3 }}>
+    <Container component="main" maxWidth="xs" sx={{ textAlign: "center", marginTop: "50px" }}>
+      {isSignedIn && currentUser ? (
+        <>
+          <Alert 
+            severity="success" 
+            action={
+              <IconButton color="inherit" size="small">
+                <CheckCircleIcon fontSize="inherit" />
+              </IconButton>
+            }
+            sx={{ mb: 3, display: 'flex', alignItems: 'center' }}
+          >
+            <Typography variant="h4">
               Signed in successfully!
             </Typography>
-            <Typography variant="h6" gutterBottom sx={{ marginBottom: 3 }}>
-              Email: {currentUser?.email}
-            </Typography>
-            <Typography variant="h6" gutterBottom sx={{ marginBottom: 5 }}>
-              Name: {currentUser?.name}
-            </Typography>
-            <Typography variant="body1" color="textSecondary" sx={{ marginBottom: 5 }}>
-              Go to the home screen shortly...
-            </Typography>
-            <div style={{ marginTop: "20px" }}>
-              <CircularProgress />
-            </div>
-          </>
-        ) : (
-          <Typography variant="h4" color="error">
-            Not signed in
+          </Alert>
+          <Typography variant="h6" gutterBottom sx={{ marginBottom: 3 }}>
+            Email: {currentUser?.email}
           </Typography>
-        )}
-      </Paper>
+          <Typography variant="h6" gutterBottom sx={{ marginBottom: 5 }}>
+            Name: {currentUser?.name}
+          </Typography>
+          <Typography variant="body1" color="textSecondary" sx={{ marginBottom: 5 }}>
+            Go to the Home screen soon...
+          </Typography>
+          <div style={{ marginTop: "20px" }}>
+              <CircularProgress />
+          </div>
+        </>
+      ) : (
+        <Typography variant="h4" color="error">
+          Not signed in
+        </Typography>
+      )}
     </Container>
   );
 };

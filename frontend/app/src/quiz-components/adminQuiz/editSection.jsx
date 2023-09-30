@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import clientRaw from "../quizApi/clientRaw";
-import { Grid, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,} from "@mui/material";
-import { styled } from "@mui/system";
 import Cookies from "js-cookie";
+import Loading from '../../layout/loading';
+
+import { Typography, Grid, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,} from "@mui/material";
+import { styled } from "@mui/system";
+
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   fontSize: "16px",
@@ -43,20 +46,30 @@ const StyledTextField = styled(TextField)({
 
 function EditSection() {
   const [sections, setSections] = useState([]);
-  const [editingSectionId, setEditingSectionId] = useState(null); // 編集中のセクションID
-  const [updatedSectionName, setUpdatedSectionName] = useState(""); // 編集中のセクション名
+  const [editingSectionId, setEditingSectionId] = useState(null);
+  const [updatedSectionName, setUpdatedSectionName] = useState("");
   const [confirmDeleteDialogOpen, setConfirmDeleteDialogOpen] = useState(false); // 確認ダイアログの表示状態
-  const [sectionIdToDelete, setSectionIdToDelete] = useState(null); // 削除するセクションのID
+  const [sectionIdToDelete, setSectionIdToDelete] = useState(null);
+
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
-    // APIからセクションデータを取得する処理が終了するまで次の行(response)には進まない
     const fetchSections = async () => {
-      const response = await clientRaw.get("/sections");
-      setSections(response.data);
+      try {
+        setLoading(true);
+        const response = await clientRaw.get("/sections");
+        setSections(response.data);
+      } catch (error) {
+        console.error("Error fetching sections:", error);
+      } finally {
+        setLoading(false);
+      }
     };
-    fetchSections(); // 非同期関数の呼び出し
-  }, []); // 依存配列が空 = コンポーネントが初めてレンダリングされた直後（マウント時）に1回だけ実行
+    fetchSections();
+  }, []);
 
+  
   const handleEditClick = (sectionId, sectionName) => {
     setEditingSectionId(sectionId);
     setUpdatedSectionName(sectionName);
@@ -84,13 +97,12 @@ function EditSection() {
       );
 
       // セクションリストを更新
-      const updatedSections = sections.map((section) =>
-        section.id === sectionId
-          ? { ...section, section_name: updatedSectionName }
-          : section
+    const updatedSections = sections.map((section) =>
+      section.id === sectionId
+         ? { ...section, section_name: updatedSectionName }
+         : section
       );
       setSections(updatedSections);
-      // 編集モードを終了
       setEditingSectionId(null);
     } catch (error) {
       console.error("Error updating section:", error);
@@ -133,9 +145,13 @@ function EditSection() {
     closeDeleteDialog();
   };
 
+  if (loading) return <Loading />;
+  
   
   return (
     <>
+      <Typography variant="h5" sx={{ marginBottom: 5 }}>Edit Section</Typography>
+
       <Grid container spacing={3} className="section-container">
         {sections.map((section) => (
           <Grid item xs={12} sm={6} md={4} key={section.id}>

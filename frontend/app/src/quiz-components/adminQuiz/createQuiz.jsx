@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import clientRaw from '../quizApi/clientRaw';
 import Cookies from 'js-cookie';
 import { Link } from "react-router-dom";
+import Loading from '../../layout/loading';
+
 import { TextField, Checkbox, FormControlLabel, Button, MenuItem, Grid, Typography, Fab, Paper } from '@mui/material';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 
@@ -17,24 +19,23 @@ function CreateQuiz() {
     ],
     explanation_text: "", 
   });
+  const [sections, setSections] = useState([]);
+  const [selectedSection, setSelectedSection] = useState("");
 
-  const [sections, setSections] = useState([]);  // ユーザーに表示するセクションの選択肢
-  const [selectedSection, setSelectedSection] = useState(""); // ユーザーが選択した特定のセクションを保持
 
   useEffect(() => {
     clientRaw.get('/sections')
-      .then(response => {  // セクションデータを取得後then以降が実行
-        console.log("Sections Data: ", response.data);
-        setSections(response.data);  // ユーザーに表示するセクションの選択肢 (下記selectより)
-        if (response.data && response.data.length > 0) { // 指定したセクションにデータがあれば以下を実行
+      .then(response => {
+        setSections(response.data);
+        if (response.data && response.data.length > 0) {
           setSelectedSection(response.data[0].id);
-          console.log("Initial Section ID: ", response.data[0].id);  // 初期値として設定したセクションIDをログに出力
         }
       })
       .catch(error => {  // Promiseでエラーが出た時
         console.error('There was an error!', error);
       });
   }, []);
+
 
   const handleSectionChange = (event) => {
     setSelectedSection(event.target.value);
@@ -45,10 +46,11 @@ function CreateQuiz() {
   };
 
   const handleInputChange = (event, index) => { 
-    const { name, value, type, checked } = event.target;  // ユーザーから入力されたeventの変更イベントからname(どのプロパティか), value(4つのどの選択肢か), type(テキストかチェックか), checked(ture or false)を取得
+    // ユーザーから入力されたeventの変更イベントからname(どのプロパティか), value(4つのどの選択肢か), type(テキストかチェックか), checked(ture or false)を取得
+    const { name, value, type, checked } = event.target;
 
     const actualValue = type === "checkbox" ? checked : value;  // typeがcheckboxであれば真偽値、checkboxでなければ文字列の値
-    const list = [...quizData.choices_attributes];  // 4つの選択肢（choice_text: "", is_correct: false）をlistに格納
+    const list = [...quizData.choices_attributes];
     list[index][name] = actualValue;  // (引数indexより渡る)4つの選択肢におけるどの配列番号の、どのプロパティかを指定して更新
     
     setQuizData({ ...quizData, choices_attributes: list });
@@ -58,27 +60,30 @@ function CreateQuiz() {
     setQuizData({ ...quizData, explanation_text: event.target.value });
   };
 
+
   const handleSubmit = async (event) => {
-    event.preventDefault();  // デフォルト設定のページリロードを停止
-    const sectionId = selectedSection;  // 現在選ばれているセクションをsectionIdに格納
+    event.preventDefault();
+    const sectionId = selectedSection;
     
     try {
-     const response = await clientRaw.post(`/admin/sections/${sectionId}/quizzes`, quizData, {
+    await clientRaw.post(`/admin/sections/${sectionId}/quizzes`, quizData, {
       headers: {
         "access-token": Cookies.get("_access_token"),
         client: Cookies.get("_client"),
         uid: Cookies.get("_uid"),
       },
-    }); // setQuizDataを通じてフォームに入力されたクイズの情報(quizData オブジェクト)をサーバーへ送信
-    console.log(response.data);
+    });
   } catch (error) {
     console.error('There was an error posting the data!', error);
     }
   };
 
+  if (sections.length === 0) return <Loading />;
+
+
   return (
     <form onSubmit={handleSubmit}>
-      <Typography variant="h5">Add Quiz</Typography>
+      <Typography variant="h5" sx={{ marginBottom: 5 }}>Create New Quiz</Typography>
 
       <Paper elevation={3} sx={{ padding: 3, marginTop: 2, marginBottom: 3 }}>
         <Grid container spacing={3}>

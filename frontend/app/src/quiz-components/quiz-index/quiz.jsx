@@ -198,6 +198,7 @@ const Quiz = () => {
           questions={questions}
           question={question}
           choices={choices}
+          answer={answer}
           onAnswerClick={onAnswerClick}
           answerIndex={answerIndex}
           onClickNext={onClickNext}
