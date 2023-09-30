@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import client from "../api/client";
 
-// パスワード再設定関連の型
+
 export type SendResetMailType = {
   email: string;
 };
@@ -10,6 +10,7 @@ export type PasswordResetType = {
   password: string;
   passwordConfirmation: string;
 };
+
 
 // パスワード再設定メール送信関数
 export const sendEmail = (params: SendResetMailType) =>
@@ -47,7 +48,7 @@ export const sendEmail = (params: SendResetMailType) =>
       throw new Error(error.response.data.error || 'An error occurred.');
     });
 
-  // export
+
 export const PasswordReset = {
     sendEmail,
     onReset

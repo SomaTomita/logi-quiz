@@ -9,22 +9,22 @@ import { signUp } from "../api/auth";
 import { SignUpParams } from "../interfaces";
 
 // サインアップ用ページ
-const SignUp: React.FC = () => {
+const SignUp = () => {
 
   const { setIsSignedIn, setCurrentUser, setIsAdmin } = useContext(AuthContext);
 
-  // ユーザーの入力を管理するためのローカルステート
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
-  const confirmSuccessUrl = "http://localhost:3000/confirmation-success"; // signUp時のメール承認で飛ぶリンク
+  const confirmSuccessUrl = "http://localhost:3000/confirmation-success";
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => { // <button>要素のマウスイベントとして発火
+
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const params: SignUpParams = { // 入力された情報をparamsとしてまとめる
+    const params: SignUpParams = {
       name: name,
       email: email,
       password: password,
@@ -33,17 +33,15 @@ const SignUp: React.FC = () => {
     };
   
     try {
-      const res = await signUp(params); // バックエンドに対してサインアップ要求を行う際に使用されるデータを提供
-      console.log(res);
+      const res = await signUp(params);
 
-      if (res.status === 200) { // APIリクエストが成功した場合（サインアップが正常に行われた場合(HTTPプロトコルにおいて、ステータスコード200は「OK」)
-        // 第一引数の特定のクッキーの名前（キー）に、第二引数のクッキーの値を関連付けて保存     
+      if (res.status === 200) {
         Cookies.set("_access_token", res.headers["access-token"]);
         Cookies.set("_client", res.headers["client"]);
         Cookies.set("_uid", res.headers["uid"]);
 
         setIsSignedIn(true);
-        setCurrentUser(res.data.data); // APIのレスポンスdata本体のdataキー内のオブジェクト(ID、メールアドレス、名前)を取得してcurrentUserに
+        setCurrentUser(res.data.data);
         setIsAdmin(res?.data.data.admin);
 
         <Alert onClose={() => {}}>This is a success alert — check your email!</Alert>
@@ -56,11 +54,10 @@ const SignUp: React.FC = () => {
     }  
   };
 
-  // 各入力フィールドにはonChangeイベントがあり、ユーザーの入力をローカルステートに保存
+  
   return (
     <>
       <form noValidate autoComplete="off">
-      {/* off = 過去に入力された値が自動的に表示されるのを防ぐ等 */}
         <Card sx={{ marginTop: 6, padding: 2, maxWidth: 450 }}>
           <CardHeader sx={{ textAlign: "center" }}
             title="Sign Up"
@@ -117,7 +114,7 @@ const SignUp: React.FC = () => {
           </CardContent>
         </Card>
       </form>
-      <AlertMessage  // エラーが発生した場合は下記のpropsに従いアラートを表示
+      <AlertMessage
         open={alertMessageOpen}
         setOpen={setAlertMessageOpen}
         severity="error"

@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import clientRaw from "../quizApi/clientRaw";
+import Cookies from "js-cookie";
+import Loading from '../../layout/loading';
+
 import { Grid, Paper, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { styled } from "@mui/system";
-import Cookies from "js-cookie";
+
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   fontSize: "16px",
@@ -25,24 +28,36 @@ const StyledButton = styled(Button)({
   color: "black",
 });
 
+
 function EditQuiz() {
   const [sections, setSections] = useState([]);
   const [selectedSection, setSelectedSection] = useState(null);
   const [quizzes, setQuizzes] = useState([]);
   const [confirmDeleteDialogOpen, setConfirmDeleteDialogOpen] = useState(false);
   const [quizIdToDelete, setQuizIdToDelete] = useState(null);
-
+  
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchSections = async () => {
-      const response = await clientRaw.get("/sections");
-      setSections(response.data);
+      try {
+        const response = await clientRaw.get("/sections");
+        setSections(response.data);
+      } catch (error) {
+        console.error("Error fetching sections:", error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchSections();
   }, []);
 
+
+
   const handleSectionClick = async (sectionId) => {
+    setLoading(true);
     try {
         const response = await clientRaw.get(`/admin/sections/${sectionId}/quizzes`, {
             headers: {
@@ -55,6 +70,8 @@ function EditQuiz() {
         setSelectedSection(sectionId);
     }  catch (error) {
       console.error("Error fetching quizzes:", error);
+    }  finally {
+      setLoading(false);
     }
   };
 
@@ -89,9 +106,13 @@ function EditQuiz() {
     closeDeleteDialog();
   };
 
+  if (loading) return <Loading />;
+
+
   return (
     <>
-      <Typography variant="h5">Select a section</Typography>
+      <Typography variant="h5" sx={{ marginBottom: 5 }}>Select Section and Edit Quiz</Typography>
+
       <div>
         {sections.map((section) => (
           <StyledButton

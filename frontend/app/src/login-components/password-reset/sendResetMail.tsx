@@ -7,18 +7,16 @@ import { CheckCircle as CheckCircleIcon } from '@mui/icons-material';
 import { PasswordReset, SendResetMailType } from './passwordAuth';
 import AlertMessage from "../utils/alertMessage";
 
-const SendResetMail: React.FC = () => {
+const SendResetMail = () => {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
   const { register, formState: { errors }, handleSubmit, watch } = useForm<SendResetMailType>({ criteriaMode: 'all' });
 
-  // email の値を監視する
   const watchedEmail = watch("email");
 
   const onSubmit: SubmitHandler<SendResetMailType> = async (data) => {
     try {
-      const response = await PasswordReset.sendEmail(data);
-      console.log(response)
+      await PasswordReset.sendEmail(data);
       setIsSubmitted(true);
     } catch (err) {
       setAlertMessageOpen(true);
@@ -41,6 +39,7 @@ const SendResetMail: React.FC = () => {
     </Alert>
   );
 
+  
   return (
     <>
       <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
@@ -54,13 +53,12 @@ const SendResetMail: React.FC = () => {
               helperText={errors.email && errors.email.message}
               margin="dense"
             />
-
             <Button
               type="submit"
               variant="contained"
               size="large"
               fullWidth
-              disabled={!watchedEmail || Boolean(errors.email)} // email が空またはエラーが存在する場合にボタンを無効にする
+              disabled={!watchedEmail || Boolean(errors.email)} // email が空またはエラーが存在する場合にボタンを無効
               sx={{ mt: 2, flexGrow: 1, textTransform: "none" }}>
               Submit
             </Button>

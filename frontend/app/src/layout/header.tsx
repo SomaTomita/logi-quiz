@@ -29,9 +29,9 @@ const Header: React.FC = () => {
 
   const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
-      const res = await signOut(); // auth定義 => ユーザーのセッションを終了
+      const res = await signOut();
 
-      if (res.data.success === true) { // サインアウトが成功した場合 signInまたはUpでsetしたCookieを削除(ブラウザ上の認証情報等が削除され、次回ページを訪問した際にユーザーは未ログインの状態に)
+      if (res.data.success === true) {
         Cookies.remove("_access_token");
         Cookies.remove("_client");
         Cookies.remove("_uid");
@@ -50,7 +50,7 @@ const Header: React.FC = () => {
   // 認証状態に基づいてヘッダーのボタンを変更
   const HeaderButtons = () => {
     if (!loading) {
-      if (isAdmin) { // 管理者の場合
+      if (isAdmin) {
         return (
           <>
             <Button component={Link} to="/create-quiz" color="inherit" sx={{ textTransform: "none" }}>
@@ -64,7 +64,7 @@ const Header: React.FC = () => {
             </Button>
           </>
         );
-      } else if (isSignedIn) { // 管理者ではなく、サインイン済状態
+      } else if (isSignedIn) {
         return (
           <>
             <Button component={Link} to="/sections" color="inherit" sx={{ textTransform: "none" }}>
@@ -82,7 +82,7 @@ const Header: React.FC = () => {
           </>
         );
       } else {
-        return ( // サインインしていない状態
+        return (
           <>
             <Button component={Link} to="/signin" color="inherit" sx={{ textTransform: "none" }}>
               Sign in
@@ -94,7 +94,7 @@ const Header: React.FC = () => {
         );
       }
     } else {
-      return <></>; // ロード中は何も表示しない
+      return <></>;
     }
   };
 
