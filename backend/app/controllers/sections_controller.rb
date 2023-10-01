@@ -1,7 +1,7 @@
 class SectionsController < ApplicationController
   def index
     sections = Section.all
-    render json: sections.to_json(only: [:id, :section_name]) # すべてのセクションを取得
+    render json: sections.to_json(only: [:id, :section_name])
   end
 
   private

@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe "Sections API", type: :request do
   describe "GET /sections" do
-    # テストデータの作成
     let!(:sections) { create_list(:section, 10) }
 
     before { get '/sections' }

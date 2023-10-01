@@ -33,13 +33,13 @@ RSpec.describe User, type: :model do
   describe 'アソシエーション' do
     it 'ユーザーが削除された場合、関連するuser_sectionsも削除される' do
       user = create(:user)
-      create_list(:user_section, 5, user: user)  # 複数のuser_sectionsを作成
+      create_list(:user_section, 5, user: user)
       expect { user.destroy }.to change(UserSection, :count).by(-5)
     end
 
     it 'ユーザーが削除された場合、関連するstudy_logも削除される' do
       user = create(:user)
-      create_list(:study_log, 3, user: user)  # 複数のstudy_logsを作成
+      create_list(:study_log, 3, user: user)  # 複数のstudy_logs(セクションクリア回数)を作成
       expect { user.destroy }.to change(StudyLog, :count).by(-3)
     end
   end
