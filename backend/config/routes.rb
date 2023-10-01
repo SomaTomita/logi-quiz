@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # /sections/:section_id/quizzes URLにGETまたはPOSTリクエストを送ると、Quizzesコントローラのindexまたはcreateアクションが呼び出される
+  # セクションの標準的な7つのアクション及び特定のセクションに関連するクイズ操作のルーティング
   resources :sections do
     resources :quizzes, only: %i[index create]
   end
