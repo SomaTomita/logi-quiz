@@ -42,7 +42,7 @@ function UpdateQuiz() {
     try {
       await clientRaw.put(
         `/admin/sections/${sectionId}/quizzes/${quizId}`,
-        quiz,
+        { quiz },
         {
           headers: {
             "access-token": Cookies.get("_access_token"),
@@ -74,7 +74,7 @@ function UpdateQuiz() {
             onChange={(e) => {
               const updatedChoices = [...quiz.choices];
               updatedChoices[index].choice_text = e.target.value;
-              setQuiz({ ...quiz, choices: updatedChoices });
+              setQuiz({ ...quiz, choices_attributes: updatedChoices });
             }}
             sx={{ flex: 1 }}
           />
@@ -85,7 +85,7 @@ function UpdateQuiz() {
                 onChange={() => {
                   const updatedChoices = [...quiz.choices];
                   updatedChoices[index].is_correct = !choice.is_correct;
-                  setQuiz({ ...quiz, choices: updatedChoices });
+                  setQuiz({ ...quiz, choices_attributes: updatedChoices });
                 }}
               />
             }
@@ -99,10 +99,8 @@ function UpdateQuiz() {
         value={quiz.explanation ? quiz.explanation.explanation_text : ""}
         onChange={(e) => {
           const updatedExplanation = {
-            ...quiz.explanation,
-            explanation_text: e.target.value,
-          };
-          setQuiz({ ...quiz, explanation: updatedExplanation });
+            ...quiz.explanation, explanation_text: e.target.value, };
+          setQuiz({ ...quiz, explanation_attributes: updatedExplanation });
         }}
         sx={{ marginTop: 2 }}
       />

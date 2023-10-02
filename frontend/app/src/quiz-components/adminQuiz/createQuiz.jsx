@@ -17,7 +17,7 @@ function CreateQuiz() {
       { choice_text: "", is_correct: false },
       { choice_text: "", is_correct: false },
     ],
-    explanation_text: "", 
+    explanation_attributes: { explanation_text: "" }, 
   });
   const [sections, setSections] = useState([]);
   const [selectedSection, setSelectedSection] = useState("");
@@ -57,8 +57,8 @@ function CreateQuiz() {
   };
 
   const handleExplanationChange = (event) => {
-    setQuizData({ ...quizData, explanation_text: event.target.value });
-  };
+    setQuizData({ ...quizData, explanation_attributes: { explanation_text: event.target.value } });
+    };
 
 
   const handleSubmit = async (event) => {
