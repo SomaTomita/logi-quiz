@@ -23,8 +23,8 @@ const AppBarContent = styled('div')(({ theme }) => ({
 }));
 
 
-const Header: React.FC = () => {
-  const { loading, isSignedIn, setIsSignedIn, isAdmin } = useContext(AuthContext);  // AuthContextから必要なステートと関数を取得
+const Header = () => {
+  const { loading, isSignedIn, setIsSignedIn, isAdmin, setIsAdmin } = useContext(AuthContext);  // AuthContextから必要なステートと関数を取得
   const navigate = useNavigate();
 
   const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -36,7 +36,9 @@ const Header: React.FC = () => {
         Cookies.remove("_client");
         Cookies.remove("_uid");
 
-        setIsSignedIn(false); // サインイン状態を解除
+        setIsSignedIn(false);
+        setIsAdmin(false);
+        
         navigate("/signin");
         console.log("Succeeded in sign out");
       } else {
