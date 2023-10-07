@@ -40,9 +40,15 @@ function UpdateQuiz() {
 
   const saveChanges = async () => {
     try {
+      const updatedQuizData = {
+        ...quiz,
+        choices_attributes: quiz.choices,
+        explanation_attributes: quiz.explanation,
+      };
+
       await clientRaw.put(
         `/admin/sections/${sectionId}/quizzes/${quizId}`,
-        { quiz },
+        { quiz: updatedQuizData },
         {
           headers: {
             "access-token": Cookies.get("_access_token"),
@@ -85,7 +91,7 @@ function UpdateQuiz() {
                 onChange={() => {
                   const updatedChoices = [...quiz.choices];
                   updatedChoices[index].is_correct = !choice.is_correct;
-                  setQuiz({ ...quiz, choices_attributes: updatedChoices });
+                  setQuiz({ ...quiz, choices: updatedChoices });
                 }}
               />
             }
@@ -100,7 +106,7 @@ function UpdateQuiz() {
         onChange={(e) => {
           const updatedExplanation = {
             ...quiz.explanation, explanation_text: e.target.value, };
-          setQuiz({ ...quiz, explanation_attributes: updatedExplanation });
+          setQuiz({ ...quiz, explanation: updatedExplanation });
         }}
         sx={{ marginTop: 2 }}
       />
