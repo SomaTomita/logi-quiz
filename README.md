@@ -32,7 +32,7 @@
 
 ### フロントエンド
 * ライブラリ: React (v18.2.0)
-* 言語: TypeScript
+* 言語: TypeScript (一部)
 * UIコンポーネント: Material UI (v5)
 * テストフレームワーク: Jest
 
@@ -77,8 +77,8 @@
 
 
 ## 画面
-### Sign In
-![Sign In](frontend/app/public/sign_in.png)
+### Sign In (未ログイン)
+![Sign In](frontend/app/public/signin.png)
 
 ### Home (未ログイン)
 ![Home](frontend/app/public/home.png)
@@ -97,3 +97,21 @@
 
 ### Dashboard
 ![Dashboard](frontend/app/public/dashboard.png)
+
+### Create Section
+![Create Section](frontend/app/public/create_section.png)
+
+### Edit Section
+![Edit Section](frontend/app/public/edit_section.png)
+
+### Create Quiz
+![Create Quiz](frontend/app/public/create_quiz.png)
+
+### Edit Quiz
+![Edit Quiz](frontend/app/public/edit_quiz.png)
+
+### Delete Quiz
+![Delete Quiz](frontend/app/public/delete_quiz.png)
+
+### Update Quiz
+![Update Quiz](frontend/app/public/update_quiz.png)
