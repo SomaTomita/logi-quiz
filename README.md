@@ -96,7 +96,7 @@
 ![Explanation](frontend/app/public/explanation.png)
 
 ### Dashboard
-![Dashboard](frontend/app/public/dashboard.png)
+![Dashboard](frontend/app/public/dashboard_display.png)
 
 ### Create Section
 ![Create Section](frontend/app/public/create_section.png)
