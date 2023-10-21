@@ -12,7 +12,7 @@ const options = {
 
 const client = applyCaseMiddleware(
     axios.create({
-        baseURL: 'http://localhost:3001',
+        baseURL: process.env.REACT_APP_API_BASE_URL,
     }),
     options // 第二引数として渡すことで、HTTPヘッダーのキーをそのままの形で保持する動作がaxiosのインスタンスに適用
 );
