@@ -104,7 +104,7 @@ function App() {
        <CommonLayout>
         <Routes>
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/" element={<SignIn />} />
           <Route path="/auth/password" element={<PasswordReset />} />
 
           <Route path="/confirmation-success" element={<Private><Success /></Private>} />

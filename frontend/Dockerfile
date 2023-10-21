@@ -1,4 +1,4 @@
-FROM node:lts-slim
+FROM node:18.16.0-slim
 
 WORKDIR /front
 ENV CI=true
