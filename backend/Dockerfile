@@ -1,13 +1,15 @@
-FROM ruby:latest
+FROM ruby:3.2.2
+
+RUN apt-get update && apt-get install -y nginx
 
 ARG RUBYGEMS_VERSION=3.4.6
 
 RUN mkdir /api
-
 WORKDIR /api
 
-COPY Gemfile /api/Gemfile
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
+COPY Gemfile /api/Gemfile
 COPY Gemfile.lock /api/Gemfile.lock
 
 RUN gem update --system ${RUBYGEMS_VERSION} && \
