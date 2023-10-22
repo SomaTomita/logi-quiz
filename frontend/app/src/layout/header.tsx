@@ -86,7 +86,7 @@ const Header = () => {
       } else {
         return (
           <>
-            <Button component={Link} to="/signin" color="inherit" sx={{ textTransform: "none" }}>
+            <Button component={Link} to="/" color="inherit" sx={{ textTransform: "none" }}>
               Sign in
             </Button>
             <Button component={Link} to="/signup" color="inherit" sx={{ textTransform: "none" }}>
