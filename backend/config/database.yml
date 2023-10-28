@@ -8,15 +8,16 @@ default: &default
 
 development:
   <<: *default
-  database: api_development # 開発環境のデータベース名
+  database: api_development
 
 test:
   <<: *default
-  database: api_test # テスト環境のデータベース設定
+  database: api_test
 
 production:
   <<: *default
-  database: <%= ENV["DATABASE_NAME"] %>
-  username: <%= ENV["DATABASE_USERNAME"] %>
+  database: db
+  username: root
   password: <%= ENV["DATABASE_PASSWORD"] %>
-  host: <%= ENV["DATABASE_HOST"] %>
+  host: logi-quiz-db.cnqswmbsxymd.ap-northeast-1.rds.amazonaws.com
+  port: 3306
