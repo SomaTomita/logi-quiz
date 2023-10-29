@@ -4,7 +4,7 @@ class ChangeUserSections < ActiveRecord::Migration[7.0]
       t.bigint :user_id, null: false
       t.integer :section_id, null: false
       t.datetime :cleared_at, null: false
-      t.integer "correct_answers_count", default: 0
+      t.integer :correct_answers_count, default: 0
 
       t.timestamps
     end

@@ -1,6 +1,6 @@
 FROM ruby:3.2.2
 
-RUN apt-get update && apt-get install -y nginx
+RUN apt-get update && apt-get install -y nginx default-mysql-client
 
 ARG RUBYGEMS_VERSION=3.4.6
 
