@@ -1,5 +1,4 @@
-
-ActiveRecord::Schema[7.0].define(version: 2023_08_23_153953) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_23_153525) do
   create_table "choices", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "question_id"
     t.string "choice_text"
@@ -41,9 +40,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_23_153953) do
     t.bigint "user_id", null: false
     t.integer "section_id", null: false
     t.datetime "cleared_at", null: false
+    t.integer "correct_answers_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "correct_answers_count", default: 0
     t.index ["section_id"], name: "index_user_sections_on_section_id"
     t.index ["user_id"], name: "index_user_sections_on_user_id"
   end
