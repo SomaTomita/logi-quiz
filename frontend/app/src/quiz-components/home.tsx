@@ -4,7 +4,7 @@ import { Button, Container, Typography, Paper, Alert } from "@mui/material";
 import { AuthContext } from "App";
 
 
-const Home: React.FC = () => {
+const Home = () => {
   const navigate = useNavigate();
   const { isSignedIn } = useContext(AuthContext);
   const [showAlert, setShowAlert] = useState(false);
@@ -63,10 +63,7 @@ const Home: React.FC = () => {
         </Typography>
         <Typography variant="body1" component="div">
           <ul>
-            {!isSignedIn && (
-              <li>こちらの機能の使用は<a href="http://localhost:3000/signin" style={{ fontSize: '1.2rem', color: '#007BFF' }}>
-              ログイン</a>が必須となります。</li>
-            )}
+            {!isSignedIn && (<li>こちらの機能の使用はログインが必須となります。</li>)}
             <li>総プレイ時間、総問題クリア数、過去10回の履歴、学習記録が見られます。</li>
             <li>学習記録では問題をクリアするだけ色が濃くなりカレンダー上に記録されます。</li>
           </ul>
