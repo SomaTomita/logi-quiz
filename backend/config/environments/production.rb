@@ -84,5 +84,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.hosts << "logi-quiz.com"
+  config.hosts << "api.logi-quiz.com"
+  config.hosts << "54.64.40.87"
+  config.hosts << "ec2-54-64-40-87.ap-northeast-1.compute.amazonaws.com"
 end

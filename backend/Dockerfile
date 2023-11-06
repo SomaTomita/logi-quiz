@@ -4,6 +4,8 @@ RUN apt-get update && apt-get install -y nginx default-mysql-client
 
 ARG RUBYGEMS_VERSION=3.4.6
 
+ENV RAILS_ENV=production
+
 RUN mkdir /api
 WORKDIR /api
 
