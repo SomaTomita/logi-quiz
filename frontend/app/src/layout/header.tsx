@@ -39,7 +39,7 @@ const Header = () => {
         setIsSignedIn(false);
         setIsAdmin(false);
         
-        navigate("/signin");
+        navigate("/");
         console.log("Succeeded in sign out");
       } else {
         console.log("Failed in sign out");

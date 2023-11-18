@@ -85,6 +85,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.hosts << "api.logi-quiz.com"
-  config.hosts << "54.64.40.87"
   config.hosts << "ec2-54-64-40-87.ap-northeast-1.compute.amazonaws.com"
+  config.hosts << "dualstack.logi-quiz-elb-669098454.ap-northeast-1.elb.amazonaws.com."
 end
