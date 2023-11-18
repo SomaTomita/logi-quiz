@@ -1,4 +1,8 @@
-# 貿易実務の知識を定着させよう。(作成途中)
+## URL
+https://logi-quiz.com
+
+
+# 貿易実務の知識を定着させよう。
  
 - 国際物流の知識を手軽に復習できるクイズアプリです。
 - 復習したい内容や学習テーマに合わせて復習することが出来ます。
@@ -39,7 +43,7 @@
 ### インフラ
 * データベース: MySQL (v8.0.33)
 * コンテナ化: Docker/Docker-compose
-* クラウド: AWS (ECR, ECS, EC2, VPC, RDS, ACM, Cloudfront, CloudWatch)
+* クラウド: AWS (ECR, ECS, EC2, VPC, RDS, ACM, ELB, Route53, CloudWatch)
 * リバースプロキシ: Nginx
 * アプリケーションホスティング: Vercel
 
@@ -49,6 +53,7 @@
 * APIテストツール: Postman
 * データベース管理ツール: Sequel Ace
 * データモデリング: dbdiagram.io
+* フローチャート作成: diagrams.net
 
 
 ## 実装機能
@@ -78,7 +83,7 @@
 ![ER Diagram](frontend/app/public/dbdiagram_ERchart.png)
 
 ## インフラ構成図
-![Infra Chart](frontend/app/public/infra_chart.png)
+![Infra Chart](frontend/app/public/diagrams_infra.png)
 
 ## 画面
 ### Sign In (未ログイン)
