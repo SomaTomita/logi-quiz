@@ -3,9 +3,9 @@ https://logi-quiz.com
 
 - 表紙SignInページ下の Let's play quiz now! からログインなしでクイズを楽しめます。
 - 下記ログインしてダッシュボード機能等を使ってみてください。
-|アドレス   | example@example.com |
-|パスワード | password123         |      
-
+  | アドレス             | パスワード   |   
+  | ------------------- | ----------- |   
+  | example@example.com | password123 |   
 
 # 貿易実務の知識を定着させよう。
  
