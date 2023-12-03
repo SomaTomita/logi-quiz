@@ -108,7 +108,7 @@ const Header = () => {
             <DirectionsBoatIcon sx={{ marginRight: 1.5 }}></DirectionsBoatIcon>
             <Typography component={Link} to="/home" 
                         variant="h6" sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }}>
-              国際物流クイズ
+              logi-quiz
             </Typography>
             <HeaderButtons />
           </Toolbar>
