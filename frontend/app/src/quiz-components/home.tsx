@@ -20,8 +20,8 @@ const Home = () => {
 
   return (
     <Container maxWidth="md">
-      <Typography variant="h4" align="center" gutterBottom>
-        HOME
+      <Typography variant="h3" align="center" gutterBottom>
+        遊び方
       </Typography>
       <Paper sx={{ padding: 4, marginTop: 2, marginBottom: 5, borderRadius: 5, }}>
         <Typography variant="h5" paragraph sx={{ marginTop: 2, fontWeight: 'bold' }}>
@@ -35,7 +35,7 @@ const Home = () => {
         </div>
 
         <Typography variant="h6" paragraph sx={{ marginTop: 3.5 }}>
-          ＜クイズの遊び方＞
+          ＜クイズ＞
         </Typography>
         <Typography variant="body1" component="div">
           <ul>
@@ -59,7 +59,7 @@ const Home = () => {
           </Button>
         </div>
         <Typography variant="h6" paragraph sx={{ marginTop: 3.5 }}>
-          ＜ダッシュボードの使い方＞
+          ＜ダッシュボード＞
         </Typography>
         <Typography variant="body1" component="div">
           <ul>
