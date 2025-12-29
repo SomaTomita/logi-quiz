@@ -16,8 +16,8 @@ test:
 
 production:
   <<: *default
-  database: db
-  username: root
+  database: <%= ENV.fetch("DATABASE_NAME", "db") %>
+  username: <%= ENV.fetch("DATABASE_USERNAME", "root") %>
   password: <%= ENV["DATABASE_PASSWORD"] %>
-  host: logi-quiz-db.cnqswmbsxymd.ap-northeast-1.rds.amazonaws.com
-  port: 3306
+  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
+  port: <%= ENV.fetch("DATABASE_PORT", 3306) %>
