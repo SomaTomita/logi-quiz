@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # ヘルスチェック（ALB/ECS用）
+  get '/health', to: proc { [200, {}, ['OK']] }
+
   # ログイン機能のルーティング
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
     registrations: 'auth/registrations',

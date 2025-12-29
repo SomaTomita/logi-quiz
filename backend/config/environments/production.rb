@@ -56,12 +56,12 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "api_production"
 
   config.action_mailer.default_options = { from: ENV['EMAIL_ADDRESS'] }
-  config.action_mailer.default_url_options = { host: 'logi-quiz.com' }
+  config.action_mailer.default_url_options = { host: ENV.fetch('MAILER_HOST', 'logi-quiz.com') }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: 587,
-    domain: 'gmail.com',
+    address: ENV.fetch('SMTP_ADDRESS', 'smtp.gmail.com'),
+    port: ENV.fetch('SMTP_PORT', 587).to_i,
+    domain: ENV.fetch('SMTP_DOMAIN', 'gmail.com'),
     user_name: ENV['EMAIL_ADDRESS'],
     password: ENV['EMAIL_PASSWORD'],
     authentication: 'plain',
@@ -97,7 +97,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.hosts << "api.logi-quiz.com"
-  config.hosts << "ec2-54-64-40-87.ap-northeast-1.compute.amazonaws.com"
-  config.hosts << "dualstack.logi-quiz-elb-669098454.ap-northeast-1.elb.amazonaws.com."
+  # 許可するホストをENVから読み込み（カンマ区切り）
+  allowed_hosts = ENV.fetch("ALLOWED_HOSTS", "api.logi-quiz.com").split(",").map(&:strip)
+  allowed_hosts.each { |host| config.hosts << host }
 end
