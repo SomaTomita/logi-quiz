@@ -1,0 +1,130 @@
+{
+  "family": "logi-quiz-api",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "${ECS_EXECUTION_ROLE_ARN}",
+  "taskRoleArn": "${ECS_TASK_ROLE_ARN}",
+  "containerDefinitions": [
+    {
+      "name": "nginx",
+      "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_NGINX_REPO}:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "dependsOn": [
+        {
+          "containerName": "rails",
+          "condition": "HEALTHY"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/logi-quiz-api",
+          "awslogs-region": "${AWS_REGION}",
+          "awslogs-stream-prefix": "nginx"
+        }
+      }
+    },
+    {
+      "name": "rails",
+      "image": "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_API_REPO}:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "RAILS_ENV",
+          "value": "production"
+        },
+        {
+          "name": "RAILS_LOG_TO_STDOUT",
+          "value": "true"
+        },
+        {
+          "name": "DATABASE_HOST",
+          "value": "${DATABASE_HOST}"
+        },
+        {
+          "name": "DATABASE_NAME",
+          "value": "${DATABASE_NAME}"
+        },
+        {
+          "name": "DATABASE_USERNAME",
+          "value": "${DATABASE_USERNAME}"
+        },
+        {
+          "name": "DATABASE_PORT",
+          "value": "${DATABASE_PORT}"
+        },
+        {
+          "name": "ALLOWED_HOSTS",
+          "value": "${ALLOWED_HOSTS}"
+        },
+        {
+          "name": "CORS_ORIGINS",
+          "value": "${CORS_ORIGINS}"
+        },
+        {
+          "name": "MAILER_HOST",
+          "value": "${MAILER_HOST}"
+        },
+        {
+          "name": "EMAIL_ADDRESS",
+          "value": "${EMAIL_ADDRESS}"
+        },
+        {
+          "name": "SMTP_ADDRESS",
+          "value": "${SMTP_ADDRESS}"
+        },
+        {
+          "name": "SMTP_PORT",
+          "value": "${SMTP_PORT}"
+        },
+        {
+          "name": "SMTP_DOMAIN",
+          "value": "${SMTP_DOMAIN}"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "DATABASE_PASSWORD",
+          "valueFrom": "${SECRET_DATABASE_PASSWORD_ARN}"
+        },
+        {
+          "name": "SECRET_KEY_BASE",
+          "valueFrom": "${SECRET_KEY_BASE_ARN}"
+        },
+        {
+          "name": "EMAIL_PASSWORD",
+          "valueFrom": "${SECRET_EMAIL_PASSWORD_ARN}"
+        }
+      ],
+      "healthCheck": {
+        "command": ["CMD-SHELL", "curl -f http://localhost:3000/health || exit 1"],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 60
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/logi-quiz-api",
+          "awslogs-region": "${AWS_REGION}",
+          "awslogs-stream-prefix": "rails"
+        }
+      }
+    }
+  ]
+}
