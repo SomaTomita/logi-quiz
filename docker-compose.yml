@@ -1,39 +1,52 @@
-version: '3'
+# ===========================================
+# Base configuration (API + DB only)
+# For development, docker-compose.override.yml adds frontend
+# Production: Frontend is deployed on Vercel
+# ===========================================
+version: "3.8"
+
 services:
   api:
-    build: ./backend/
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     environment:
-      - RAILS_ENV=development
-    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    volumes:
-      - ./backend:/api
-    ports: # ポート3001をコンテナ内のポート3000に関連付けのためマッピング
-      - 3001:3000
-    depends_on:  # dbを先に起動
-      - db
-    tty: true #本番環境では無効
-    stdin_open: true
+      RAILS_ENV: ${RAILS_ENV:-development}
+      DATABASE_HOST: ${DATABASE_HOST:-db}
+      DATABASE_USERNAME: ${DATABASE_USERNAME:-root}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-password}
+      DATABASE_NAME: ${DATABASE_NAME:-api_development}
+      DATABASE_PORT: ${DATABASE_PORT:-3306}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+
   db:
-    image: mysql:latest
-    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
-    volumes: # dbデータの永続化
-      - db-volume:/var/lib/mysql
+    image: mysql:8.0
+    command: >
+      mysqld
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      TZ: "Asia/Tokyo"
-    ports:
-      - "3306:3306"
-  front:
-    build: ./frontend/
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD:-password}
+      MYSQL_DATABASE: ${DATABASE_NAME:-api_development}
+      TZ: Asia/Tokyo
     volumes:
-      - ./frontend/app:/front
-    ports:
-      - 3000:3000
-    tty: true
-    stdin_open: true
-    environment:
-      - CHOKIDAR_USEPOLLING=true
+      - db-volume:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
   db-volume:
-
