@@ -1,0 +1,34 @@
+# Dependencies
+app/node_modules/
+
+# Git
+.git
+.gitignore
+
+# Build
+app/build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+!README.md
+
+# Docker
+Dockerfile*
+docker-compose*
+
+# Test
+app/coverage/
+
+# Misc
+.env*
+!.env.example

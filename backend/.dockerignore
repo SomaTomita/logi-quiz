@@ -1,0 +1,38 @@
+# Git
+.git
+.gitignore
+
+# Logs
+log/*
+tmp/*
+
+# Test
+coverage/
+spec/tmp/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+!README.md
+
+# Docker
+Dockerfile*
+docker-compose*
+
+# CI
+.github/
+.circleci/
+.travis.yml
+
+# Misc
+.env*
+!.env.example
