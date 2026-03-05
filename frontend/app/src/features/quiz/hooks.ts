@@ -1,0 +1,51 @@
+import { useEffect, useRef } from 'react'
+import { useQuizSessionStore } from './store'
+import { fetchQuizzes } from './api'
+import { saveDashboardData } from '@/features/dashboard/api'
+import { useAuthStore } from '@/features/auth/store'
+
+export const useQuizSession = (sectionId: string) => {
+  const store = useQuizSessionStore()
+  const user = useAuthStore((s) => s.user)
+  const timerRef = useRef<ReturnType<typeof setInterval>>()
+
+  // Fetch quizzes on mount
+  useEffect(() => {
+    fetchQuizzes(sectionId)
+      .then((res) => store.loadQuestions(res.data))
+      .catch((err) => console.error('Error fetching quizzes:', err))
+  }, [sectionId])
+
+  // Play timer
+  useEffect(() => {
+    if (store.isStarted && !store.showResult) {
+      timerRef.current = setInterval(() => store.tick(), 1000)
+    } else {
+      clearInterval(timerRef.current)
+    }
+    return () => clearInterval(timerRef.current)
+  }, [store.isStarted, store.showResult])
+
+  // Save dashboard data when quiz completed
+  useEffect(() => {
+    if (!store.showResult || !user) return
+
+    saveDashboardData(
+      {
+        playTime: store.elapsedSeconds,
+        questions_cleared: store.correctIndices.length,
+        sectionResult: {
+          sectionId,
+          correctAnswers: store.correctIndices.length,
+        },
+        learningStack: {
+          date: new Date().toISOString().split('T')[0],
+          totalClear: store.sectionClearCount,
+        },
+      },
+      user.id,
+    ).catch((err) => console.error('Error saving dashboard data:', err))
+  }, [store.showResult])
+
+  return store
+}
