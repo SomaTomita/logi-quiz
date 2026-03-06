@@ -33,18 +33,16 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
-  # Don't care if the mailer can't send.
+  # 開発環境でもSMTPでメール送信（確認メール等の動作検証用）
+  # EMAIL_ADDRESS / EMAIL_PASSWORD を .env に設定すること
   config.action_mailer.raise_delivery_errors = true
-  
-  # メール認証のための設定をこちらに追加
-  config.action_mailer.default_options = { from: ENV['EMAIL_ADDRESS'] }
-  # hostにはデフォルトでlocalhost3000になっているので、Railsのポート番号である3001に変更する。
-  config.action_mailer.default_url_options = { host: 'localhost:3001' }
+  config.action_mailer.default_options = { from: ENV.fetch('EMAIL_ADDRESS', 'noreply@example.com') }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3001 }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: 587,
-    domain: 'gmail.com',
+    address: ENV.fetch('SMTP_ADDRESS', 'smtp.gmail.com'),
+    port: ENV.fetch('SMTP_PORT', 587).to_i,
+    domain: ENV.fetch('SMTP_DOMAIN', 'gmail.com'),
     user_name: ENV['EMAIL_ADDRESS'],
     password: ENV['EMAIL_PASSWORD'],
     authentication: 'plain',

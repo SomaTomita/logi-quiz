@@ -20,9 +20,9 @@ Rails.application.routes.draw do
     end
   end
 
-  # セクションの標準的な7つのアクション及び特定のセクションに関連するクイズ操作のルーティング
-  resources :sections do
-    resources :quizzes, only: %i[index create]
+  # 公開エンドポイント: セクション一覧とクイズ取得のみ（CRUDはadmin namespaceで管理）
+  resources :sections, only: %i[index] do
+    resources :quizzes, only: %i[index]
   end
 
   # ダッシュボードのデータ取得
