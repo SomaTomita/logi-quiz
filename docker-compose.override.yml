@@ -2,7 +2,6 @@
 # Development overrides (auto-loaded by docker-compose)
 # Adds: frontend, ports, volumes for hot-reload
 # ===========================================
-version: "3.8"
 
 services:
   api:
@@ -32,6 +31,7 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:3001}
+      VITE_CONFIRM_SUCCESS_URL: ${VITE_CONFIRM_SUCCESS_URL:-http://localhost:3000/confirmation-success}
     tty: true
     stdin_open: true
     networks:

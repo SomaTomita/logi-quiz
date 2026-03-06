@@ -109,3 +109,6 @@ yarn-debug.log*
 
 # Ignore uploaded files in development
 /public/uploads
+
+# クイズデータ（ビジネスデータのため非公開）
+/db/seeds/quiz_data.json

@@ -17,3 +17,11 @@ Thumbs.db
 # Docs (internal only)
 docs/
 
+frontend/app/src/features/auth/types.ts
+frontend/app/src/features/home/pages/HomePage.tsx
+frontend/app/src/features/quiz/components/QuizResult.tsx
+frontend/app/src/features/quiz/hooks.ts
+frontend/app/src/features/quiz/pages/QuizPage.tsx
+frontend/app/src/features/quiz/store.ts
+frontend/app/src/shared/api/client.ts
+frontend/Dockerfile

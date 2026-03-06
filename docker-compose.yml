@@ -3,7 +3,6 @@
 # For development, docker-compose.override.yml adds frontend
 # Production: Frontend is deployed on Vercel
 # ===========================================
-version: "3.8"
 
 services:
   api:

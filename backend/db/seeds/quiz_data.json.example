@@ -1,0 +1,17 @@
+[
+  {
+    "section_name": "セクション名",
+    "questions": [
+      {
+        "question_text": "問題文をここに記載",
+        "choices": [
+          { "choice_text": "正解の選択肢", "is_correct": true },
+          { "choice_text": "不正解の選択肢1", "is_correct": false },
+          { "choice_text": "不正解の選択肢2", "is_correct": false },
+          { "choice_text": "不正解の選択肢3", "is_correct": false }
+        ],
+        "explanation": "解説文をここに記載"
+      }
+    ]
+  }
+]
