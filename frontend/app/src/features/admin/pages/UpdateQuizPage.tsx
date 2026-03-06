@@ -32,7 +32,7 @@ const UpdateQuizPage = () => {
         explanationAttributes: quiz.explanation,
       })
       setSnackbar({ open: true, message: 'Changes saved successfully!', severity: 'success' })
-      setTimeout(() => navigate('/edit-quiz'), 1500)
+      setTimeout(() => navigate('/admin/quizzes'), 1500)
     } catch {
       setSnackbar({ open: true, message: 'Error saving changes', severity: 'error' })
     }
@@ -96,7 +96,7 @@ const UpdateQuizPage = () => {
       </Button>
       <Button
         variant="outlined"
-        onClick={() => navigate('/edit-quiz')}
+        onClick={() => navigate('/admin/quizzes')}
         sx={{ mt: 2, mb: 2, ml: 2 }}
       >
         Cancel

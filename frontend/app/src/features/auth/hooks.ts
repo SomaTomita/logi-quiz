@@ -9,7 +9,7 @@ export const useAuthGuard = () => {
 
   useEffect(() => {
     if (!isLoading && !isSignedIn) {
-      navigate('/home')
+      navigate('/signin')
     }
   }, [isLoading, isSignedIn, navigate])
 
@@ -24,7 +24,7 @@ export const useAdminGuard = () => {
 
   useEffect(() => {
     if (!isLoading && (!isSignedIn || !isAdmin)) {
-      navigate('/home')
+      navigate('/signin')
     }
   }, [isLoading, isSignedIn, isAdmin, navigate])
 

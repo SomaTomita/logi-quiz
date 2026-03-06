@@ -47,19 +47,38 @@ const steps = [
   },
 ]
 
+const dashboardFeatures = [
+  {
+    icon: <TimerIcon sx={{ fontSize: 32, color: 'primary.main' }} />,
+    label: '総プレイ時間',
+  },
+  {
+    icon: <CheckCircleOutlineIcon sx={{ fontSize: 32, color: 'primary.main' }} />,
+    label: 'クリア数・履歴',
+  },
+  {
+    icon: <CalendarMonthIcon sx={{ fontSize: 32, color: 'primary.main' }} />,
+    label: '学習カレンダー',
+  },
+]
+
 const HomePage = () => {
   const navigate = useNavigate()
   const isSignedIn = useAuthStore((s) => s.isSignedIn)
 
   return (
     <Container maxWidth="md">
-      <Box sx={{ textAlign: 'center', mt: 4, mb: 3 }}>
-        <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 480, mx: 'auto' }}>
+      <Box sx={{ textAlign: 'center', mt: 6, mb: 4 }}>
+        <Typography variant="h3" gutterBottom sx={{ fontWeight: 700, textWrap: 'balance' }}>
+          クイズで学ぼう
+        </Typography>
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          sx={{ maxWidth: 480, mx: 'auto', mb: 4, lineHeight: 1.8 }}
+        >
           学びたい分野を選んで、クイズに挑戦しましょう。
         </Typography>
-      </Box>
-
-      <Box display="flex" justifyContent="center" mb={4}>
         <Button
           variant="contained"
           size="large"
@@ -71,7 +90,7 @@ const HomePage = () => {
         </Button>
       </Box>
 
-      <Grid container spacing={2} sx={{ mb: 5 }}>
+      <Grid container spacing={2} sx={{ mb: 6 }}>
         {steps.map((step) => (
           <Grid item xs={12} sm={6} key={step.title}>
             <Paper
@@ -89,12 +108,11 @@ const HomePage = () => {
               <Box
                 sx={{
                   color: 'primary.main',
-                  bgcolor: 'primary.light',
+                  bgcolor: 'action.hover',
                   borderRadius: 2,
                   p: 1,
                   display: 'flex',
                   flexShrink: 0,
-                  opacity: 0.85,
                 }}
               >
                 {step.icon}
@@ -113,43 +131,43 @@ const HomePage = () => {
       </Grid>
 
       {isSignedIn ? (
-        <Paper sx={{ p: 4, mb: 3 }}>
-          <Typography variant="h5" paragraph sx={{ fontWeight: 'bold' }}>
-            次に学習状況を確認しましょう。
+        <Paper variant="outlined" sx={{ p: 5, mb: 4, textAlign: 'center' }}>
+          <Typography variant="h5" gutterBottom fontWeight={700} sx={{ textWrap: 'balance' }}>
+            学習の進捗を確認しましょう
           </Typography>
-          <Box display="flex" justifyContent="center" mt={1.5}>
-            <Button
-              variant="contained"
-              size="large"
-              onClick={() => navigate('/dashboard')}
-              sx={{ p: 2, mt: 2, fontSize: '1.1rem' }}
-            >
-              Go to Dashboard
-            </Button>
-          </Box>
-          <Typography variant="h6" paragraph sx={{ mt: 3.5 }}>
-            ＜ダッシュボード＞
-          </Typography>
-          <Typography variant="body1" component="div">
-            <ul>
-              <li>総プレイ時間、総問題クリア数、過去10回の履歴、学習記録が見られます。</li>
-              <li>学習記録では問題をクリアするだけ色が濃くなりカレンダー上に記録されます。</li>
-            </ul>
-          </Typography>
+          <Grid container spacing={2} sx={{ mt: 2, mb: 4 }}>
+            {dashboardFeatures.map((feat) => (
+              <Grid item xs={12} sm={4} key={feat.label}>
+                <Paper
+                  variant="outlined"
+                  sx={{
+                    p: 3,
+                    textAlign: 'center',
+                    transition: 'border-color 0.2s',
+                    '&:hover': { borderColor: 'primary.main' },
+                  }}
+                >
+                  <Box sx={{ mb: 1.5 }}>{feat.icon}</Box>
+                  <Typography variant="body2" fontWeight={600}>
+                    {feat.label}
+                  </Typography>
+                </Paper>
+              </Grid>
+            ))}
+          </Grid>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => navigate('/dashboard')}
+            sx={{ px: 5, py: 1.5, fontSize: '1.1rem' }}
+          >
+            Go to Dashboard
+          </Button>
         </Paper>
       ) : (
-        <Paper
-          sx={{
-            p: 5,
-            mb: 3,
-            textAlign: 'center',
-            background: 'linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%)',
-            border: '1px solid',
-            borderColor: 'primary.light',
-          }}
-        >
-          <LockOutlinedIcon sx={{ fontSize: 48, color: 'primary.main', mb: 2 }} />
-          <Typography variant="h5" gutterBottom fontWeight="bold" sx={{ textWrap: 'balance' }}>
+        <Paper variant="outlined" sx={{ p: 5, mb: 4, textAlign: 'center' }}>
+          <LockOutlinedIcon sx={{ fontSize: 40, color: 'text.secondary', mb: 2 }} />
+          <Typography variant="h5" gutterBottom fontWeight={700} sx={{ textWrap: 'balance' }}>
             学習の記録を残しましょう
           </Typography>
           <Typography

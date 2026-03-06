@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { setAuthCookies } from '@/shared/api/client'
-import { TextField, Card, CardContent, CardHeader, Button, Box } from '@mui/material'
+import { Typography, TextField, Button, Box, Alert } from '@mui/material'
+import AuthLayout from '@/shared/layouts/AuthLayout'
 import { useAuthStore } from '../store'
-import AlertMessage from '@/shared/components/AlertMessage'
 import { signUp } from '../api'
 import type { User } from '../types'
 
@@ -18,17 +18,17 @@ interface SignUpForm {
 const SignUpPage = () => {
   const navigate = useNavigate()
   const setUser = useAuthStore((s) => s.setUser)
-  const [alertOpen, setAlertOpen] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('Registration failed. Please try again.')
+  const [error, setError] = useState<string | null>(null)
 
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isValid },
+    formState: { errors, isSubmitting },
   } = useForm<SignUpForm>({ mode: 'onBlur' })
 
   const onSubmit = async (data: SignUpForm) => {
+    setError(null)
     try {
       const res = await signUp({
         ...data,
@@ -37,106 +37,118 @@ const SignUpPage = () => {
       if (res.status === 200) {
         setAuthCookies(res.headers as Record<string, string>)
         setUser(res.data.data as User)
-        navigate('/confirmation-success')
-      } else {
-        setAlertOpen(true)
+        navigate('/sections')
       }
     } catch (err: unknown) {
       const axiosErr = err as { response?: { data?: { errors?: { fullMessages?: string[] } } } }
       const messages = axiosErr.response?.data?.errors?.fullMessages
-      if (messages && messages.length > 0) {
-        setErrorMessage(messages.join(', '))
-      }
-      setAlertOpen(true)
+      setError(
+        messages && messages.length > 0
+          ? messages.join(', ')
+          : '登録に失敗しました。もう一度お試しください。',
+      )
     }
   }
 
   return (
-    <Box display="flex" justifyContent="center">
-      <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-        <Card sx={{ mt: 6, p: 2, maxWidth: 450 }}>
-          <CardHeader sx={{ textAlign: 'center' }} title="Sign Up" />
-          <CardContent>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Name"
-              margin="dense"
-              autoComplete="name"
-              error={!!errors.name}
-              helperText={errors.name?.message}
-              {...register('name', { required: 'Name is required' })}
-            />
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Email"
-              margin="dense"
-              autoComplete="email"
-              error={!!errors.email}
-              helperText={errors.email?.message}
-              {...register('email', {
-                required: 'Email is required',
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: 'Invalid email format',
-                },
-              })}
-            />
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Password"
-              type="password"
-              margin="dense"
-              placeholder="At least 6 characters"
-              autoComplete="new-password"
-              error={!!errors.password}
-              helperText={errors.password?.message}
-              {...register('password', {
-                required: 'Password is required',
-                minLength: { value: 6, message: 'Password must be at least 6 characters' },
-              })}
-            />
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Password Confirmation"
-              type="password"
-              margin="dense"
-              autoComplete="new-password"
-              error={!!errors.passwordConfirmation}
-              helperText={errors.passwordConfirmation?.message}
-              {...register('passwordConfirmation', {
-                required: 'Password confirmation is required',
-                validate: (value) =>
-                  value === watch('password') || 'Passwords do not match',
-              })}
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              fullWidth
-              disabled={!isValid}
-              sx={{ mt: 2 }}
-            >
-              Submit
-            </Button>
-          </CardContent>
-        </Card>
-      </form>
-      <AlertMessage
-        open={alertOpen}
-        setOpen={setAlertOpen}
-        severity="error"
-        message={errorMessage}
-      />
-    </Box>
+    <AuthLayout>
+      <Typography variant="h3" component="h1" sx={{ mb: 0.5 }}>
+        アカウント作成
+      </Typography>
+      <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+        学習記録を保存して、進捗を確認しましょう
+      </Typography>
+
+      {error && (
+        <Alert severity="error" sx={{ mb: 3 }}>
+          {error}
+        </Alert>
+      )}
+
+      <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
+        <TextField
+          fullWidth
+          label="名前"
+          autoComplete="name"
+          margin="normal"
+          error={!!errors.name}
+          helperText={errors.name?.message}
+          {...register('name', { required: '名前を入力してください' })}
+        />
+        <TextField
+          fullWidth
+          label="メールアドレス"
+          type="email"
+          autoComplete="email"
+          margin="normal"
+          error={!!errors.email}
+          helperText={errors.email?.message}
+          {...register('email', {
+            required: 'メールアドレスを入力してください',
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: '正しいメールアドレスを入力してください',
+            },
+          })}
+        />
+        <TextField
+          fullWidth
+          label="パスワード"
+          type="password"
+          autoComplete="new-password"
+          margin="normal"
+          placeholder="6文字以上"
+          error={!!errors.password}
+          helperText={errors.password?.message}
+          {...register('password', {
+            required: 'パスワードを入力してください',
+            minLength: { value: 6, message: 'パスワードは6文字以上で入力してください' },
+          })}
+        />
+        <TextField
+          fullWidth
+          label="パスワード（確認）"
+          type="password"
+          autoComplete="new-password"
+          margin="normal"
+          error={!!errors.passwordConfirmation}
+          helperText={errors.passwordConfirmation?.message}
+          {...register('passwordConfirmation', {
+            required: 'パスワード確認を入力してください',
+            validate: (value) => value === watch('password') || 'パスワードが一致しません',
+          })}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          fullWidth
+          size="large"
+          disabled={isSubmitting}
+          sx={{ mt: 3, py: 1.5 }}
+        >
+          {isSubmitting ? '登録中...' : 'アカウント作成'}
+        </Button>
+      </Box>
+
+      <Box sx={{ textAlign: 'center', mt: 3 }}>
+        <Typography variant="body2" color="text.secondary">
+          すでにアカウントをお持ちですか？{' '}
+          <Typography
+            component={Link}
+            to="/signin"
+            variant="body2"
+            sx={{
+              color: 'primary.main',
+              textDecoration: 'none',
+              fontWeight: 600,
+              '&:hover': { textDecoration: 'underline' },
+            }}
+          >
+            ログイン
+          </Typography>
+        </Typography>
+      </Box>
+    </AuthLayout>
   )
 }
 

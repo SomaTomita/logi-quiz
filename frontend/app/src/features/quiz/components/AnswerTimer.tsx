@@ -35,7 +35,7 @@ const AnswerTimer = ({ duration, onTimeUp }: AnswerTimerProps) => {
         sx={{
           height: 5,
           '& .MuiLinearProgress-bar': {
-            backgroundColor: isWarning ? '#ef4444' : '#0d9488',
+            backgroundColor: isWarning ? 'error.main' : 'primary.main',
             transition: 'width 0.1s linear',
           },
           backgroundColor: 'transparent',

@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useAuthStore } from '@/features/auth/store'
-import CommonLayout from '@/shared/layouts/CommonLayout'
 import Providers from './providers'
 import AppRoutes from './routes'
 
@@ -11,11 +10,7 @@ const AppContent = () => {
     initialize()
   }, [initialize])
 
-  return (
-    <CommonLayout>
-      <AppRoutes />
-    </CommonLayout>
-  )
+  return <AppRoutes />
 }
 
 const App = () => (

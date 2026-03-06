@@ -1,6 +1,15 @@
 import { create } from 'zustand'
 import type { Quiz, Choice } from './types'
 
+const shuffleArray = <T>(array: T[]): T[] => {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
 export interface QuizSessionState {
   questions: Quiz[]
   currentIndex: number
@@ -14,6 +23,7 @@ export interface QuizSessionState {
   elapsedSeconds: number
   sectionClearCount: number
   saveError: string | null
+  fetchError: string | null
 
   // Actions
   loadQuestions: (questions: Quiz[]) => void
@@ -24,6 +34,7 @@ export interface QuizSessionState {
   reset: () => void
   tick: () => void
   setSaveError: (error: string | null) => void
+  setFetchError: (error: string | null) => void
 
   // Derived getters
   currentQuestion: () => Quiz | null
@@ -44,8 +55,13 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
   elapsedSeconds: 0,
   sectionClearCount: 0,
   saveError: null,
+  fetchError: null,
 
-  loadQuestions: (questions) => set({ questions }),
+  loadQuestions: (questions) =>
+    set({
+      questions: questions.map((q) => ({ ...q, choices: shuffleArray(q.choices) })),
+      fetchError: null,
+    }),
 
   selectAnswer: (index, choice) => {
     const correctAns = get().correctAnswer()
@@ -56,7 +72,15 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
   },
 
   nextQuestion: () => {
-    const { isCorrect, currentIndex, questions, correctIndices, sectionClearCount, answerIndex, userAnswers } = get()
+    const {
+      isCorrect,
+      currentIndex,
+      questions,
+      correctIndices,
+      sectionClearCount,
+      answerIndex,
+      userAnswers,
+    } = get()
 
     const newCorrectIndices = isCorrect ? [...correctIndices, currentIndex] : correctIndices
     const currentQ = questions[currentIndex]
@@ -112,9 +136,11 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
       elapsedSeconds: 0,
       sectionClearCount: 0,
       saveError: null,
+      fetchError: null,
     }),
 
   setSaveError: (error) => set({ saveError: error }),
+  setFetchError: (error) => set({ fetchError: error }),
 
   tick: () => set((s) => ({ elapsedSeconds: s.elapsedSeconds + 1 })),
 
