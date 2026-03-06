@@ -34,6 +34,7 @@ const QuizPage = () => {
           <QuizResult
             questions={store.questions}
             correctIndices={store.correctIndices}
+            userAnswers={store.userAnswers}
             onTryAgain={store.reset}
             onBackToSections={handleBackToSections}
           />

@@ -7,6 +7,7 @@ export interface QuizSessionState {
   answerIndex: number | null
   isCorrect: boolean | null
   correctIndices: number[]
+  userAnswers: string[]
   showResult: boolean
   isStarted: boolean
   showTimer: boolean
@@ -34,6 +35,7 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
   answerIndex: null,
   isCorrect: null,
   correctIndices: [],
+  userAnswers: [],
   showResult: false,
   isStarted: false,
   showTimer: true,
@@ -51,9 +53,12 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
   },
 
   nextQuestion: () => {
-    const { isCorrect, currentIndex, questions, correctIndices, sectionClearCount } = get()
+    const { isCorrect, currentIndex, questions, correctIndices, sectionClearCount, answerIndex, userAnswers } = get()
 
     const newCorrectIndices = isCorrect ? [...correctIndices, currentIndex] : correctIndices
+    const currentQ = questions[currentIndex]
+    const selectedText = answerIndex !== null ? currentQ.choices[answerIndex].choice_text : '未回答'
+    const newUserAnswers = [...userAnswers, selectedText]
 
     if (currentIndex < questions.length - 1) {
       set({
@@ -62,6 +67,7 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
         isCorrect: null,
         showTimer: false,
         correctIndices: newCorrectIndices,
+        userAnswers: newUserAnswers,
       })
       // Re-enable timer after a tick
       setTimeout(() => set({ showTimer: true }))
@@ -70,6 +76,7 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
         showResult: true,
         currentIndex: 0,
         correctIndices: newCorrectIndices,
+        userAnswers: newUserAnswers,
         sectionClearCount: sectionClearCount + 1,
         isStarted: false,
       })
@@ -95,6 +102,7 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
       answerIndex: null,
       isCorrect: null,
       correctIndices: [],
+      userAnswers: [],
       showResult: false,
       isStarted: false,
       showTimer: false,

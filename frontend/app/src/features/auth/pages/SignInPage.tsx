@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import Cookies from 'js-cookie'
+import { setAuthCookies } from '@/shared/api/client'
 import { Typography, TextField, Card, CardContent, CardHeader, Button, Box } from '@mui/material'
 import { useAuthStore } from '../store'
 import AlertMessage from '@/shared/components/AlertMessage'
@@ -23,9 +23,7 @@ const SignInPage = () => {
     try {
       const res = await signIn(params)
       if (res.status === 200) {
-        Cookies.set('_access_token', res.headers['access-token'])
-        Cookies.set('_client', res.headers['client'])
-        Cookies.set('_uid', res.headers['uid'])
+        setAuthCookies(res.headers as Record<string, string>)
         setUser(res.data.data as User)
         navigate('/confirmation-success')
       } else {

@@ -1,8 +1,10 @@
 import { create } from 'zustand'
 import Cookies from 'js-cookie'
 import { getCurrentUser } from './api'
+import { clearAuthCookies } from '@/shared/api/client'
 import type { User } from './types'
 
+// 認証状態の型定義
 interface AuthState {
   user: User | null
   isSignedIn: boolean
@@ -13,12 +15,14 @@ interface AuthState {
   initialize: () => Promise<void>
 }
 
+// Zustandによる認証状態管理ストア
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isSignedIn: false,
   isAdmin: false,
   isLoading: true,
 
+  // ログイン成功時にユーザー情報をストアに保存
   setUser: (user) =>
     set({
       user,
@@ -27,10 +31,9 @@ export const useAuthStore = create<AuthState>((set) => ({
       isLoading: false,
     }),
 
+  // ログアウト時にCookieとストアをクリア
   clearUser: () => {
-    Cookies.remove('_access_token')
-    Cookies.remove('_client')
-    Cookies.remove('_uid')
+    clearAuthCookies()
     set({
       user: null,
       isSignedIn: false,
@@ -39,11 +42,14 @@ export const useAuthStore = create<AuthState>((set) => ({
     })
   },
 
+  // アプリ起動時の認証状態復元
+  // Cookieにトークンがあればバックエンドに確認し、ログイン状態を復元
   initialize: async () => {
     const token = Cookies.get('_access_token')
     const client = Cookies.get('_client')
     const uid = Cookies.get('_uid')
 
+    // トークンが揃っていない場合は未ログイン
     if (!token || !client || !uid) {
       set({ isLoading: false })
       return
@@ -63,6 +69,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         set({ isLoading: false })
       }
     } catch {
+      // 401等のエラー時はレスポンスインターセプターがCookieをクリア済み
       set({ isLoading: false })
     }
   },

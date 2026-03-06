@@ -5,12 +5,13 @@ import type { Quiz } from '../types'
 interface QuizResultProps {
   questions: Quiz[]
   correctIndices: number[]
+  userAnswers: string[]
   onTryAgain: () => void
   onBackToSections: () => void
 }
 
 const QuizResult = memo(
-  ({ questions, correctIndices, onTryAgain, onBackToSections }: QuizResultProps) => (
+  ({ questions, correctIndices, userAnswers, onTryAgain, onBackToSections }: QuizResultProps) => (
     <Box>
       <Typography variant="h5" align="center" gutterBottom sx={{ mb: 4 }}>
         正答数:{' '}
@@ -34,7 +35,7 @@ const QuizResult = memo(
             </Typography>
             <Typography gutterBottom>正解: {correctAnswer}</Typography>
             <Box display="flex" alignItems="center" gap={1} mb={1}>
-              <Typography>あなたの回答:</Typography>
+              <Typography>あなたの回答: {userAnswers[index] ?? '未回答'}</Typography>
               <Chip
                 label={isCorrect ? '正解' : '不正解'}
                 size="small"
