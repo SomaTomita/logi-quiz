@@ -1,34 +1,10 @@
-# Dependencies
-app/node_modules/
-
-# Git
+# Dockerビルドコンテキストから除外するファイル
 .git
-.gitignore
-
-# Build
-app/build/
-
-# IDE
+node_modules/
+.env*
+!.env.example
+dist/
 .idea/
 .vscode/
 *.swp
-*.swo
-
-# OS
 .DS_Store
-Thumbs.db
-
-# Documentation
-*.md
-!README.md
-
-# Docker
-Dockerfile*
-docker-compose*
-
-# Test
-app/coverage/
-
-# Misc
-.env*
-!.env.example

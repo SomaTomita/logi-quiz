@@ -11,6 +11,8 @@ export interface SignInParams {
   password: string
 }
 
+// バックエンドAuth::SessionsController#SAFE_USER_FIELDSに対応するユーザー型
+// axios-case-converterによりsnake_case → camelCaseに自動変換される
 export interface User {
   id: number
   uid: string
@@ -21,8 +23,10 @@ export interface User {
   image?: string
   admin: boolean
   allowPasswordChange: boolean
-  created_at: string
-  updated_at: string
+  totalPlayTime: number | null
+  totalQuestionsCleared: number | null
+  createdAt: string
+  updatedAt: string
 }
 
 export interface SendResetMailParams {

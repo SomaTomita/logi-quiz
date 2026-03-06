@@ -9,8 +9,9 @@ export const useQuizSession = (sectionId: string) => {
   const user = useAuthStore((s) => s.user)
   const timerRef = useRef<ReturnType<typeof setInterval>>()
 
-  // Fetch quizzes on mount
+  // Reset store and fetch quizzes on mount / sectionId change
   useEffect(() => {
+    store.reset()
     fetchQuizzes(sectionId)
       .then((res) => store.loadQuestions(res.data))
       .catch((err) => console.error('Error fetching quizzes:', err))
