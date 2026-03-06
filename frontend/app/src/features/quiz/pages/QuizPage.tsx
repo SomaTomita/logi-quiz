@@ -37,6 +37,7 @@ const QuizPage = () => {
             userAnswers={store.userAnswers}
             onTryAgain={store.reset}
             onBackToSections={handleBackToSections}
+            saveError={store.saveError}
           />
         ) : (
           <QuizBody store={store} />

@@ -29,13 +29,13 @@ const QuizBody = memo(({ store }: QuizBodyProps) => {
       </Box>
 
       <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
-        {question.question_text}
+        {question.questionText}
       </Typography>
 
       <Box component="ul" role="listbox" sx={{ pl: 0, mt: 2, listStyle: 'none' }}>
         {question.choices.map((choice, index) => (
           <ButtonBase
-            key={choice.choice_text}
+            key={choice.choiceText}
             onClick={() => store.selectAnswer(index, choice)}
             sx={{ width: '100%', borderRadius: 1, mb: 1 }}
             role="option"
@@ -60,7 +60,7 @@ const QuizBody = memo(({ store }: QuizBodyProps) => {
                 },
               }}
             >
-              {choice.choice_text}
+              {choice.choiceText}
             </ListItem>
           </ButtonBase>
         ))}

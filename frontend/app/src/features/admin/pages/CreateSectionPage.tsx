@@ -23,7 +23,7 @@ const CreateSectionPage = () => {
             <TextField
               fullWidth
               type="text"
-              name="section_name"
+              name="sectionName"
               placeholder="セクション名を入力してください"
               variant="outlined"
               value={sectionName}

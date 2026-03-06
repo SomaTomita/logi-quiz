@@ -25,11 +25,9 @@ Rails.application.routes.draw do
     resources :quizzes, only: %i[index]
   end
 
-  # ダッシュボードのデータ取得
-  resources :dashboard, only: [] do
-    member do # こちらのブロックの使用により、URLは特定のユーザーのIDを持つ形に
-      get :dashboard_data
-      post :section_cleared
-    end
+  # ダッシュボードのデータ取得（認証トークンからユーザーを特定するためIDは不要）
+  scope :dashboard do
+    get :dashboard_data, to: 'dashboard#dashboard_data'
+    post :section_cleared, to: 'dashboard#section_cleared'
   end
 end

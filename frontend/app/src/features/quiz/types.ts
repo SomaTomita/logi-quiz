@@ -1,17 +1,17 @@
 export interface Choice {
   id: number
-  choice_text: string
-  is_correct: boolean
+  choiceText: string
+  isCorrect: boolean
 }
 
 export interface Explanation {
   id?: number
-  explanation_text: string
+  explanationText: string
 }
 
 export interface Quiz {
   id: number
-  question_text: string
+  questionText: string
   choices: Choice[]
   explanation: Explanation
 }

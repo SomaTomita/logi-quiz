@@ -36,7 +36,7 @@ const EditSectionPage = () => {
     try {
       await updateSection(sectionId, updatedSectionName)
       setSections(
-        sections.map((s) => (s.id === sectionId ? { ...s, section_name: updatedSectionName } : s)),
+        sections.map((s) => (s.id === sectionId ? { ...s, sectionName: updatedSectionName } : s)),
       )
       setEditingSectionId(null)
     } catch (error) {
@@ -86,10 +86,10 @@ const EditSectionPage = () => {
                 </>
               ) : (
                 <>
-                  <p>{section.section_name}</p>
+                  <p>{section.sectionName}</p>
                   <StyledButton
                     variant="outlined"
-                    onClick={() => handleEditClick(section.id, section.section_name)}
+                    onClick={() => handleEditClick(section.id, section.sectionName)}
                   >
                     Edit
                   </StyledButton>

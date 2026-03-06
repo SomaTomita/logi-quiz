@@ -21,23 +21,23 @@ import type { QuizFormData } from '../types'
 const CreateQuizPage = () => {
   const { sections, isLoading } = useAdminSections()
   const [quizData, setQuizData] = useState<QuizFormData>({
-    question_text: '',
-    choices_attributes: [
-      { choice_text: '', is_correct: false },
-      { choice_text: '', is_correct: false },
-      { choice_text: '', is_correct: false },
-      { choice_text: '', is_correct: false },
+    questionText: '',
+    choicesAttributes: [
+      { choiceText: '', isCorrect: false },
+      { choiceText: '', isCorrect: false },
+      { choiceText: '', isCorrect: false },
+      { choiceText: '', isCorrect: false },
     ],
-    explanation_attributes: { explanation_text: '' },
+    explanationAttributes: { explanationText: '' },
   })
   const [selectedSection, setSelectedSection] = useState<number | string>('')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const { name, value, type, checked } = e.target
     const actualValue = type === 'checkbox' ? checked : value
-    const list = [...quizData.choices_attributes]
+    const list = [...quizData.choicesAttributes]
     ;(list[index] as any)[name] = actualValue
-    setQuizData({ ...quizData, choices_attributes: list })
+    setQuizData({ ...quizData, choicesAttributes: list })
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -72,7 +72,7 @@ const CreateQuizPage = () => {
             >
               {sections.map((s) => (
                 <MenuItem key={s.id} value={s.id}>
-                  {s.section_name}
+                  {s.sectionName}
                 </MenuItem>
               ))}
             </TextField>
@@ -82,25 +82,25 @@ const CreateQuizPage = () => {
               label="問題文"
               placeholder="問題文を入力してください"
               multiline
-              onChange={(e) => setQuizData({ ...quizData, question_text: e.target.value })}
+              onChange={(e) => setQuizData({ ...quizData, questionText: e.target.value })}
               sx={{ mt: 2, mb: 2, width: '50%' }}
             />
           </Grid>
-          {quizData.choices_attributes.map((choice, index) => (
+          {quizData.choicesAttributes.map((choice, index) => (
             <Grid item xs={12} key={index}>
               <TextField
                 label={`選択肢 ${index + 1}`}
-                name="choice_text"
-                value={choice.choice_text}
+                name="choiceText"
+                value={choice.choiceText}
                 placeholder="選択肢を入力してください"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange(e, index)}
               />
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={choice.is_correct}
+                    checked={choice.isCorrect}
                     onChange={(e) => handleInputChange(e, index)}
-                    name="is_correct"
+                    name="isCorrect"
                     sx={{ ml: 2 }}
                   />
                 }
@@ -117,7 +117,7 @@ const CreateQuizPage = () => {
               onChange={(e) =>
                 setQuizData({
                   ...quizData,
-                  explanation_attributes: { explanation_text: e.target.value },
+                  explanationAttributes: { explanationText: e.target.value },
                 })
               }
               sx={{ mt: 2, width: '50%' }}
