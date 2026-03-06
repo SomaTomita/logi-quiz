@@ -134,7 +134,7 @@ const CreateQuizPage = () => {
         <Fab
           variant="extended"
           component={Link}
-          to="/edit-quiz"
+          to="/admin/quizzes"
           color="primary"
           aria-label="クイズ編集"
           sx={{ mt: 4, mb: 2 }}

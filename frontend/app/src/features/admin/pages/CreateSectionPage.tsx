@@ -41,7 +41,7 @@ const CreateSectionPage = () => {
         <Fab
           variant="extended"
           component={Link}
-          to="/edit-section"
+          to="/admin/sections"
           color="primary"
           aria-label="セクション編集"
           sx={{ mt: 4, mb: 2 }}

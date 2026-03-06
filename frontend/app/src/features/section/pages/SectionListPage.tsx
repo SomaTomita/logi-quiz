@@ -1,25 +1,99 @@
+import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Typography } from '@mui/material'
+import { Typography, Box, Paper, Button, TextField, InputAdornment, Alert } from '@mui/material'
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
+import PageHeader from '@/shared/components/PageHeader'
 import { useSections } from '../hooks'
 import SectionCard from '../components/SectionCard'
-import HomeNavFab from '@/shared/components/HomeNavFab'
+import { useAuthStore } from '@/features/auth/store'
+import { useGuestStore } from '@/features/auth/guestStore'
+import LoginPromptModal from '@/shared/components/LoginPromptModal'
 
 const SectionListPage = () => {
   const navigate = useNavigate()
-  const { sections, isLoading } = useSections()
+  const { sections, isLoading, error } = useSections()
+  const [search, setSearch] = useState('')
+  const isSignedIn = useAuthStore((s) => s.isSignedIn)
+  const canPlayQuiz = useGuestStore((s) => s.canPlayQuiz)
+  const showLoginPrompt = useGuestStore((s) => s.showLoginPrompt)
+  const dismissLoginPrompt = useGuestStore((s) => s.dismissLoginPrompt)
+
+  const filtered = useMemo(() => {
+    if (!search.trim()) return sections
+    const q = search.toLowerCase()
+    return sections.filter((s) => s.sectionName.toLowerCase().includes(q))
+  }, [sections, search])
 
   const handleSectionClick = (sectionId: number) => {
-    navigate(`/sections/${sectionId}/quizzes`)
+    if (!isSignedIn && !canPlayQuiz()) {
+      useGuestStore.setState({ showLoginPrompt: true })
+      return
+    }
+    navigate(`/quiz/${sectionId}`)
   }
 
   return (
-    <div style={{ marginBottom: 80 }}>
-      <Typography variant="h4" gutterBottom sx={{ mb: 5 }}>
-        セクション選択
-      </Typography>
-      <SectionCard sections={sections} onSectionClick={handleSectionClick} isLoading={isLoading} />
-      <HomeNavFab />
-    </div>
+    <>
+      <PageHeader
+        title="セクション一覧"
+        subtitle={sections.length > 0 ? `${sections.length} セクション` : undefined}
+      />
+
+      {!isSignedIn && (
+        <Alert severity="info" sx={{ mb: 3 }}>
+          ログインなしで{3}回までクイズをお試しできます
+        </Alert>
+      )}
+
+      {error ? (
+        <Paper sx={{ p: 5, textAlign: 'center' }}>
+          <ErrorOutlineIcon sx={{ fontSize: 40, color: 'text.secondary', mb: 2 }} />
+          <Typography variant="h6" gutterBottom fontWeight={600}>
+            セクションを読み込めませんでした
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+            通信状況を確認して、もう一度お試しください。
+          </Typography>
+          <Button variant="outlined" onClick={() => window.location.reload()}>
+            再読み込み
+          </Button>
+        </Paper>
+      ) : (
+        <>
+          {sections.length > 6 && (
+            <TextField
+              fullWidth
+              placeholder="セクションを検索..."
+              size="small"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchRoundedIcon sx={{ color: 'text.secondary' }} />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{ mb: 3 }}
+            />
+          )}
+          <SectionCard
+            sections={filtered}
+            onSectionClick={handleSectionClick}
+            isLoading={isLoading}
+          />
+        </>
+      )}
+
+      <LoginPromptModal
+        open={showLoginPrompt}
+        onClose={() => {
+          dismissLoginPrompt()
+          navigate('/sections')
+        }}
+      />
+    </>
   )
 }
 

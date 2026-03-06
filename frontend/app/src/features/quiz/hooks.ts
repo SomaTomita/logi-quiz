@@ -14,7 +14,12 @@ export const useQuizSession = (sectionId: string) => {
     store.reset()
     fetchQuizzes(sectionId)
       .then((res) => store.loadQuestions(res.data))
-      .catch((err) => console.error('Error fetching quizzes:', err))
+      .catch((err) => {
+        console.error('Error fetching quizzes:', err)
+        store.setFetchError(
+          'クイズの読み込みに失敗しました。ページを再読み込みしてお試しください。',
+        )
+      })
   }, [sectionId])
 
   // Play timer

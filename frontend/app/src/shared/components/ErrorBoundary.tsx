@@ -1,5 +1,6 @@
 import { Component, type ReactNode } from 'react'
-import { Box, Typography, Button } from '@mui/material'
+import { Box, Typography, Button, Paper, Container } from '@mui/material'
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 
 interface Props {
   children: ReactNode
@@ -22,19 +23,27 @@ class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          height="100vh"
-          gap={2}
-        >
-          <Typography variant="h5">エラーが発生しました</Typography>
-          <Button variant="contained" onClick={() => window.location.reload()}>
-            リロード
-          </Button>
-        </Box>
+        <Container maxWidth="sm">
+          <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
+            <Paper variant="outlined" sx={{ p: 5, textAlign: 'center', width: '100%' }}>
+              <ErrorOutlineIcon sx={{ fontSize: 48, color: 'text.secondary', mb: 2 }} />
+              <Typography variant="h5" gutterBottom fontWeight={600}>
+                予期しないエラーが発生しました
+              </Typography>
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 4, lineHeight: 1.8 }}>
+                ページの読み込み中に問題が発生しました。リロードして再度お試しください。
+              </Typography>
+              <Button
+                variant="contained"
+                size="large"
+                onClick={() => window.location.reload()}
+                sx={{ px: 4, py: 1.5 }}
+              >
+                ページをリロード
+              </Button>
+            </Paper>
+          </Box>
+        </Container>
       )
     }
     return this.props.children

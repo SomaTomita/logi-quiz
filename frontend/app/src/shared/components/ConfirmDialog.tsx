@@ -22,9 +22,9 @@ const ConfirmDialog = ({ open, title, message, onConfirm, onCancel }: ConfirmDia
       <DialogContentText id="confirm-dialog-description">{message}</DialogContentText>
     </DialogContent>
     <DialogActions>
-      <Button onClick={onCancel}>No</Button>
+      <Button onClick={onCancel}>キャンセル</Button>
       <Button onClick={onConfirm} color="error">
-        Yes
+        はい
       </Button>
     </DialogActions>
   </Dialog>

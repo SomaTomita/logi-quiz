@@ -87,7 +87,7 @@ const EditQuizPage = () => {
                 <p>{quiz.questionText}</p>
                 <StyledButton
                   variant="outlined"
-                  onClick={() => navigate(`/update-quiz/${selectedSection}/${quiz.id}`)}
+                  onClick={() => navigate(`/admin/quizzes/${selectedSection}/${quiz.id}`)}
                 >
                   Edit
                 </StyledButton>

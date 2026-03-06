@@ -11,5 +11,4 @@ export const saveDashboardData = (data: DashboardSaveData) =>
     totalClear: data.learningStack?.totalClear,
   })
 
-export const fetchDashboardData = () =>
-  apiClient.get('/dashboard/dashboard_data')
+export const fetchDashboardData = () => apiClient.get('/dashboard/dashboard_data')

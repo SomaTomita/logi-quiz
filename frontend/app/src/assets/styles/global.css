@@ -1,7 +1,7 @@
 body {
-  font-family: "Inter", "Noto Sans JP", sans-serif;
-  background: #f0fdf4;
-  color: #1e293b;
+  font-family: "Inter", "Noto Sans JP", system-ui, sans-serif;
+  background: #F8FAFC;
+  color: #0F172A;
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
@@ -20,12 +20,12 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid #0d9488;
+  outline: 2px solid #4F46E5;
   outline-offset: 2px;
 }
 
-.react-calendar-heatmap .color-empty { fill: #e2e8f0; }
-.react-calendar-heatmap .color-scale-0 { fill: #bbf7d0; }
-.react-calendar-heatmap .color-scale-1 { fill: #4ade80; }
-.react-calendar-heatmap .color-scale-2 { fill: #16a34a; }
-.react-calendar-heatmap .color-scale-3 { fill: #166534; }
+.react-calendar-heatmap .color-empty { fill: #E2E8F0; }
+.react-calendar-heatmap .color-scale-0 { fill: #C7D2FE; }
+.react-calendar-heatmap .color-scale-1 { fill: #818CF8; }
+.react-calendar-heatmap .color-scale-2 { fill: #4F46E5; }
+.react-calendar-heatmap .color-scale-3 { fill: #3730A3; }

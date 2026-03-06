@@ -1,24 +1,15 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import {
-  TextField,
-  Card,
-  CardContent,
-  CardHeader,
-  Button,
-  Alert,
-  Typography,
-  IconButton,
-  Box,
-} from '@mui/material'
-import { CheckCircle as CheckCircleIcon } from '@mui/icons-material'
+import { TextField, Button, Box, Alert, Typography } from '@mui/material'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
+import AuthLayout from '@/shared/layouts/AuthLayout'
 import { sendResetEmail } from '../api'
-import AlertMessage from '@/shared/components/AlertMessage'
 import type { SendResetMailParams } from '../types'
 
 const SendResetMail = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [alertOpen, setAlertOpen] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const {
     register,
     formState: { errors },
@@ -28,69 +19,89 @@ const SendResetMail = () => {
   const watchedEmail = watch('email')
 
   const onSubmit: SubmitHandler<SendResetMailParams> = async (data) => {
+    setError(null)
     try {
       await sendResetEmail(data)
       setIsSubmitted(true)
     } catch {
-      setAlertOpen(true)
+      setError('メールの送信に失敗しました。メールアドレスを確認してください。')
     }
   }
 
   if (isSubmitted) {
     return (
-      <Box display="flex" justifyContent="center">
-        <Alert
-          severity="success"
-          action={
-            <IconButton color="inherit" size="small">
-              <CheckCircleIcon fontSize="inherit" />
-            </IconButton>
-          }
-          sx={{ mt: 2, display: 'flex', alignItems: 'center' }}
-        >
-          <Typography variant="h6">Reset email sent</Typography>
-        </Alert>
-      </Box>
+      <AuthLayout>
+        <Box sx={{ textAlign: 'center' }}>
+          <CheckCircleRoundedIcon sx={{ fontSize: 56, color: 'success.main', mb: 2 }} />
+          <Typography variant="h4" sx={{ mb: 1 }}>
+            メールを送信しました
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+            パスワードリセット用のリンクをメールで送信しました。メールをご確認ください。
+          </Typography>
+          <Button component={Link} to="/signin" variant="outlined">
+            ログインに戻る
+          </Button>
+        </Box>
+      </AuthLayout>
     )
   }
 
   return (
-    <Box display="flex" justifyContent="center">
-      <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-        <Card sx={{ mt: 6, p: 2, maxWidth: 450 }}>
-          <CardHeader sx={{ textAlign: 'center' }} title="Reset Password" />
-          <CardContent>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="Email"
-              {...register('email')}
-              error={Boolean(errors.email)}
-              helperText={errors.email?.message}
-              margin="dense"
-              autoComplete="email"
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              fullWidth
-              disabled={!watchedEmail || Boolean(errors.email)}
-              sx={{ mt: 2 }}
-            >
-              Submit
-            </Button>
-          </CardContent>
-        </Card>
-      </form>
-      <AlertMessage
-        open={alertOpen}
-        setOpen={setAlertOpen}
-        severity="error"
-        message="Failed to send email"
-      />
-    </Box>
+    <AuthLayout>
+      <Typography variant="h3" component="h1" sx={{ mb: 0.5 }}>
+        パスワードリセット
+      </Typography>
+      <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+        登録済みのメールアドレスを入力してください
+      </Typography>
+
+      {error && (
+        <Alert severity="error" sx={{ mb: 3 }}>
+          {error}
+        </Alert>
+      )}
+
+      <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
+        <TextField
+          fullWidth
+          label="メールアドレス"
+          type="email"
+          autoComplete="email"
+          margin="normal"
+          error={!!errors.email}
+          helperText={errors.email?.message}
+          {...register('email', {
+            required: 'メールアドレスを入力してください',
+          })}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          fullWidth
+          size="large"
+          disabled={!watchedEmail || !!errors.email}
+          sx={{ mt: 2, py: 1.5 }}
+        >
+          リセットメールを送信
+        </Button>
+      </Box>
+
+      <Box sx={{ textAlign: 'center', mt: 3 }}>
+        <Typography
+          component={Link}
+          to="/signin"
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+            textDecoration: 'none',
+            '&:hover': { textDecoration: 'underline' },
+          }}
+        >
+          ログインに戻る
+        </Typography>
+      </Box>
+    </AuthLayout>
   )
 }
 

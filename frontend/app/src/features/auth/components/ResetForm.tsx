@@ -1,19 +1,10 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import {
-  TextField,
-  Card,
-  CardContent,
-  CardHeader,
-  Button,
-  Alert,
-  Typography,
-  IconButton,
-  Box,
-} from '@mui/material'
-import { CheckCircle as CheckCircleIcon } from '@mui/icons-material'
+import { TextField, Button, Box, Alert, Typography } from '@mui/material'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
+import AuthLayout from '@/shared/layouts/AuthLayout'
 import { resetPassword } from '../api'
-import AlertMessage from '@/shared/components/AlertMessage'
 import type { PasswordResetParams } from '../types'
 
 interface Props {
@@ -22,7 +13,7 @@ interface Props {
 
 const ResetForm = ({ resetPasswordToken }: Props) => {
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [alertOpen, setAlertOpen] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const {
     register,
     formState: { errors },
@@ -32,83 +23,89 @@ const ResetForm = ({ resetPasswordToken }: Props) => {
   const password = watch('password', '')
 
   const onSubmit: SubmitHandler<PasswordResetParams> = async (data) => {
+    setError(null)
     try {
       await resetPassword({ ...data, resetPasswordToken })
       setIsSubmitted(true)
     } catch {
-      setAlertOpen(true)
+      setError('パスワードのリセットに失敗しました。もう一度お試しください。')
     }
   }
 
   if (isSubmitted) {
     return (
-      <Box display="flex" justifyContent="center">
-        <Alert
-          severity="success"
-          action={
-            <IconButton color="inherit" size="small">
-              <CheckCircleIcon fontSize="inherit" />
-            </IconButton>
-          }
-          sx={{ mt: 2, display: 'flex', alignItems: 'center' }}
-        >
-          <Typography variant="h6">Reset Password has completed!</Typography>
-        </Alert>
-      </Box>
+      <AuthLayout>
+        <Box sx={{ textAlign: 'center' }}>
+          <CheckCircleRoundedIcon sx={{ fontSize: 56, color: 'success.main', mb: 2 }} />
+          <Typography variant="h4" sx={{ mb: 1 }}>
+            パスワードを変更しました
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+            新しいパスワードでログインしてください。
+          </Typography>
+          <Button component={Link} to="/signin" variant="contained">
+            ログインへ
+          </Button>
+        </Box>
+      </AuthLayout>
     )
   }
 
   return (
-    <Box display="flex" justifyContent="center">
-      <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-        <Card sx={{ mt: 6, p: 2, maxWidth: 450 }}>
-          <CardHeader sx={{ textAlign: 'center' }} title="Reset Password" />
-          <CardContent>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="New Password"
-              type="password"
-              {...register('password')}
-              error={Boolean(errors.password)}
-              helperText={errors.password ? 'Invalid password' : ''}
-              margin="dense"
-              autoComplete="new-password"
-            />
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              label="New Password Confirmation"
-              type="password"
-              {...register('passwordConfirmation')}
-              error={Boolean(errors.passwordConfirmation)}
-              helperText={errors.passwordConfirmation ? "Passwords don't match" : ''}
-              margin="dense"
-              autoComplete="new-password"
-            />
-            <input type="hidden" value={resetPasswordToken} {...register('resetPasswordToken')} />
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              fullWidth
-              disabled={!password}
-              sx={{ mt: 2 }}
-            >
-              Change
-            </Button>
-          </CardContent>
-        </Card>
-      </form>
-      <AlertMessage
-        open={alertOpen}
-        setOpen={setAlertOpen}
-        severity="error"
-        message="Error resetting password"
-      />
-    </Box>
+    <AuthLayout>
+      <Typography variant="h3" component="h1" sx={{ mb: 0.5 }}>
+        新しいパスワード
+      </Typography>
+      <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+        新しいパスワードを設定してください
+      </Typography>
+
+      {error && (
+        <Alert severity="error" sx={{ mb: 3 }}>
+          {error}
+        </Alert>
+      )}
+
+      <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
+        <TextField
+          fullWidth
+          label="新しいパスワード"
+          type="password"
+          autoComplete="new-password"
+          margin="normal"
+          error={!!errors.password}
+          helperText={errors.password?.message}
+          {...register('password', {
+            required: 'パスワードを入力してください',
+            minLength: { value: 6, message: 'パスワードは6文字以上で入力してください' },
+          })}
+        />
+        <TextField
+          fullWidth
+          label="新しいパスワード（確認）"
+          type="password"
+          autoComplete="new-password"
+          margin="normal"
+          error={!!errors.passwordConfirmation}
+          helperText={errors.passwordConfirmation?.message}
+          {...register('passwordConfirmation', {
+            required: 'パスワード確認を入力してください',
+            validate: (v) => v === password || 'パスワードが一致しません',
+          })}
+        />
+        <input type="hidden" value={resetPasswordToken} {...register('resetPasswordToken')} />
+        <Button
+          type="submit"
+          variant="contained"
+          fullWidth
+          size="large"
+          disabled={!password}
+          sx={{ mt: 2, py: 1.5 }}
+        >
+          パスワードを変更
+        </Button>
+      </Box>
+    </AuthLayout>
   )
 }
 
