@@ -1,35 +1,39 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
 import { setAuthCookies } from '@/shared/api/client'
 import { TextField, Card, CardContent, CardHeader, Button, Box } from '@mui/material'
 import { useAuthStore } from '../store'
 import AlertMessage from '@/shared/components/AlertMessage'
 import { signUp } from '../api'
-import type { SignUpParams, User } from '../types'
+import type { User } from '../types'
+
+interface SignUpForm {
+  name: string
+  email: string
+  password: string
+  passwordConfirmation: string
+}
 
 const SignUpPage = () => {
   const navigate = useNavigate()
   const setUser = useAuthStore((s) => s.setUser)
-
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [passwordConfirmation, setPasswordConfirmation] = useState('')
   const [alertOpen, setAlertOpen] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('Registration failed. Please try again.')
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isValid },
+  } = useForm<SignUpForm>({ mode: 'onBlur' })
 
-    const params: SignUpParams = {
-      name,
-      email,
-      password,
-      passwordConfirmation,
-      confirmSuccessUrl: import.meta.env.VITE_CONFIRM_SUCCESS_URL,
-    }
-
+  const onSubmit = async (data: SignUpForm) => {
     try {
-      const res = await signUp(params)
+      const res = await signUp({
+        ...data,
+        confirmSuccessUrl: import.meta.env.VITE_CONFIRM_SUCCESS_URL,
+      })
       if (res.status === 200) {
         setAuthCookies(res.headers as Record<string, string>)
         setUser(res.data.data as User)
@@ -37,14 +41,19 @@ const SignUpPage = () => {
       } else {
         setAlertOpen(true)
       }
-    } catch {
+    } catch (err: unknown) {
+      const axiosErr = err as { response?: { data?: { errors?: { fullMessages?: string[] } } } }
+      const messages = axiosErr.response?.data?.errors?.fullMessages
+      if (messages && messages.length > 0) {
+        setErrorMessage(messages.join(', '))
+      }
       setAlertOpen(true)
     }
   }
 
   return (
     <Box display="flex" justifyContent="center">
-      <form noValidate autoComplete="off">
+      <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
         <Card sx={{ mt: 6, p: 2, maxWidth: 450 }}>
           <CardHeader sx={{ textAlign: 'center' }} title="Sign Up" />
           <CardContent>
@@ -53,20 +62,28 @@ const SignUpPage = () => {
               required
               fullWidth
               label="Name"
-              value={name}
               margin="dense"
               autoComplete="name"
-              onChange={(e) => setName(e.target.value)}
+              error={!!errors.name}
+              helperText={errors.name?.message}
+              {...register('name', { required: 'Name is required' })}
             />
             <TextField
               variant="outlined"
               required
               fullWidth
               label="Email"
-              value={email}
               margin="dense"
               autoComplete="email"
-              onChange={(e) => setEmail(e.target.value)}
+              error={!!errors.email}
+              helperText={errors.email?.message}
+              {...register('email', {
+                required: 'Email is required',
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: 'Invalid email format',
+                },
+              })}
             />
             <TextField
               variant="outlined"
@@ -74,11 +91,15 @@ const SignUpPage = () => {
               fullWidth
               label="Password"
               type="password"
-              value={password}
               margin="dense"
               placeholder="At least 6 characters"
               autoComplete="new-password"
-              onChange={(e) => setPassword(e.target.value)}
+              error={!!errors.password}
+              helperText={errors.password?.message}
+              {...register('password', {
+                required: 'Password is required',
+                minLength: { value: 6, message: 'Password must be at least 6 characters' },
+              })}
             />
             <TextField
               variant="outlined"
@@ -86,19 +107,23 @@ const SignUpPage = () => {
               fullWidth
               label="Password Confirmation"
               type="password"
-              value={passwordConfirmation}
               margin="dense"
               autoComplete="new-password"
-              onChange={(e) => setPasswordConfirmation(e.target.value)}
+              error={!!errors.passwordConfirmation}
+              helperText={errors.passwordConfirmation?.message}
+              {...register('passwordConfirmation', {
+                required: 'Password confirmation is required',
+                validate: (value) =>
+                  value === watch('password') || 'Passwords do not match',
+              })}
             />
             <Button
               type="submit"
               variant="contained"
               size="large"
               fullWidth
-              disabled={!name || !email || !password || !passwordConfirmation}
+              disabled={!isValid}
               sx={{ mt: 2 }}
-              onClick={handleSubmit}
             >
               Submit
             </Button>
@@ -109,7 +134,7 @@ const SignUpPage = () => {
         open={alertOpen}
         setOpen={setAlertOpen}
         severity="error"
-        message="Invalid email or password"
+        message={errorMessage}
       />
     </Box>
   )

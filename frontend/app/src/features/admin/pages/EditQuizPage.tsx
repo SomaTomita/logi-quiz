@@ -72,7 +72,7 @@ const EditQuizPage = () => {
             variant="outlined"
             sx={{ mt: 2 }}
           >
-            {section.section_name}
+            {section.sectionName}
           </StyledButton>
         ))}
       </div>
@@ -84,7 +84,7 @@ const EditQuizPage = () => {
           {quizzes.map((quiz) => (
             <Grid item xs={12} sm={6} md={4} key={quiz.id}>
               <StyledPaper elevation={2}>
-                <p>{quiz.question_text}</p>
+                <p>{quiz.questionText}</p>
                 <StyledButton
                   variant="outlined"
                   onClick={() => navigate(`/update-quiz/${selectedSection}/${quiz.id}`)}

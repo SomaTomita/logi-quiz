@@ -13,6 +13,7 @@ export interface QuizSessionState {
   showTimer: boolean
   elapsedSeconds: number
   sectionClearCount: number
+  saveError: string | null
 
   // Actions
   loadQuestions: (questions: Quiz[]) => void
@@ -22,6 +23,7 @@ export interface QuizSessionState {
   startQuiz: () => void
   reset: () => void
   tick: () => void
+  setSaveError: (error: string | null) => void
 
   // Derived getters
   currentQuestion: () => Quiz | null
@@ -41,6 +43,7 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
   showTimer: true,
   elapsedSeconds: 0,
   sectionClearCount: 0,
+  saveError: null,
 
   loadQuestions: (questions) => set({ questions }),
 
@@ -48,7 +51,7 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
     const correctAns = get().correctAnswer()
     set({
       answerIndex: index,
-      isCorrect: choice.choice_text === correctAns,
+      isCorrect: choice.choiceText === correctAns,
     })
   },
 
@@ -57,7 +60,7 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
 
     const newCorrectIndices = isCorrect ? [...correctIndices, currentIndex] : correctIndices
     const currentQ = questions[currentIndex]
-    const selectedText = answerIndex !== null ? currentQ.choices[answerIndex].choice_text : '未回答'
+    const selectedText = answerIndex !== null ? currentQ.choices[answerIndex].choiceText : '未回答'
     const newUserAnswers = [...userAnswers, selectedText]
 
     if (currentIndex < questions.length - 1) {
@@ -108,7 +111,10 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
       showTimer: false,
       elapsedSeconds: 0,
       sectionClearCount: 0,
+      saveError: null,
     }),
+
+  setSaveError: (error) => set({ saveError: error }),
 
   tick: () => set((s) => ({ elapsedSeconds: s.elapsedSeconds + 1 })),
 
@@ -124,6 +130,6 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
 
   correctAnswer: () => {
     const q = get().currentQuestion()
-    return q?.choices.find((c) => c.is_correct)?.choice_text ?? ''
+    return q?.choices.find((c) => c.isCorrect)?.choiceText ?? ''
   },
 }))

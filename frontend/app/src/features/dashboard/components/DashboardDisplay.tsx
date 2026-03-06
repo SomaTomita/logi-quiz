@@ -56,7 +56,7 @@ const DashboardDisplay = memo(({ user, data }: DashboardDisplayProps) => (
             総プレイ時間
           </Typography>
           <Typography variant="h3" fontWeight={700}>
-            {Math.floor(data.total_play_time / 60)}分
+            {Math.floor(data.totalPlayTime / 60)}分
           </Typography>
         </Paper>
       </Grid>
@@ -78,7 +78,7 @@ const DashboardDisplay = memo(({ user, data }: DashboardDisplayProps) => (
             総問題クリア数
           </Typography>
           <Typography variant="h3" fontWeight={700}>
-            {data.total_questions_cleared}回
+            {data.totalQuestionsCleared}回
           </Typography>
         </Paper>
       </Grid>
@@ -98,11 +98,11 @@ const DashboardDisplay = memo(({ user, data }: DashboardDisplayProps) => (
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.cleared_sections.map((section, index) => (
+                {data.clearedSections.map((section, index) => (
                   <TableRow key={index}>
-                    <TableCell>{section.section_name}</TableCell>
-                    <TableCell align="right">{section.correct_answers}/10</TableCell>
-                    <TableCell align="right">{formatDate(section.cleared_at)}</TableCell>
+                    <TableCell>{section.sectionName}</TableCell>
+                    <TableCell align="right">{section.correctAnswers}/10</TableCell>
+                    <TableCell align="right">{formatDate(section.clearedAt)}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -119,9 +119,9 @@ const DashboardDisplay = memo(({ user, data }: DashboardDisplayProps) => (
           <CalendarHeatmap
             startDate={new Date(new Date().setFullYear(new Date().getFullYear() - 1))}
             endDate={new Date()}
-            values={(data.study_logs_past_year || []).map((log) => ({
+            values={(data.studyLogsPastYear || []).map((log) => ({
               date: log.date,
-              count: log.study_time,
+              count: log.studyTime,
             }))}
             classForValue={(value) => {
               if (!value) return 'color-empty'

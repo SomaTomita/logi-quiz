@@ -1,27 +1,33 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
 import { setAuthCookies } from '@/shared/api/client'
 import { Typography, TextField, Card, CardContent, CardHeader, Button, Box } from '@mui/material'
 import { useAuthStore } from '../store'
 import AlertMessage from '@/shared/components/AlertMessage'
 import { signIn } from '../api'
-import type { SignInParams, User } from '../types'
+import type { User } from '../types'
+
+interface SignInForm {
+  email: string
+  password: string
+}
 
 const SignInPage = () => {
   const navigate = useNavigate()
   const setUser = useAuthStore((s) => s.setUser)
-
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [alertOpen, setAlertOpen] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('Invalid email or password')
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<SignInForm>({ mode: 'onBlur' })
 
-    const params: SignInParams = { email, password }
-
+  const onSubmit = async (data: SignInForm) => {
     try {
-      const res = await signIn(params)
+      const res = await signIn(data)
       if (res.status === 200) {
         setAuthCookies(res.headers as Record<string, string>)
         setUser(res.data.data as User)
@@ -29,14 +35,19 @@ const SignInPage = () => {
       } else {
         setAlertOpen(true)
       }
-    } catch {
+    } catch (err: unknown) {
+      const axiosErr = err as { response?: { data?: { errors?: string[] } } }
+      const msgs = axiosErr.response?.data?.errors
+      if (Array.isArray(msgs) && msgs.length > 0) {
+        setErrorMessage(msgs.join(', '))
+      }
       setAlertOpen(true)
     }
   }
 
   return (
     <Box display="flex" justifyContent="center">
-      <form noValidate autoComplete="off">
+      <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
         <Card sx={{ p: 2, maxWidth: 450, mt: 4 }}>
           <CardHeader title="Sign In" sx={{ textAlign: 'center' }} />
           <CardContent>
@@ -47,9 +58,16 @@ const SignInPage = () => {
               label="Email"
               type="email"
               autoComplete="email"
-              value={email}
               margin="dense"
-              onChange={(e) => setEmail(e.target.value)}
+              error={!!errors.email}
+              helperText={errors.email?.message}
+              {...register('email', {
+                required: 'Email is required',
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: 'Invalid email format',
+                },
+              })}
             />
             <TextField
               variant="outlined"
@@ -58,10 +76,14 @@ const SignInPage = () => {
               label="Password"
               type="password"
               placeholder="At least 6 characters"
-              value={password}
               margin="dense"
               autoComplete="current-password"
-              onChange={(e) => setPassword(e.target.value)}
+              error={!!errors.password}
+              helperText={errors.password?.message}
+              {...register('password', {
+                required: 'Password is required',
+                minLength: { value: 6, message: 'Password must be at least 6 characters' },
+              })}
             />
             <Box textAlign="right" sx={{ mt: 1 }}>
               <Link
@@ -76,9 +98,8 @@ const SignInPage = () => {
               variant="contained"
               size="large"
               fullWidth
-              disabled={!email || !password}
+              disabled={!isValid}
               sx={{ mt: 2 }}
-              onClick={handleSubmit}
             >
               Submit
             </Button>
@@ -109,7 +130,7 @@ const SignInPage = () => {
         open={alertOpen}
         setOpen={setAlertOpen}
         severity="error"
-        message="Invalid email or password"
+        message={errorMessage}
       />
     </Box>
   )

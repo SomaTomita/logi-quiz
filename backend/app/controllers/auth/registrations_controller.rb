@@ -7,8 +7,8 @@ class Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
   private
 
   # 登録時に許可するパラメータをホワイトリストで制限
-  # confirm_success_urlはDeviseTokenAuthがparams[:confirm_success_url]から直接取得するため
-  # sign_up_paramsには含めない（含めるとActiveRecordが未知カラムとしてエラーになる）
+  # confirm_success_urlはDeviseTokenAuthがparams[:confirm_success_url]から直接読み取るため
+  # sign_up_paramsには含めない（含めるとUserモデルへの属性代入でエラーになる）
   def sign_up_params
     params.permit(:name, :email, :password, :password_confirmation)
   end

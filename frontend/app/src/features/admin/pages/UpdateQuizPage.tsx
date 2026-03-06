@@ -28,8 +28,8 @@ const UpdateQuizPage = () => {
     try {
       await updateQuiz(sectionId!, quizId!, {
         ...quiz,
-        choices_attributes: quiz.choices,
-        explanation_attributes: quiz.explanation,
+        choicesAttributes: quiz.choices,
+        explanationAttributes: quiz.explanation,
       })
       setSnackbar({ open: true, message: 'Changes saved successfully!', severity: 'success' })
       setTimeout(() => navigate('/edit-quiz'), 1500)
@@ -44,8 +44,8 @@ const UpdateQuizPage = () => {
         label="Question Text"
         variant="outlined"
         fullWidth
-        value={quiz.question_text}
-        onChange={(e) => setQuiz({ ...quiz, question_text: e.target.value })}
+        value={quiz.questionText}
+        onChange={(e) => setQuiz({ ...quiz, questionText: e.target.value })}
         sx={{ mt: 2 }}
       />
       {(quiz.choices || []).map((choice, index) => (
@@ -53,10 +53,10 @@ const UpdateQuizPage = () => {
           <TextField
             label={`Choice ${index + 1}`}
             variant="outlined"
-            value={choice.choice_text}
+            value={choice.choiceText}
             onChange={(e) => {
               const updated = [...quiz.choices]
-              updated[index] = { ...updated[index], choice_text: e.target.value }
+              updated[index] = { ...updated[index], choiceText: e.target.value }
               setQuiz({ ...quiz, choices: updated })
             }}
             sx={{ flex: 1 }}
@@ -64,10 +64,10 @@ const UpdateQuizPage = () => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={choice.is_correct}
+                checked={choice.isCorrect}
                 onChange={() => {
                   const updated = [...quiz.choices]
-                  updated[index] = { ...updated[index], is_correct: !choice.is_correct }
+                  updated[index] = { ...updated[index], isCorrect: !choice.isCorrect }
                   setQuiz({ ...quiz, choices: updated })
                 }}
               />
@@ -82,11 +82,11 @@ const UpdateQuizPage = () => {
         variant="outlined"
         fullWidth
         multiline
-        value={quiz.explanation?.explanation_text ?? ''}
+        value={quiz.explanation?.explanationText ?? ''}
         onChange={(e) =>
           setQuiz({
             ...quiz,
-            explanation: { ...quiz.explanation, explanation_text: e.target.value },
+            explanation: { ...quiz.explanation, explanationText: e.target.value },
           })
         }
         sx={{ mt: 2 }}

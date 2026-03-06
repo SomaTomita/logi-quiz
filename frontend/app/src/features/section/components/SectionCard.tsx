@@ -53,7 +53,7 @@ const SectionCard = memo(({ sections, onSectionClick, isLoading }: SectionCardPr
             }}
           >
             <Typography variant="body1" fontWeight={500}>
-              {section.section_name}
+              {section.sectionName}
             </Typography>
           </StyledPaper>
         </Grid>

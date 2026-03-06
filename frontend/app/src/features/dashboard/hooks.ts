@@ -12,7 +12,7 @@ export const useDashboard = () => {
   useEffect(() => {
     if (!user) return
 
-    fetchDashboardData(user.id)
+    fetchDashboardData()
       .then((res) => setData(res.data.data))
       .catch(setError)
       .finally(() => setIsLoading(false))

@@ -31,21 +31,23 @@ export const useQuizSession = (sectionId: string) => {
   useEffect(() => {
     if (!store.showResult || !user) return
 
-    saveDashboardData(
-      {
-        playTime: store.elapsedSeconds,
-        questions_cleared: store.correctIndices.length,
-        sectionResult: {
-          sectionId,
-          correctAnswers: store.correctIndices.length,
-        },
-        learningStack: {
-          date: new Date().toISOString().split('T')[0],
-          totalClear: store.sectionClearCount,
-        },
+    saveDashboardData({
+      playTime: store.elapsedSeconds,
+      questionsCleared: store.correctIndices.length,
+      sectionResult: {
+        sectionId,
+        correctAnswers: store.correctIndices.length,
       },
-      user.id,
-    ).catch((err) => console.error('Error saving dashboard data:', err))
+      learningStack: {
+        date: new Date().toISOString().split('T')[0],
+        totalClear: store.sectionClearCount,
+      },
+    })
+      .then(() => store.setSaveError(null))
+      .catch((err) => {
+        console.error('Error saving dashboard data:', err)
+        store.setSaveError('学習記録の保存に失敗しました。')
+      })
   }, [store.showResult])
 
   return store

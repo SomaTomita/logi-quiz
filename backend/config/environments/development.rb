@@ -35,7 +35,7 @@ Rails.application.configure do
 
   # 開発環境でもSMTPでメール送信（確認メール等の動作検証用）
   # EMAIL_ADDRESS / EMAIL_PASSWORD を .env に設定すること
-  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_options = { from: ENV.fetch('EMAIL_ADDRESS', 'noreply@example.com') }
   config.action_mailer.default_url_options = { host: 'localhost', port: 3001 }
   config.action_mailer.delivery_method = :smtp

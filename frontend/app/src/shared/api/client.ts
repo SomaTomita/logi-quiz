@@ -15,10 +15,13 @@ export const authClient = applyCaseMiddleware(
   options,
 )
 
-// --- General API client（snake_caseのまま使用） ---
-export const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-})
+// --- General API client（snake_case⇔camelCase自動変換） ---
+export const apiClient = applyCaseMiddleware(
+  axios.create({
+    baseURL: import.meta.env.VITE_API_BASE_URL,
+  }),
+  options,
+)
 
 // --- 認証トークンのCookie保存ヘルパー ---
 // SignIn/SignUpページから呼び出し、レスポンスインターセプターからも使用

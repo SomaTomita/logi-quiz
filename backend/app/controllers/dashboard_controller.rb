@@ -3,13 +3,13 @@
 class DashboardController < ApplicationController
   before_action :authenticate_user!
 
-  # GET /dashboard/:id/dashboard_data
+  # GET /dashboard/dashboard_data
   # ユーザーのダッシュボードデータ（進捗・学習ログ）を返却
   def dashboard_data
     render json: { data: current_user.dashboard_data }
   end
 
-  # POST /dashboard/:id/section_cleared
+  # POST /dashboard/section_cleared
   # セクションクリア時の一連の更新処理をUserモデルに委譲
   def section_cleared
     section = Section.find(params[:section_id])
