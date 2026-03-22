@@ -22,6 +22,10 @@ class DashboardController < ApplicationController
       total_clear: params[:total_clear].to_i
     )
 
+    if params[:question_results].present?
+      SrsService.record_batch!(user: current_user, question_results: params[:question_results])
+    end
+
     head :ok
   rescue ActiveRecord::RecordInvalid => e
     render json: { error: e.message }, status: :unprocessable_entity

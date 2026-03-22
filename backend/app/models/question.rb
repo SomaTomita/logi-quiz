@@ -3,6 +3,8 @@ class Question < ApplicationRecord
   # 問題削除時に選択肢・解説も連動削除
   has_many :choices, dependent: :destroy
   has_one :explanation, dependent: :destroy
+  has_many :question_attempts, dependent: :destroy
+  has_many :user_question_states, dependent: :destroy
 
   validates :question_text, presence: true
 

@@ -30,4 +30,10 @@ Rails.application.routes.draw do
     get :dashboard_data, to: 'dashboard#dashboard_data'
     post :section_cleared, to: 'dashboard#section_cleared'
   end
+
+  # 復習キューAPI（SRSスケジュールベース）
+  scope :reviews do
+    get '/', to: 'reviews#index'
+    post :complete, to: 'reviews#complete'
+  end
 end

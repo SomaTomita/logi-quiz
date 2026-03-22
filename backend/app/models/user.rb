@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :user_sections, dependent: :destroy
   has_many :cleared_sections, through: :user_sections, source: :section
   has_many :study_logs, dependent: :destroy
+  has_many :question_attempts, dependent: :destroy
+  has_many :user_question_states, dependent: :destroy
 
   # セクションクリア時の一連の処理をトランザクションで実行
   # - 合計プレイ時間・クリア問題数をアトミックに加算（レースコンディション防止）
