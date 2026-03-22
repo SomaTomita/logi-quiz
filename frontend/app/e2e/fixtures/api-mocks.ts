@@ -244,3 +244,9 @@ export async function mockPasswordResetAPI(page: Page) {
     route.fulfill({ status: 200, contentType: 'application/json', body: '{"success":true}' }),
   )
 }
+
+export async function mockSignOutAPI(page: Page) {
+  await page.route(`${API_BASE}/auth/sign_out`, (route) =>
+    route.fulfill({ status: 200, contentType: 'application/json', body: '{"success":true}' }),
+  )
+}
