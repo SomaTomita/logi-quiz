@@ -11,9 +11,9 @@ class QuizzesController < ApplicationController
                      .sample(10)
 
     render json: quizzes.as_json(
-      only: [:question_text],
+      only: [:id, :question_text],
       include: {
-        choices: { only: [:choice_text, :is_correct] },
+        choices: { only: [:id, :choice_text, :is_correct] },
         explanation: { only: [:explanation_text] }
       }
     )
