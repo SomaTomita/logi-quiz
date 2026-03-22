@@ -16,6 +16,12 @@ export interface DashboardData {
   studyLogsPastYear: StudyLog[]
 }
 
+export interface QuestionResult {
+  questionId: number
+  choiceId: number | null
+  correct: boolean
+}
+
 export interface DashboardSaveData {
   playTime?: number
   questionsCleared?: number
@@ -27,4 +33,5 @@ export interface DashboardSaveData {
     date: string
     totalClear: number
   }
+  questionResults?: QuestionResult[]
 }
