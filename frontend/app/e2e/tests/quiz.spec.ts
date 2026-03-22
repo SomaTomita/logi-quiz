@@ -54,6 +54,42 @@ test.describe.serial('Quiz Flow - Start to Exit', () => {
   })
 })
 
+test.describe.serial('Quiz Flow - Timer Expiration', () => {
+  let page: Page
+
+  test.beforeAll(async ({ browser }) => {
+    page = await browser.newPage()
+    await mockSessionAPI(page, false)
+    await mockQuizAPI(page, '1')
+    await mockSectionsAPI(page)
+  })
+
+  test.afterAll(async () => {
+    await page.close()
+  })
+
+  test('timer expiration auto-advances to next question', async () => {
+    // Install fake timers before navigation
+    await page.clock.install()
+    await page.goto('/quiz/1')
+
+    // Let React render the page
+    await page.clock.runFor(500)
+    await page.getByRole('button', { name: 'スタート' }).click()
+
+    // Let React render question 1
+    await page.clock.runFor(500)
+    await expect(page.getByText('テスト問題1')).toBeVisible()
+
+    // Fast-forward past the 15s timer (in small increments to let React process)
+    await page.clock.runFor(15500)
+
+    // Should auto-advance to question 2 without any user interaction
+    await expect(page.getByText('テスト問題2')).toBeVisible()
+    await expect(page.getByText('2 / 10')).toBeVisible()
+  })
+})
+
 test.describe.serial('Quiz Flow - Complete All Questions', () => {
   let page: Page
 
@@ -97,5 +133,61 @@ test.describe.serial('Quiz Flow - Complete All Questions', () => {
     await expect(page.getByText(/10問中/)).toBeVisible()
     await expect(page.getByRole('button', { name: 'もう一度' })).toBeVisible()
     await expect(page.getByRole('button', { name: 'セクション一覧へ' })).toBeVisible()
+  })
+})
+
+test.describe.serial('Quiz Flow - Guest Limit', () => {
+  let page: Page
+
+  test.beforeAll(async ({ browser }) => {
+    page = await browser.newPage()
+    await mockSessionAPI(page, false)
+    await mockQuizAPI(page, '*')
+    await mockSectionsAPI(page)
+
+    // Set guest count to 2 (one more quiz triggers the limit)
+    await page.goto('/sections')
+    await page.evaluate(() => localStorage.setItem('logi_quiz_guest_count', '2'))
+  })
+
+  test.afterAll(async () => {
+    await page.close()
+  })
+
+  test('completing 3rd quiz shows login prompt modal', async () => {
+    // Navigate to quiz and complete it
+    await page.goto('/quiz/1')
+    await page.getByRole('button', { name: 'スタート' }).click()
+
+    for (let i = 0; i < 10; i++) {
+      await page.getByRole('radio').first().click()
+      const buttonName = i === 9 ? '完了' : '次へ'
+      await page.getByRole('button', { name: buttonName }).click()
+    }
+
+    // Result screen should show, and modal should appear
+    await expect(page.getByText(/10問中/)).toBeVisible()
+    await expect(page.getByText('無料体験の上限に達しました')).toBeVisible()
+  })
+
+  test('modal signup button navigates to signup', async () => {
+    await page.getByRole('button', { name: '無料で新規登録' }).click()
+    await expect(page).toHaveURL('/signup')
+  })
+
+  test('guest cannot start quiz from sections after limit', async () => {
+    // Go back to sections, reload to pick up localStorage
+    await page.goto('/sections')
+    await page.getByText('国際輸送の基礎').click()
+
+    // Should show modal instead of navigating to quiz
+    await expect(page.getByText('無料体験の上限に達しました')).toBeVisible()
+  })
+
+  test('modal dismiss returns to sections', async () => {
+    await page.getByRole('button', { name: 'セクション一覧に戻る' }).click()
+    await expect(page).toHaveURL('/sections')
+    // Modal should be closed
+    await expect(page.getByText('無料体験の上限に達しました')).not.toBeVisible()
   })
 })

@@ -46,7 +46,7 @@ test.describe.serial('Sections Page - Error', () => {
   })
 })
 
-test.describe.serial('Sections Page - Navigation', () => {
+test.describe.serial('Sections Page - Authenticated', () => {
   let page: Page
 
   test.beforeAll(async ({ browser }) => {
@@ -66,6 +66,11 @@ test.describe.serial('Sections Page - Navigation', () => {
 
   test.afterAll(async () => {
     await page.close()
+  })
+
+  test('authenticated user does not see guest banner', async () => {
+    await expect(page.getByText('セクション一覧')).toBeVisible()
+    await expect(page.getByText(/ログインなしで.*回までクイズをお試しできます/)).not.toBeVisible()
   })
 
   test('clicking section navigates to quiz page', async () => {
