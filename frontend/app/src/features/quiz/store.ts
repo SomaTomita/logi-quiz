@@ -1,14 +1,6 @@
 import { create } from 'zustand'
 import type { Quiz, Choice } from './types'
-
-const shuffleArray = <T>(array: T[]): T[] => {
-  const shuffled = [...array]
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
-  }
-  return shuffled
-}
+import { shuffleArray } from '@/shared/utils/array'
 
 export interface QuizSessionState {
   questions: Quiz[]
@@ -17,6 +9,7 @@ export interface QuizSessionState {
   isCorrect: boolean | null
   correctIndices: number[]
   userAnswers: string[]
+  userChoiceIds: (number | null)[]
   showResult: boolean
   isStarted: boolean
   showTimer: boolean
@@ -49,6 +42,7 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
   isCorrect: null,
   correctIndices: [],
   userAnswers: [],
+  userChoiceIds: [],
   showResult: false,
   isStarted: false,
   showTimer: true,
@@ -80,12 +74,15 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
       sectionClearCount,
       answerIndex,
       userAnswers,
+      userChoiceIds,
     } = get()
 
     const newCorrectIndices = isCorrect ? [...correctIndices, currentIndex] : correctIndices
     const currentQ = questions[currentIndex]
     const selectedText = answerIndex !== null ? currentQ.choices[answerIndex].choiceText : '未回答'
+    const selectedChoiceId = answerIndex !== null ? currentQ.choices[answerIndex].id : null
     const newUserAnswers = [...userAnswers, selectedText]
+    const newUserChoiceIds = [...userChoiceIds, selectedChoiceId]
 
     if (currentIndex < questions.length - 1) {
       set({
@@ -95,6 +92,7 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
         showTimer: false,
         correctIndices: newCorrectIndices,
         userAnswers: newUserAnswers,
+        userChoiceIds: newUserChoiceIds,
       })
       // Re-enable timer after a tick
       setTimeout(() => set({ showTimer: true }))
@@ -104,6 +102,7 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
         currentIndex: 0,
         correctIndices: newCorrectIndices,
         userAnswers: newUserAnswers,
+        userChoiceIds: newUserChoiceIds,
         sectionClearCount: sectionClearCount + 1,
         isStarted: false,
       })
@@ -130,6 +129,7 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
       isCorrect: null,
       correctIndices: [],
       userAnswers: [],
+      userChoiceIds: [],
       showResult: false,
       isStarted: false,
       showTimer: false,

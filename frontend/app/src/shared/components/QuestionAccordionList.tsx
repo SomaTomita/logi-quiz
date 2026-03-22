@@ -1,0 +1,123 @@
+import { memo, type ReactNode } from 'react'
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Box,
+  Chip,
+  Typography,
+} from '@mui/material'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+
+interface QuestionItem {
+  questionText: string
+  choices: { choiceText: string; isCorrect: boolean }[]
+  explanation: { explanationText: string }
+}
+
+interface QuestionAccordionListProps {
+  questions: QuestionItem[]
+  correctIndices: number[]
+  userAnswers: string[]
+  /** Extra chips to render per question (e.g. SRS box level) */
+  extraChip?: (index: number) => ReactNode
+}
+
+const QuestionAccordionList = memo(
+  ({ questions, correctIndices, userAnswers, extraChip }: QuestionAccordionListProps) => (
+    <>
+      {questions.map((item, index) => {
+        const correctAnswer = item.choices.find((c) => c.isCorrect)?.choiceText ?? ''
+        const isCorrect = correctIndices.includes(index)
+
+        return (
+          <Accordion
+            key={index}
+            disableGutters
+            sx={{
+              mb: 1,
+              '&:before': { display: 'none' },
+              border: '1px solid',
+              borderColor: isCorrect ? 'success.main' : 'error.main',
+              borderRadius: '12px !important',
+              overflow: 'hidden',
+            }}
+          >
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1.5,
+                  minWidth: 0,
+                  width: '100%',
+                  pr: 1,
+                }}
+              >
+                {isCorrect ? (
+                  <CheckCircleRoundedIcon
+                    sx={{ color: 'success.main', fontSize: 20, flexShrink: 0 }}
+                  />
+                ) : (
+                  <CancelRoundedIcon sx={{ color: 'error.main', fontSize: 20, flexShrink: 0 }} />
+                )}
+                <Typography variant="body2" sx={{ fontWeight: 600, flexShrink: 0 }}>
+                  問{index + 1}
+                </Typography>
+                <Chip
+                  label={isCorrect ? '正解' : '不正解'}
+                  size="small"
+                  color={isCorrect ? 'success' : 'error'}
+                  variant="outlined"
+                  sx={{ height: 22, fontSize: '0.7rem', flexShrink: 0 }}
+                />
+                {extraChip?.(index)}
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{
+                    ml: 0.5,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    minWidth: 0,
+                  }}
+                >
+                  {item.questionText}
+                </Typography>
+              </Box>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography variant="body1" sx={{ fontWeight: 600, mb: 1.5 }}>
+                {item.questionText}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+                正解: {correctAnswer}
+              </Typography>
+              <Typography
+                variant="body2"
+                color={isCorrect ? 'text.secondary' : 'error.main'}
+                sx={{ mb: 1.5 }}
+              >
+                あなたの回答: {userAnswers[index] ?? '未回答'}
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ pt: 1.5, borderTop: '1px solid', borderColor: 'divider', lineHeight: 1.7 }}
+              >
+                {item.explanation.explanationText}
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        )
+      })}
+    </>
+  ),
+)
+
+QuestionAccordionList.displayName = 'QuestionAccordionList'
+
+export default QuestionAccordionList

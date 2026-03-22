@@ -9,6 +9,7 @@ export const saveDashboardData = (data: DashboardSaveData) =>
     correctAnswers: data.sectionResult?.correctAnswers,
     learningDate: data.learningStack?.date,
     totalClear: data.learningStack?.totalClear,
+    questionResults: data.questionResults,
   })
 
 export const fetchDashboardData = () => apiClient.get('/dashboard/dashboard_data')

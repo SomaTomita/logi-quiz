@@ -1,20 +1,9 @@
 import { memo, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {
-  Box,
-  Typography,
-  Button,
-  Alert,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Chip,
-} from '@mui/material'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
-import CancelRoundedIcon from '@mui/icons-material/CancelRounded'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { Box, Typography, Button, Alert } from '@mui/material'
 import ScoreRing from '@/shared/components/ScoreRing'
 import LoginPromptModal from '@/shared/components/LoginPromptModal'
+import QuestionAccordionList from '@/shared/components/QuestionAccordionList'
 import { useAuthStore } from '@/features/auth/store'
 import { useGuestStore } from '@/features/auth/guestStore'
 import type { Quiz } from '../types'
@@ -65,6 +54,12 @@ const QuizResult = memo(
           </Alert>
         )}
 
+        {isSignedIn && !saveError && (
+          <Alert severity="success" variant="outlined" sx={{ mb: 3 }}>
+            回答履歴が復習キューに記録されました
+          </Alert>
+        )}
+
         {/* Score display */}
         <Box sx={{ textAlign: 'center', py: 4 }}>
           <ScoreRing correct={correctIndices.length} total={questions.length} />
@@ -80,91 +75,11 @@ const QuizResult = memo(
         <Typography variant="h5" sx={{ mb: 2 }}>
           問題の振り返り
         </Typography>
-        {questions.map((item, index) => {
-          const correctAnswer = item.choices.find((c) => c.isCorrect)?.choiceText ?? ''
-          const isCorrect = correctIndices.includes(index)
-
-          return (
-            <Accordion
-              key={index}
-              disableGutters
-              sx={{
-                mb: 1,
-                '&:before': { display: 'none' },
-                border: '1px solid',
-                borderColor: isCorrect ? 'success.main' : 'error.main',
-                borderRadius: '12px !important',
-                overflow: 'hidden',
-              }}
-            >
-              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 1.5,
-                    minWidth: 0,
-                    width: '100%',
-                    pr: 1,
-                  }}
-                >
-                  {isCorrect ? (
-                    <CheckCircleRoundedIcon
-                      sx={{ color: 'success.main', fontSize: 20, flexShrink: 0 }}
-                    />
-                  ) : (
-                    <CancelRoundedIcon sx={{ color: 'error.main', fontSize: 20, flexShrink: 0 }} />
-                  )}
-                  <Typography variant="body2" sx={{ fontWeight: 600, flexShrink: 0 }}>
-                    問{index + 1}
-                  </Typography>
-                  <Chip
-                    label={isCorrect ? '正解' : '不正解'}
-                    size="small"
-                    color={isCorrect ? 'success' : 'error'}
-                    variant="outlined"
-                    sx={{ height: 22, fontSize: '0.7rem', flexShrink: 0 }}
-                  />
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{
-                      ml: 0.5,
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                      minWidth: 0,
-                    }}
-                  >
-                    {item.questionText}
-                  </Typography>
-                </Box>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography variant="body1" sx={{ fontWeight: 600, mb: 1.5 }}>
-                  {item.questionText}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-                  正解: {correctAnswer}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color={isCorrect ? 'text.secondary' : 'error.main'}
-                  sx={{ mb: 1.5 }}
-                >
-                  あなたの回答: {userAnswers[index] ?? '未回答'}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  sx={{ pt: 1.5, borderTop: '1px solid', borderColor: 'divider', lineHeight: 1.7 }}
-                >
-                  {item.explanation.explanationText}
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-          )
-        })}
+        <QuestionAccordionList
+          questions={questions}
+          correctIndices={correctIndices}
+          userAnswers={userAnswers}
+        />
 
         {/* Actions */}
         <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center', gap: 2, pb: 4 }}>

@@ -1,16 +1,15 @@
 import { useState, memo } from 'react'
-import { Typography, Box, Button, Paper } from '@mui/material'
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
+import { Box, Typography, Button } from '@mui/material'
 import CircularCountdown from './CircularCountdown'
 import ConfirmDialog from '@/shared/components/ConfirmDialog'
+import SessionTopBar from '@/shared/components/SessionTopBar'
+import ChoiceList from '@/shared/components/ChoiceList'
 import type { QuizSessionState } from '../store'
 
 interface QuizBodyProps {
   store: QuizSessionState
   onExit: () => void
 }
-
-const CHOICE_LABELS = ['A', 'B', 'C', 'D']
 
 const QuizBody = memo(({ store, onExit }: QuizBodyProps) => {
   const [confirmExit, setConfirmExit] = useState(false)
@@ -31,38 +30,22 @@ const QuizBody = memo(({ store, onExit }: QuizBodyProps) => {
           overflow: 'auto',
         }}
       >
-        {/* Top bar */}
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            px: { xs: 2, sm: 3 },
-            py: 2,
-            borderBottom: '1px solid rgba(0,0,0,0.06)',
-            bgcolor: 'background.paper',
-          }}
-        >
-          <Button
-            startIcon={<CloseRoundedIcon />}
-            onClick={() => setConfirmExit(true)}
-            sx={{ color: 'text.secondary', fontWeight: 600 }}
-          >
-            退出
-          </Button>
-          <Typography variant="body1" sx={{ fontWeight: 700 }}>
-            {store.currentIndex + 1} / {store.questions.length}
-          </Typography>
-          {store.showTimer ? (
-            <CircularCountdown
-              key={store.currentIndex}
-              duration={15}
-              onTimeUp={store.handleTimeUp}
-            />
-          ) : (
-            <Box sx={{ width: 52, height: 52 }} />
-          )}
-        </Box>
+        <SessionTopBar
+          currentIndex={store.currentIndex}
+          totalCount={store.questions.length}
+          onExit={() => setConfirmExit(true)}
+          rightSlot={
+            store.showTimer ? (
+              <CircularCountdown
+                key={store.currentIndex}
+                duration={15}
+                onTimeUp={store.handleTimeUp}
+              />
+            ) : (
+              <Box sx={{ width: 52, height: 52 }} />
+            )
+          }
+        />
 
         {/* Question content */}
         <Box
@@ -82,70 +65,11 @@ const QuizBody = memo(({ store, onExit }: QuizBodyProps) => {
             {question.questionText}
           </Typography>
 
-          {/* Choice buttons */}
-          <Box
-            component="div"
-            role="radiogroup"
-            sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}
-          >
-            {question.choices.map((choice, index) => {
-              const isSelected = store.answerIndex === index
-              return (
-                <Paper
-                  key={choice.choiceText}
-                  component="button"
-                  role="radio"
-                  aria-checked={isSelected}
-                  onClick={() => store.selectAnswer(index, choice)}
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 2,
-                    p: 2,
-                    px: 3,
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                    width: '100%',
-                    bgcolor: isSelected ? 'primary.main' : 'background.paper',
-                    color: isSelected ? '#fff' : 'text.primary',
-                    borderColor: isSelected ? 'primary.main' : 'rgba(0,0,0,0.08)',
-                    '&:hover': {
-                      bgcolor: isSelected ? 'primary.main' : 'rgba(79, 70, 229, 0.04)',
-                      borderColor: 'primary.main',
-                    },
-                    '&:focus-visible': {
-                      outline: '2px solid',
-                      outlineColor: 'primary.main',
-                      outlineOffset: 2,
-                    },
-                    transition:
-                      'background-color 150ms ease, border-color 150ms ease, color 150ms ease',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      width: 32,
-                      height: 32,
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      bgcolor: isSelected ? 'rgba(255,255,255,0.2)' : 'rgba(79, 70, 229, 0.08)',
-                      color: isSelected ? '#fff' : 'primary.main',
-                      fontWeight: 700,
-                      fontSize: '0.85rem',
-                      flexShrink: 0,
-                    }}
-                  >
-                    {CHOICE_LABELS[index]}
-                  </Box>
-                  <Typography variant="body1" sx={{ fontWeight: 500 }}>
-                    {choice.choiceText}
-                  </Typography>
-                </Paper>
-              )
-            })}
-          </Box>
+          <ChoiceList
+            choices={question.choices}
+            selectedIndex={store.answerIndex}
+            onSelect={(index) => store.selectAnswer(index, question.choices[index])}
+          />
 
           {/* Next button */}
           <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end' }}>

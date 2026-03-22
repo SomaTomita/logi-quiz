@@ -36,6 +36,12 @@ export const useQuizSession = (sectionId: string) => {
   useEffect(() => {
     if (!store.showResult || !user) return
 
+    const questionResults = store.questions.map((q, i) => ({
+      questionId: q.id,
+      choiceId: store.userChoiceIds[i] ?? null,
+      correct: store.correctIndices.includes(i),
+    }))
+
     saveDashboardData({
       playTime: store.elapsedSeconds,
       questionsCleared: store.correctIndices.length,
@@ -47,6 +53,7 @@ export const useQuizSession = (sectionId: string) => {
         date: new Date().toISOString().split('T')[0],
         totalClear: store.sectionClearCount,
       },
+      questionResults,
     })
       .then(() => store.setSaveError(null))
       .catch((err) => {
