@@ -12,6 +12,7 @@ import {
 } from '@mui/material'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
 import BarChartRoundedIcon from '@mui/icons-material/BarChartRounded'
+import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded'
 import SchoolIcon from '@mui/icons-material/School'
@@ -22,6 +23,7 @@ const SIDEBAR_WIDTH = 240
 
 const navItems = [
   { label: 'セクション', icon: <GridViewRoundedIcon />, path: '/sections' },
+  { label: '復習', icon: <ReplayRoundedIcon />, path: '/review', authRequired: true },
   { label: '進捗', icon: <BarChartRoundedIcon />, path: '/progress', authRequired: true },
 ]
 

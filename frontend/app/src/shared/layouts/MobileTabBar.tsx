@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
+import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded'
 import BarChartRoundedIcon from '@mui/icons-material/BarChartRounded'
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
 import { useAuthStore } from '@/features/auth/store'
@@ -11,6 +12,7 @@ const MobileTabBar = () => {
   const isSignedIn = useAuthStore((s) => s.isSignedIn)
 
   const getActiveTab = () => {
+    if (location.pathname.startsWith('/review')) return 'review'
     if (location.pathname.startsWith('/progress')) return 'progress'
     if (location.pathname.startsWith('/signin') || location.pathname.startsWith('/signup'))
       return 'auth'
@@ -46,12 +48,20 @@ const MobileTabBar = () => {
           aria-label="セクション一覧"
         />
         {isSignedIn ? (
-          <BottomNavigationAction
-            label="進捗"
-            value="progress"
-            icon={<BarChartRoundedIcon />}
-            aria-label="学習進捗"
-          />
+          <>
+            <BottomNavigationAction
+              label="復習"
+              value="review"
+              icon={<ReplayRoundedIcon />}
+              aria-label="復習"
+            />
+            <BottomNavigationAction
+              label="進捗"
+              value="progress"
+              icon={<BarChartRoundedIcon />}
+              aria-label="学習進捗"
+            />
+          </>
         ) : (
           <BottomNavigationAction
             label="ログイン"

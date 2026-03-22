@@ -19,6 +19,7 @@ const PasswordResetPage = lazy(() => import('@/features/auth/pages/PasswordReset
 const SectionListPage = lazy(() => import('@/features/section/pages/SectionListPage'))
 const QuizPage = lazy(() => import('@/features/quiz/pages/QuizPage'))
 const ProgressPage = lazy(() => import('@/features/dashboard/pages/DashboardPage'))
+const ReviewPage = lazy(() => import('@/features/review/pages/ReviewPage'))
 
 // Admin
 const CreateQuizPage = lazy(() => import('@/features/admin/pages/CreateQuizPage'))
@@ -61,6 +62,14 @@ const AppRoutes = () => (
           element={
             <Private>
               <ProgressPage />
+            </Private>
+          }
+        />
+        <Route
+          path="/review"
+          element={
+            <Private>
+              <ReviewPage />
             </Private>
           }
         />
