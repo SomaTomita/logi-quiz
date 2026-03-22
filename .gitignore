@@ -17,6 +17,10 @@ Thumbs.db
 # Docs (internal only)
 docs/
 
+# Playwright
+frontend/app/test-results/
+frontend/app/playwright-report/
+
 frontend/app/src/features/auth/types.ts
 frontend/app/src/features/home/pages/HomePage.tsx
 frontend/app/src/features/quiz/components/QuizResult.tsx
