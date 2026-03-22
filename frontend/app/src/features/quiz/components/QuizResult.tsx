@@ -26,7 +26,6 @@ interface QuizResultProps {
   onTryAgain: () => void
   onBackToSections: () => void
   saveError?: string | null
-  sectionId: string
 }
 
 const QuizResult = memo(
@@ -37,7 +36,6 @@ const QuizResult = memo(
     onTryAgain,
     onBackToSections,
     saveError,
-    sectionId,
   }: QuizResultProps) => {
     const navigate = useNavigate()
     const isSignedIn = useAuthStore((s) => s.isSignedIn)
