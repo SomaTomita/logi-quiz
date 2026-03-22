@@ -53,7 +53,6 @@ const QuizPage = () => {
         onTryAgain={store.reset}
         onBackToSections={handleBackToSections}
         saveError={store.saveError}
-        sectionId={sectionId!}
       />
     )
   }
