@@ -9,7 +9,10 @@
     "preview": "vite preview",
     "test": "vitest --run",
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx}\""
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\"",
+    "e2e": "playwright test --config e2e/playwright.config.ts",
+    "e2e:headed": "playwright test --config e2e/playwright.config.ts --headed",
+    "e2e:debug": "playwright test --config e2e/playwright.config.ts --debug"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -28,6 +31,7 @@
     "zustand": "^4.5.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@types/js-cookie": "^3.0.3",
     "@types/node": "^20.0.0",
     "@types/react": "^18.2.14",
