@@ -1,103 +1,107 @@
 ## URL
 https://logi-quiz.com
 
-- 表紙SignInページ下の Let's play quiz now! からログインなしでクイズを楽しめます。
-- 下記ログインしてダッシュボード機能等を使ってみてください。
-  | アドレス             | パスワード   |   
-  | ------------------- | ----------- |   
-  | example@example.com | password123 |   
+- You can enjoy quizzes without logging in via "Let's play quiz now!" at the bottom of the Sign In page.
+- Try logging in with the credentials below to explore dashboard features and more.
+  | Email               | Password    |
+  | ------------------- | ----------- |
+  | example@example.com | password123 |
 
-# 貿易実務の知識を定着させよう。
- 
-- 国際物流の知識を手軽に復習できるクイズアプリです。
-- 復習したい内容や学習テーマに合わせて復習することが出来ます。
+# Master Your Trade & Logistics Knowledge
 
-## 目指した課題解決
-  ### ペルソナ
-  - 国際物流業界の若手社員
-  - メーカーや商社で生産管理業務を行っている若手社員社員
-  
-  ### ペルソナの課題
-  | 課題                       | 解決策                        |
-  | ------------------------- | ---------------------------- |
-  | 気軽に遊びながら学びたい      |  ログインせずにクイズを楽しめる   |
-  | 通勤時間を有効活用したい      | クイズのタイマー機能で学習を効率化 |
-  | 続けられるか不安      	     |  豊富な問題数と学習積み上げ機能   |
+- A quiz app for easily reviewing international logistics knowledge.
+- Study and review topics tailored to your learning goals.
 
+## Local Development Setup
 
-  ### 課題を解決したいと感じた背景、意図
-- 私は国際物流業界での経験から、このアプリを通じて特定の課題に対する提案を行います。
-- 私を含め、現場では日々の業務に追われる中、覚えなければならない知識の量に苦しんでいる若手社員が多く存在しており、その課題を少しでも改善したいと考えています。
-- インターネット上や社内の共有資料には詳細な解説が記載されていますが、それを参照して付け焼き刃的な顧客対応は可能です。しかしながら、忙しい業務の中でそれらを事前に学び、反復して練習する機会が欠如しています。
-- 初めて聞く用語の説明を求めらた時、また数ヶ月後に類似した案件があった際に、知識が定着しておらず、瞬時に適切な顧客対応ができないことで、現場において品質低下につながっています。
-- このような状況を緩和できるのが、ゲーム感覚で楽しく、かつ手軽に国際物流の知識を復習できるこのクイズアプリです。
+See [LOCAL_SETUP.md](LOCAL_SETUP.md) for full details.
+
+## Problem Statement
+  ### Target Users
+  - Junior employees in the international logistics industry
+  - Junior employees handling production management at manufacturers or trading companies
+
+  ### User Challenges
+  | Challenge                                  | Solution                                          |
+  | ------------------------------------------ | ------------------------------------------------- |
+  | Want to learn casually while having fun     | Enjoy quizzes without logging in                   |
+  | Want to make good use of commute time       | Timer feature to streamline study sessions         |
+  | Worried about staying motivated             | Extensive question bank and study streak tracking   |
 
 
-## 使用技術
-### バックエンド
-* 言語: Ruby (v3.2.2)
-* フレームワーク: Rails (v7.0.6)
-* テストフレームワーク: RSpec
-
-### フロントエンド
-* ライブラリ: React (v18.2.0)
-* 言語: TypeScript (一部)
-* UIコンポーネント: Material UI (v5)
-* テストフレームワーク: Jest
-
-### インフラ
-* データベース: MySQL (v8.0.33)
-* コンテナ化: Docker/Docker-compose
-* クラウド: AWS (ECR, ECS, EC2, VPC, RDS, ACM, ELB, Route53, CloudWatch)
-* リバースプロキシ: Nginx
-* アプリケーションホスティング: Vercel
-
-### 開発環境/その他
-* バージョン管理: Git/GitHub (擬似チーム開発をIssues, Pull Requestsで管理)
-* コードエディタ: VScode
-* APIテストツール: Postman
-* データベース管理ツール: Sequel Ace
-* データモデリング: dbdiagram.io
-* フローチャート作成: diagrams.net
+  ### Background & Motivation
+- Drawing from my experience in the international logistics industry, I built this app to address specific challenges in the field.
+- Many junior employees, myself included, struggle with the sheer volume of knowledge they need to absorb while being overwhelmed by daily tasks. I wanted to help alleviate this problem.
+- While detailed explanations are available online and in internal shared documents, they only enable ad-hoc responses to customers. In reality, there is a lack of opportunities to proactively study and repeatedly practice this knowledge amidst a busy workload.
+- When asked to explain unfamiliar terminology, or when a similar case arises months later, the lack of retained knowledge prevents quick and appropriate customer responses, leading to quality degradation in the field.
+- This quiz app helps alleviate this situation by making it fun and easy to review international logistics knowledge in a game-like format.
 
 
-## 実装機能
-### ユーザー側
-* 認証機能
-    * ユーザー新規登録
-    * ログイン/ログアウト (トークン認証)
-    * パスワード変更
-* ダッシュボード
-    * 学習時間、正解数の視覚化
-    * カレンダーによる学習積み上げ表示
-* クイズ機能
-    * セクション選択
-    * クイズ回答
-    * タイムトラッキング機能
-    * 解説機能
-* 問い合わせ送信機能(Googleフォームを使用)
+## Tech Stack
+### Backend
+* Language: Ruby (v3.2.2)
+* Framework: Rails (v7.0.6)
+* Testing: RSpec
 
-### 管理者側
-* 認証機能
-    * 管理者ログイン/ログアウト (トークン認証)
-* クイズ管理
-    * クイズの作成・更新・削除
+### Frontend
+* Library: React (v18.2.0)
+* Language: TypeScript (partial)
+* UI Components: Material UI (v5)
+* Testing: Jest
+
+### Infrastructure
+* Database: MySQL (v8.0.33)
+* Containerization: Docker/Docker-compose
+* Cloud: AWS (ECR, ECS, EC2, VPC, RDS, ACM, ELB, Route53, CloudWatch)
+* Reverse Proxy: Nginx
+* Application Hosting: Vercel
+
+### Development Tools
+* Version Control: Git/GitHub (simulated team development managed via Issues and Pull Requests)
+* Code Editor: VSCode
+* API Testing: Postman
+* Database Management: Sequel Ace
+* Data Modeling: dbdiagram.io
+* Flowcharting: diagrams.net
 
 
-## ER図
+## Features
+### User-Facing
+* Authentication
+    * User registration
+    * Login/Logout (token-based authentication)
+    * Password change
+* Dashboard
+    * Visualization of study time and correct answers
+    * Calendar-based study streak display
+* Quiz
+    * Section selection
+    * Quiz answering
+    * Time tracking
+    * Explanations
+* Contact form (via Google Forms)
+
+### Admin-Facing
+* Authentication
+    * Admin login/logout (token-based authentication)
+* Quiz Management
+    * Create, update, and delete quizzes
+
+
+## ER Diagram
 ![ER Diagram](frontend/app/public/dbdiagram_ERchart.png)
 
-## インフラ構成図
+## Infrastructure Diagram
 ![Infra Chart](frontend/app/public/diagrams_infra.png)
 
-## 画面
-### Sign In (未ログイン)
+## Screenshots
+### Sign In (Not Logged In)
 ![Sign In](frontend/app/public/signin.png)
 
-### Home (未ログイン)
+### Home (Not Logged In)
 ![Home](frontend/app/public/home.png)
 
-### Section (未ログイン)
+### Section (Not Logged In)
 ![Section](frontend/app/public/section.png)
 
 ### Quiz
