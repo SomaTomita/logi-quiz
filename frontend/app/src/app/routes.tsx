@@ -27,6 +27,7 @@ const CreateSectionPage = lazy(() => import('@/features/admin/pages/CreateSectio
 const EditQuizPage = lazy(() => import('@/features/admin/pages/EditQuizPage'))
 const EditSectionPage = lazy(() => import('@/features/admin/pages/EditSectionPage'))
 const UpdateQuizPage = lazy(() => import('@/features/admin/pages/UpdateQuizPage'))
+const AnalyticsPage = lazy(() => import('@/features/analytics/pages/AnalyticsPage'))
 
 const Private = ({ children }: { children: ReactNode }) => {
   const { isLoading, isSignedIn } = useAuthGuard()
@@ -88,6 +89,7 @@ const AppRoutes = () => (
         <Route path="/admin/quizzes" element={<EditQuizPage />} />
         <Route path="/admin/quizzes/new" element={<CreateQuizPage />} />
         <Route path="/admin/quizzes/:sectionId/:quizId" element={<UpdateQuizPage />} />
+        <Route path="/admin/analytics" element={<AnalyticsPage />} />
       </Route>
 
       {/* Legacy redirects */}

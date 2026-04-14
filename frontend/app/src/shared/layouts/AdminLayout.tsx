@@ -1,4 +1,4 @@
-import { useNavigate, useLocation, Link, Outlet } from 'react-router-dom'
+import { useLocation, Link, Outlet } from 'react-router-dom'
 import {
   Box,
   List,
@@ -9,16 +9,19 @@ import {
   Divider,
   Chip,
 } from '@mui/material'
+import type { SvgIconComponent } from '@mui/icons-material'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
 import QuizRoundedIcon from '@mui/icons-material/QuizRounded'
+import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded'
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded'
 import SchoolIcon from '@mui/icons-material/School'
 
 const SIDEBAR_WIDTH = 240
 
-const adminNavItems = [
-  { label: 'セクション管理', icon: <GridViewRoundedIcon />, path: '/admin/sections' },
-  { label: 'クイズ管理', icon: <QuizRoundedIcon />, path: '/admin/quizzes' },
+const adminNavItems: { label: string; Icon: SvgIconComponent; path: string }[] = [
+  { label: 'セクション管理', Icon: GridViewRoundedIcon, path: '/admin/sections' },
+  { label: 'クイズ管理', Icon: QuizRoundedIcon, path: '/admin/quizzes' },
+  { label: '学習分析', Icon: InsightsRoundedIcon, path: '/admin/analytics' },
 ]
 
 const AdminLayout = () => {
@@ -81,7 +84,7 @@ const AdminLayout = () => {
                 }}
               >
                 <ListItemIcon sx={{ minWidth: 40, color: isActive ? '#fff' : 'text.secondary' }}>
-                  {item.icon}
+                  <item.Icon />
                 </ListItemIcon>
                 <ListItemText
                   primary={item.label}
