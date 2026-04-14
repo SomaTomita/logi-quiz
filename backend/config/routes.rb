@@ -18,6 +18,16 @@ Rails.application.routes.draw do
     resources :sections, only: %i[create update destroy] do
       resources :quizzes, only: %i[index show create update destroy]
     end
+
+    # BI分析ダッシュボード（管理者専用）
+    scope :analytics, as: :analytics do
+      get :overview,         to: 'analytics#overview'
+      get :topic_accuracy,   to: 'analytics#topic_accuracy'
+      get :engagement,       to: 'analytics#engagement'
+      get :response_times,   to: 'analytics#response_times'
+      get :retention_curves, to: 'analytics#retention_curves'
+      get :learner_segments, to: 'analytics#learner_segments'
+    end
   end
 
   # 公開エンドポイント: セクション一覧とクイズ取得のみ（CRUDはadmin namespaceで管理）
