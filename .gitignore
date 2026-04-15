@@ -14,8 +14,8 @@ Thumbs.db
 *.swo
 *~
 
-# Docs (internal only)
-docs/
+# Docs (internal only — root-level only)
+/docs/
 
 # Playwright
 frontend/app/test-results/
