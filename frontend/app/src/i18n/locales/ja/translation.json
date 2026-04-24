@@ -343,13 +343,13 @@
     "progressAriaLabel": "学習進捗",
     "loginAriaLabel": "ログイン",
     "signOutAriaLabel": "サインアウト",
-    "headerSections": "Sections",
-    "headerDashboard": "Dashboard",
-    "headerSignOut": "Sign out",
-    "headerSignIn": "Sign in",
-    "headerSignUp": "Sign Up",
-    "headerCreateQuiz": "Create Quiz",
-    "headerCreateSection": "Create Section"
+    "headerSections": "セクション",
+    "headerDashboard": "ダッシュボード",
+    "headerSignOut": "サインアウト",
+    "headerSignIn": "サインイン",
+    "headerSignUp": "新規登録",
+    "headerCreateQuiz": "クイズ作成",
+    "headerCreateSection": "セクション作成"
   },
   "loginPrompt": {
     "title": "無料体験の上限に達しました",
