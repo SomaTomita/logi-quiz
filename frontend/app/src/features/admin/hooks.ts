@@ -1,17 +1,28 @@
-import { useState, useEffect } from 'react'
-import { fetchSections } from '@/features/section/api'
+import useSWR from 'swr'
+import { useTranslation } from 'react-i18next'
+import { fetcher } from '@/shared/api/fetcher'
 import type { Section } from '@/features/section/types'
 
+/**
+ * Admin variant of useSections.
+ * Shares the same SWR cache key (per locale) so section data is deduplicated.
+ */
 export const useAdminSections = () => {
-  const [sections, setSections] = useState<Section[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const { i18n } = useTranslation()
+  const locale = i18n.language === 'en' ? 'en' : 'ja'
 
-  useEffect(() => {
-    fetchSections()
-      .then((res) => setSections(res.data))
-      .catch((err) => console.error('Error fetching sections:', err))
-      .finally(() => setIsLoading(false))
-  }, [])
+  const { data, error, isLoading, mutate } = useSWR<Section[]>(
+    `/sections?locale=${locale}`,
+    fetcher,
+  )
 
-  return { sections, setSections, isLoading, setIsLoading }
+  const sections = data ?? []
+
+  return {
+    sections,
+    isLoading,
+    error,
+    /** Optimistically update the local cache (e.g. after edit/delete). */
+    mutate,
+  }
 }

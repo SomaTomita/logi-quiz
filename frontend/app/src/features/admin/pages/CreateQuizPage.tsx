@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import {
   TextField,
   Checkbox,
@@ -19,6 +20,7 @@ import Loading from '@/shared/components/Loading'
 import type { QuizFormData } from '../types'
 
 const CreateQuizPage = () => {
+  const { t } = useTranslation()
   const { sections, isLoading } = useAdminSections()
   const [quizData, setQuizData] = useState<QuizFormData>({
     questionText: '',
@@ -58,14 +60,14 @@ const CreateQuizPage = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Typography variant="h5" sx={{ mb: 5 }}>
-        Create New Quiz
+        {t('admin.createQuizTitle')}
       </Typography>
       <Paper elevation={2} sx={{ p: 3, mt: 2, mb: 3 }}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <TextField
               select
-              label="セクション"
+              label={t('admin.sectionLabel')}
               value={selectedSection}
               onChange={(e) => setSelectedSection(e.target.value)}
               sx={{ mt: 2, width: '50%' }}
@@ -79,8 +81,8 @@ const CreateQuizPage = () => {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              label="問題文"
-              placeholder="問題文を入力してください"
+              label={t('admin.questionTextLabel')}
+              placeholder={t('admin.questionTextPlaceholder')}
               multiline
               onChange={(e) => setQuizData({ ...quizData, questionText: e.target.value })}
               sx={{ mt: 2, mb: 2, width: '50%' }}
@@ -89,10 +91,10 @@ const CreateQuizPage = () => {
           {quizData.choicesAttributes.map((choice, index) => (
             <Grid item xs={12} key={index}>
               <TextField
-                label={`選択肢 ${index + 1}`}
+                label={t('admin.choiceLabel', { number: index + 1 })}
                 name="choiceText"
                 value={choice.choiceText}
-                placeholder="選択肢を入力してください"
+                placeholder={t('admin.choicePlaceholder')}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange(e, index)}
               />
               <FormControlLabel
@@ -104,14 +106,14 @@ const CreateQuizPage = () => {
                     sx={{ ml: 2 }}
                   />
                 }
-                label="正解"
+                label={t('admin.isCorrectLabel')}
               />
             </Grid>
           ))}
           <Grid item xs={12}>
             <TextField
-              label="解説"
-              placeholder="解説を入力してください"
+              label={t('admin.explanationLabel')}
+              placeholder={t('admin.explanationPlaceholder')}
               fullWidth
               multiline
               onChange={(e) =>
@@ -125,7 +127,7 @@ const CreateQuizPage = () => {
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" type="submit" sx={{ mt: 2, mb: 2 }}>
-              Submit
+              {t('common.submit')}
             </Button>
           </Grid>
         </Grid>
@@ -136,11 +138,11 @@ const CreateQuizPage = () => {
           component={Link}
           to="/admin/quizzes"
           color="primary"
-          aria-label="クイズ編集"
+          aria-label={t('admin.quizEditAriaLabel')}
           sx={{ mt: 4, mb: 2 }}
         >
           <EditNoteIcon sx={{ mr: 1 }} />
-          Edit Quiz
+          {t('admin.editQuizFab')}
         </Fab>
       </Box>
     </form>
