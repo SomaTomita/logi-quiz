@@ -17,14 +17,17 @@ if Rails.env.production?
 end
 
 # --- クイズデータの読み込み ---
-quiz_data_path = Rails.root.join("db", "seeds", "quiz_data.json")
-unless File.exist?(quiz_data_path)
-  puts "ERROR: #{quiz_data_path} が見つかりません"
+seed_files = {
+  "ja" => Rails.root.join("db", "seeds", "quiz_data.json"),
+  "en" => Rails.root.join("db", "seeds", "quiz_data_en.json"),
+}
+
+unless File.exist?(seed_files["ja"])
+  puts "ERROR: #{seed_files['ja']} が見つかりません"
   puts "クイズデータファイルをチームメンバーから取得してください"
   puts "配置先: backend/db/seeds/quiz_data.json"
   exit 1
 end
-quiz_data = JSON.parse(File.read(quiz_data_path))
 
 # --- データクリア（FK制約の順序を考慮） ---
 puts "既存データをクリア中..."
@@ -38,24 +41,34 @@ User.delete_all
 
 # --- セクション・問題・選択肢・解説の作成 ---
 puts "セクション・問題作成中..."
-sections = quiz_data.map do |section_data|
-  section = Section.create!(section_name: section_data["section_name"])
 
-  section_data["questions"].each do |q|
-    question = section.questions.create!(question_text: q["question_text"])
-
-    q["choices"].each do |choice|
-      question.choices.create!(
-        choice_text: choice["choice_text"],
-        is_correct: choice["is_correct"]
-      )
-    end
-
-    question.create_explanation!(explanation_text: q["explanation"])
+seed_files.each do |locale, path|
+  unless File.exist?(path)
+    puts "WARNING: #{path} が見つかりません（#{locale}スキップ）"
+    next
   end
 
-  section
+  quiz_data = JSON.parse(File.read(path))
+
+  quiz_data.each do |section_data|
+    section = Section.create!(section_name: section_data["section_name"], locale: locale)
+
+    section_data["questions"].each do |q|
+      question = section.questions.create!(question_text: q["question_text"])
+
+      q["choices"].each do |choice|
+        question.choices.create!(
+          choice_text: choice["choice_text"],
+          is_correct: choice["is_correct"]
+        )
+      end
+
+      question.create_explanation!(explanation_text: q["explanation"])
+    end
+  end
 end
+
+sections = Section.by_locale("ja").to_a
 
 # --- ユーザー作成 ---
 # パスワードはENV変数から取得（gitにハードコードしない）
@@ -250,7 +263,7 @@ end
 
 # --- 完了サマリー ---
 puts "Seed完了!"
-puts "  セクション: #{Section.count}"
+puts "  セクション: #{Section.count} (JA: #{Section.by_locale('ja').count}, EN: #{Section.by_locale('en').count})"
 puts "  問題: #{Question.count}"
 puts "  選択肢: #{Choice.count}"
 puts "  解説: #{Explanation.count}"
