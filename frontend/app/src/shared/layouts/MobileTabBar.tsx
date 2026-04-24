@@ -5,11 +5,13 @@ import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded'
 import BarChartRoundedIcon from '@mui/icons-material/BarChartRounded'
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
 import { useAuthStore } from '@/features/auth/store'
+import { useTranslation } from 'react-i18next'
 
 const MobileTabBar = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const isSignedIn = useAuthStore((s) => s.isSignedIn)
+  const { t } = useTranslation()
 
   const getActiveTab = () => {
     if (location.pathname.startsWith('/review')) return 'review'
@@ -42,32 +44,32 @@ const MobileTabBar = () => {
         }}
       >
         <BottomNavigationAction
-          label="セクション"
+          label={t('nav.sections')}
           value="sections"
           icon={<GridViewRoundedIcon />}
-          aria-label="セクション一覧"
+          aria-label={t('nav.sectionsAriaLabel')}
         />
         {isSignedIn ? (
           <>
             <BottomNavigationAction
-              label="復習"
+              label={t('nav.review')}
               value="review"
               icon={<ReplayRoundedIcon />}
-              aria-label="復習"
+              aria-label={t('nav.reviewAriaLabel')}
             />
             <BottomNavigationAction
-              label="進捗"
+              label={t('nav.progress')}
               value="progress"
               icon={<BarChartRoundedIcon />}
-              aria-label="学習進捗"
+              aria-label={t('nav.progressAriaLabel')}
             />
           </>
         ) : (
           <BottomNavigationAction
-            label="ログイン"
+            label={t('nav.login')}
             value="auth"
             icon={<PersonRoundedIcon />}
-            aria-label="ログイン"
+            aria-label={t('nav.loginAriaLabel')}
           />
         )}
       </BottomNavigation>

@@ -1,4 +1,5 @@
 import { useLocation, Link, Outlet } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import {
   Box,
   List,
@@ -15,17 +16,19 @@ import QuizRoundedIcon from '@mui/icons-material/QuizRounded'
 import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded'
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded'
 import SchoolIcon from '@mui/icons-material/School'
+import LanguageSwitcher from '@/shared/components/LanguageSwitcher'
 
 const SIDEBAR_WIDTH = 240
 
-const adminNavItems: { label: string; Icon: SvgIconComponent; path: string }[] = [
-  { label: 'セクション管理', Icon: GridViewRoundedIcon, path: '/admin/sections' },
-  { label: 'クイズ管理', Icon: QuizRoundedIcon, path: '/admin/quizzes' },
-  { label: '学習分析', Icon: InsightsRoundedIcon, path: '/admin/analytics' },
-]
-
 const AdminLayout = () => {
   const location = useLocation()
+  const { t } = useTranslation()
+
+  const adminNavItems: { label: string; Icon: SvgIconComponent; path: string }[] = [
+    { label: t('admin.sectionManagement'), Icon: GridViewRoundedIcon, path: '/admin/sections' },
+    { label: t('admin.quizManagement'), Icon: QuizRoundedIcon, path: '/admin/quizzes' },
+    { label: t('admin.learningAnalytics'), Icon: InsightsRoundedIcon, path: '/admin/analytics' },
+  ]
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh' }}>
@@ -95,6 +98,11 @@ const AdminLayout = () => {
           })}
         </List>
 
+        {/* Language switcher */}
+        <Box sx={{ px: 2, pb: 1 }}>
+          <LanguageSwitcher />
+        </Box>
+
         {/* Back to app */}
         <Box sx={{ p: 2, borderTop: '1px solid rgba(0,0,0,0.08)' }}>
           <ListItemButton component={Link} to="/sections" sx={{ borderRadius: 2 }}>
@@ -102,7 +110,7 @@ const AdminLayout = () => {
               <ArrowBackRoundedIcon />
             </ListItemIcon>
             <ListItemText
-              primary="アプリに戻る"
+              primary={t('admin.backToApp')}
               primaryTypographyProps={{ fontWeight: 600, fontSize: '0.9rem' }}
             />
           </ListItemButton>
