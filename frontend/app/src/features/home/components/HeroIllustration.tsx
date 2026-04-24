@@ -1,4 +1,10 @@
-const HeroIllustration = () => (
+import { useTranslation } from 'react-i18next'
+
+const HeroIllustration = () => {
+  const { i18n } = useTranslation()
+  const isEn = i18n.language === 'en'
+
+  return (
   <svg
     viewBox="0 0 500 400"
     fill="none"
@@ -21,7 +27,7 @@ const HeroIllustration = () => (
       fontSize="16"
       fontWeight="700"
     >
-      問題 3 / 10
+      {isEn ? 'Q 3 / 10' : '問題 3 / 10'}
     </text>
 
     {/* Timer circle */}
@@ -167,6 +173,7 @@ const HeroIllustration = () => (
       <circle cx="112" cy="0" r="4" fill="#4F46E5" opacity="0.3" />
     </g>
   </svg>
-)
+  )
+}
 
 export default HeroIllustration

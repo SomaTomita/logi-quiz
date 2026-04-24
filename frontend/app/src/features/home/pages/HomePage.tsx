@@ -12,72 +12,89 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import TimerIcon from '@mui/icons-material/Timer'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
+import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '@/features/auth/store'
 
-const steps = [
-  {
-    icon: <QuizIcon />,
-    title: '4択 x 10問',
-    description: '各セクション10問の選択問題に挑戦',
-  },
-  {
-    icon: <TimerOutlinedIcon />,
-    title: '15秒の制限時間',
-    description: '1問につき15秒以内に回答しましょう',
-  },
-  {
-    icon: <ArrowForwardIcon />,
-    title: '一方通行',
-    description: 'Nextで次へ進むと前の問題には戻れません',
-  },
-  {
-    icon: <EmojiEventsOutlinedIcon />,
-    title: '結果と解説',
-    description: 'Finishで正答数と各問題の解説を確認',
-  },
-  {
-    icon: <ReplayIcon />,
-    title: 'Try again',
-    description: '同じセクションを何度でも繰り返し学習',
-  },
-  {
-    icon: <ListAltIcon />,
-    title: 'Back to Sections',
-    description: '別の分野に切り替えて学習を続行',
-  },
+const stepIcons = [
+  <QuizIcon />,
+  <TimerOutlinedIcon />,
+  <ArrowForwardIcon />,
+  <EmojiEventsOutlinedIcon />,
+  <ReplayIcon />,
+  <ListAltIcon />,
 ]
 
-const dashboardFeatures = [
-  {
-    icon: <TimerIcon sx={{ fontSize: 32, color: 'primary.main' }} />,
-    label: '総プレイ時間',
-  },
-  {
-    icon: <CheckCircleOutlineIcon sx={{ fontSize: 32, color: 'primary.main' }} />,
-    label: 'クリア数・履歴',
-  },
-  {
-    icon: <CalendarMonthIcon sx={{ fontSize: 32, color: 'primary.main' }} />,
-    label: '学習カレンダー',
-  },
-]
+const DASHBOARD_ICONS = {
+  timer: <TimerIcon sx={{ fontSize: 32, color: 'primary.main' }} />,
+  clear: <CheckCircleOutlineIcon sx={{ fontSize: 32, color: 'primary.main' }} />,
+  calendar: <CalendarMonthIcon sx={{ fontSize: 32, color: 'primary.main' }} />,
+} as const
 
 const HomePage = () => {
   const navigate = useNavigate()
   const isSignedIn = useAuthStore((s) => s.isSignedIn)
+  const { t } = useTranslation()
+
+  const steps = [
+    {
+      icon: stepIcons[0],
+      title: t('home.step1Title'),
+      description: t('home.step1Description'),
+    },
+    {
+      icon: stepIcons[1],
+      title: t('home.step2Title'),
+      description: t('home.step2Description'),
+    },
+    {
+      icon: stepIcons[2],
+      title: t('home.step3Title'),
+      description: t('home.step3Description'),
+    },
+    {
+      icon: stepIcons[3],
+      title: t('home.step4Title'),
+      description: t('home.step4Description'),
+    },
+    {
+      icon: stepIcons[4],
+      title: t('home.step5Title'),
+      description: t('home.step5Description'),
+    },
+    {
+      icon: stepIcons[5],
+      title: t('home.step6Title'),
+      description: t('home.step6Description'),
+    },
+  ]
+
+  const dashboardFeatures = [
+    {
+      icon: DASHBOARD_ICONS.timer,
+      label: t('home.totalPlayTime'),
+    },
+    {
+      icon: DASHBOARD_ICONS.clear,
+      label: t('home.clearCount'),
+    },
+    {
+      icon: DASHBOARD_ICONS.calendar,
+      label: t('home.learningCalendar'),
+    },
+  ]
 
   return (
     <Container maxWidth="md">
       <Box sx={{ textAlign: 'center', mt: 6, mb: 4 }}>
         <Typography variant="h3" gutterBottom sx={{ fontWeight: 700, textWrap: 'balance' }}>
-          クイズで学ぼう
+          {t('home.title')}
         </Typography>
         <Typography
           variant="body1"
           color="text.secondary"
           sx={{ maxWidth: 480, mx: 'auto', mb: 4, lineHeight: 1.8 }}
         >
-          学びたい分野を選んで、クイズに挑戦しましょう。
+          {t('home.subtitle')}
         </Typography>
         <Button
           variant="contained"
@@ -86,7 +103,7 @@ const HomePage = () => {
           to="/sections"
           sx={{ px: 5, py: 1.5, fontSize: '1.1rem' }}
         >
-          Go to Sections
+          {t('home.goToSections')}
         </Button>
       </Box>
 
@@ -133,7 +150,7 @@ const HomePage = () => {
       {isSignedIn ? (
         <Paper variant="outlined" sx={{ p: 5, mb: 4, textAlign: 'center' }}>
           <Typography variant="h5" gutterBottom fontWeight={700} sx={{ textWrap: 'balance' }}>
-            学習の進捗を確認しましょう
+            {t('home.checkProgressTitle')}
           </Typography>
           <Grid container spacing={2} sx={{ mt: 2, mb: 4 }}>
             {dashboardFeatures.map((feat) => (
@@ -161,21 +178,21 @@ const HomePage = () => {
             onClick={() => navigate('/dashboard')}
             sx={{ px: 5, py: 1.5, fontSize: '1.1rem' }}
           >
-            Go to Dashboard
+            {t('home.goToDashboard')}
           </Button>
         </Paper>
       ) : (
         <Paper variant="outlined" sx={{ p: 5, mb: 4, textAlign: 'center' }}>
           <LockOutlinedIcon sx={{ fontSize: 40, color: 'text.secondary', mb: 2 }} />
           <Typography variant="h5" gutterBottom fontWeight={700} sx={{ textWrap: 'balance' }}>
-            学習の記録を残しましょう
+            {t('home.saveRecordTitle')}
           </Typography>
           <Typography
             variant="body1"
             color="text.secondary"
             sx={{ mb: 3, maxWidth: 420, mx: 'auto', lineHeight: 1.8 }}
           >
-            ログインすると、学習の進捗・プレイ時間・成績の記録をダッシュボードで確認できます。
+            {t('home.saveRecordDescription')}
           </Typography>
           <Box display="flex" justifyContent="center" gap={2} mb={3}>
             <Button
@@ -186,7 +203,7 @@ const HomePage = () => {
               startIcon={<LoginIcon />}
               sx={{ px: 4, py: 1.5 }}
             >
-              ログイン
+              {t('common.signIn')}
             </Button>
             <Button
               variant="outlined"
@@ -196,16 +213,24 @@ const HomePage = () => {
               startIcon={<PersonAddIcon />}
               sx={{ px: 4, py: 1.5 }}
             >
-              新規登録
+              {t('common.signUp')}
             </Button>
           </Box>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            ダッシュボードでは以下が確認できます:
+            {t('home.dashboardPreviewText')}
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, flexWrap: 'wrap' }}>
-            <Chip icon={<TimerIcon />} label="総プレイ時間" variant="outlined" />
-            <Chip icon={<CheckCircleOutlineIcon />} label="クリア数" variant="outlined" />
-            <Chip icon={<CalendarMonthIcon />} label="学習カレンダー" variant="outlined" />
+            <Chip icon={<TimerIcon />} label={t('home.totalPlayTime')} variant="outlined" />
+            <Chip
+              icon={<CheckCircleOutlineIcon />}
+              label={t('home.clearCountShort')}
+              variant="outlined"
+            />
+            <Chip
+              icon={<CalendarMonthIcon />}
+              label={t('home.learningCalendar')}
+              variant="outlined"
+            />
           </Box>
         </Paper>
       )}
