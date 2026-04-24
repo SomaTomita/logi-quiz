@@ -207,8 +207,8 @@
     "correctAnswersColumn": "正解数",
     "clearedAtColumn": "クリア日時",
     "studyLogTitle": "学習記録",
-    "less": "Less",
-    "more": "More"
+    "less": "少",
+    "more": "多"
   },
   "review": {
     "title": "復習",
