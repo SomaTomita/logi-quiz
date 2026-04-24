@@ -118,7 +118,8 @@
     "saveRecordTitle": "学習の記録を残しましょう",
     "saveRecordDescription": "ログインすると、学習の進捗・プレイ時間・成績の記録をダッシュボードで確認できます。",
     "dashboardPreviewText": "ダッシュボードでは以下が確認できます:",
-    "clearCountShort": "クリア数"
+    "clearCountShort": "クリア数",
+    "heroQuestionProgress": "問題 3 / 10"
   },
   "auth": {
     "brandTagline1": "クイズで学ぼう。",

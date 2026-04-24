@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
 const HeroIllustration = () => {
-  const { i18n } = useTranslation()
-  const isEn = i18n.language === 'en'
+  const { t } = useTranslation()
 
   return (
   <svg
@@ -27,7 +26,7 @@ const HeroIllustration = () => {
       fontSize="16"
       fontWeight="700"
     >
-      {isEn ? 'Q 3 / 10' : '問題 3 / 10'}
+      {t('home.heroQuestionProgress')}
     </text>
 
     {/* Timer circle */}
