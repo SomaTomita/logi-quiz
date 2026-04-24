@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Typography, Grid, Paper, Button, TextField } from '@mui/material'
 import { styled } from '@mui/system'
 import { useAdminSections } from '../hooks'
@@ -21,7 +22,8 @@ const StyledButton = styled(Button)({
 })
 
 const EditSectionPage = () => {
-  const { sections, setSections, isLoading } = useAdminSections()
+  const { t } = useTranslation()
+  const { sections, isLoading, mutate } = useAdminSections()
   const [editingSectionId, setEditingSectionId] = useState<number | null>(null)
   const [updatedSectionName, setUpdatedSectionName] = useState('')
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
@@ -35,8 +37,9 @@ const EditSectionPage = () => {
   const handleSaveClick = async (sectionId: number) => {
     try {
       await updateSection(sectionId, updatedSectionName)
-      setSections(
+      await mutate(
         sections.map((s) => (s.id === sectionId ? { ...s, sectionName: updatedSectionName } : s)),
+        { revalidate: false },
       )
       setEditingSectionId(null)
     } catch (error) {
@@ -48,7 +51,10 @@ const EditSectionPage = () => {
     if (sectionIdToDelete) {
       try {
         await deleteSection(sectionIdToDelete)
-        setSections(sections.filter((s) => s.id !== sectionIdToDelete))
+        await mutate(
+          sections.filter((s) => s.id !== sectionIdToDelete),
+          { revalidate: false },
+        )
       } catch (error) {
         console.error('Error deleting section:', error)
       }
@@ -62,7 +68,7 @@ const EditSectionPage = () => {
   return (
     <>
       <Typography variant="h5" sx={{ mb: 5 }}>
-        Edit Section
+        {t('admin.editSectionTitle')}
       </Typography>
       <Grid container spacing={3}>
         {sections.map((section) => (
@@ -77,10 +83,10 @@ const EditSectionPage = () => {
                   />
                   <div>
                     <StyledButton variant="outlined" onClick={() => setEditingSectionId(null)}>
-                      Cancel
+                      {t('common.cancel')}
                     </StyledButton>
                     <StyledButton variant="outlined" onClick={() => handleSaveClick(section.id)}>
-                      Save
+                      {t('common.save')}
                     </StyledButton>
                   </div>
                 </>
@@ -91,7 +97,7 @@ const EditSectionPage = () => {
                     variant="outlined"
                     onClick={() => handleEditClick(section.id, section.sectionName)}
                   >
-                    Edit
+                    {t('common.edit')}
                   </StyledButton>
                   <StyledButton
                     variant="outlined"
@@ -100,7 +106,7 @@ const EditSectionPage = () => {
                       setDeleteDialogOpen(true)
                     }}
                   >
-                    Delete
+                    {t('common.delete')}
                   </StyledButton>
                 </>
               )}
@@ -110,8 +116,8 @@ const EditSectionPage = () => {
       </Grid>
       <ConfirmDialog
         open={deleteDialogOpen}
-        title="Confirm"
-        message="Are you sure you want to delete this section?"
+        title={t('admin.deleteSectionConfirmTitle')}
+        message={t('admin.deleteSectionConfirmMessage')}
         onConfirm={confirmDelete}
         onCancel={() => {
           setDeleteDialogOpen(false)

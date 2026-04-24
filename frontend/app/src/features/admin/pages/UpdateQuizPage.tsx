@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { TextField, Button, FormControlLabel, Checkbox, Box, Snackbar, Alert } from '@mui/material'
 import { fetchAdminQuiz, updateQuiz } from '../api'
 import Loading from '@/shared/components/Loading'
 import type { Quiz } from '@/features/quiz/types'
 
 const UpdateQuizPage = () => {
+  const { t } = useTranslation()
   const { sectionId, quizId } = useParams<{ sectionId: string; quizId: string }>()
   const [quiz, setQuiz] = useState<Quiz | null>(null)
   const [snackbar, setSnackbar] = useState<{
@@ -31,17 +33,17 @@ const UpdateQuizPage = () => {
         choicesAttributes: quiz.choices,
         explanationAttributes: quiz.explanation,
       })
-      setSnackbar({ open: true, message: 'Changes saved successfully!', severity: 'success' })
+      setSnackbar({ open: true, message: t('admin.saveSuccess'), severity: 'success' })
       setTimeout(() => navigate('/admin/quizzes'), 1500)
     } catch {
-      setSnackbar({ open: true, message: 'Error saving changes', severity: 'error' })
+      setSnackbar({ open: true, message: t('admin.saveError'), severity: 'error' })
     }
   }
 
   return (
     <Box maxWidth={600}>
       <TextField
-        label="Question Text"
+        label={t('admin.updateQuizQuestionLabel')}
         variant="outlined"
         fullWidth
         value={quiz.questionText}
@@ -51,7 +53,7 @@ const UpdateQuizPage = () => {
       {(quiz.choices || []).map((choice, index) => (
         <Box key={index} display="flex" alignItems="center" sx={{ mt: 2 }}>
           <TextField
-            label={`Choice ${index + 1}`}
+            label={t('admin.updateQuizChoiceLabel', { number: index + 1 })}
             variant="outlined"
             value={choice.choiceText}
             onChange={(e) => {
@@ -72,13 +74,13 @@ const UpdateQuizPage = () => {
                 }}
               />
             }
-            label="Is Correct"
+            label={t('admin.updateQuizIsCorrectLabel')}
             sx={{ ml: 2 }}
           />
         </Box>
       ))}
       <TextField
-        label="Explanation"
+        label={t('admin.updateQuizExplanationLabel')}
         variant="outlined"
         fullWidth
         multiline
@@ -92,14 +94,14 @@ const UpdateQuizPage = () => {
         sx={{ mt: 2 }}
       />
       <Button variant="contained" onClick={saveChanges} sx={{ mt: 2, mb: 2 }}>
-        Save Changes
+        {t('admin.saveChanges')}
       </Button>
       <Button
         variant="outlined"
         onClick={() => navigate('/admin/quizzes')}
         sx={{ mt: 2, mb: 2, ml: 2 }}
       >
-        Cancel
+        {t('common.cancel')}
       </Button>
 
       <Snackbar

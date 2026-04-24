@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { Grid, Paper, Typography, Button } from '@mui/material'
 import { styled } from '@mui/system'
 import { useAdminSections } from '../hooks'
@@ -23,6 +24,7 @@ const StyledButton = styled(Button)({
 })
 
 const EditQuizPage = () => {
+  const { t } = useTranslation()
   const { sections, isLoading } = useAdminSections()
   const [selectedSection, setSelectedSection] = useState<number | null>(null)
   const [quizzes, setQuizzes] = useState<Quiz[]>([])
@@ -62,7 +64,7 @@ const EditQuizPage = () => {
   return (
     <>
       <Typography variant="h5" sx={{ mb: 5 }}>
-        Select Section and Edit Quiz
+        {t('admin.editQuizTitle')}
       </Typography>
       <div>
         {sections.map((section) => (
@@ -89,7 +91,7 @@ const EditQuizPage = () => {
                   variant="outlined"
                   onClick={() => navigate(`/admin/quizzes/${selectedSection}/${quiz.id}`)}
                 >
-                  Edit
+                  {t('common.edit')}
                 </StyledButton>
                 <StyledButton
                   variant="outlined"
@@ -98,7 +100,7 @@ const EditQuizPage = () => {
                     setDeleteDialogOpen(true)
                   }}
                 >
-                  Delete
+                  {t('common.delete')}
                 </StyledButton>
               </StyledPaper>
             </Grid>
@@ -108,8 +110,8 @@ const EditQuizPage = () => {
 
       <ConfirmDialog
         open={deleteDialogOpen}
-        title="Confirm"
-        message="Are you sure you want to delete this quiz?"
+        title={t('admin.deleteQuizConfirmTitle')}
+        message={t('admin.deleteQuizConfirmMessage')}
         onConfirm={confirmDelete}
         onCancel={() => {
           setDeleteDialogOpen(false)
