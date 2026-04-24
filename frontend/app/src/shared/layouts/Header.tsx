@@ -4,6 +4,8 @@ import { styled } from '@mui/system'
 import DirectionsBoatIcon from '@mui/icons-material/DirectionsBoat'
 import { useAuthStore } from '@/features/auth/store'
 import { signOut } from '@/features/auth/api'
+import { useTranslation } from 'react-i18next'
+import LanguageSwitcher from '@/shared/components/LanguageSwitcher'
 
 const AppBarContent = styled('div')(({ theme }) => ({
   maxWidth: 1200,
@@ -18,6 +20,7 @@ const Header = () => {
   const isSignedIn = useAuthStore((s) => s.isSignedIn)
   const isAdmin = useAuthStore((s) => s.isAdmin)
   const clearUser = useAuthStore((s) => s.clearUser)
+  const { t } = useTranslation()
 
   const handleSignOut = async () => {
     try {
@@ -41,13 +44,13 @@ const Header = () => {
       return (
         <>
           <Button component={Link} to="/create-quiz" color="inherit">
-            Create Quiz
+            {t('nav.headerCreateQuiz')}
           </Button>
           <Button component={Link} to="/create-section" color="inherit">
-            Create Section
+            {t('nav.headerCreateSection')}
           </Button>
           <Button color="inherit" onClick={handleSignOut}>
-            Sign out
+            {t('nav.headerSignOut')}
           </Button>
         </>
       )
@@ -63,7 +66,7 @@ const Header = () => {
             onMouseEnter={preloadSections}
             onFocus={preloadSections}
           >
-            Sections
+            {t('nav.headerSections')}
           </Button>
           <Button
             component={Link}
@@ -72,10 +75,10 @@ const Header = () => {
             onMouseEnter={preloadDashboard}
             onFocus={preloadDashboard}
           >
-            Dashboard
+            {t('nav.headerDashboard')}
           </Button>
           <Button color="inherit" onClick={handleSignOut}>
-            Sign out
+            {t('nav.headerSignOut')}
           </Button>
         </>
       )
@@ -84,10 +87,10 @@ const Header = () => {
     return (
       <>
         <Button component={Link} to="/" color="inherit">
-          Sign in
+          {t('nav.headerSignIn')}
         </Button>
         <Button component={Link} to="/signup" color="inherit">
-          Sign Up
+          {t('nav.headerSignUp')}
         </Button>
       </>
     )
@@ -114,7 +117,10 @@ const Header = () => {
           >
             logi-quiz
           </Typography>
-          <Box sx={{ display: 'flex', gap: 0.5 }}>{renderButtons()}</Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <LanguageSwitcher />
+            {renderButtons()}
+          </Box>
         </Toolbar>
       </AppBarContent>
     </AppBar>

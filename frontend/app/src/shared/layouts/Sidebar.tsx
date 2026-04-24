@@ -18,14 +18,16 @@ import LoginRoundedIcon from '@mui/icons-material/LoginRounded'
 import SchoolIcon from '@mui/icons-material/School'
 import { useAuthStore } from '@/features/auth/store'
 import { signOut } from '@/features/auth/api'
+import { useTranslation } from 'react-i18next'
+import LanguageSwitcher from '@/shared/components/LanguageSwitcher'
 
 const SIDEBAR_WIDTH = 240
 
-const navItems = [
-  { label: 'セクション', icon: <GridViewRoundedIcon />, path: '/sections' },
-  { label: '復習', icon: <ReplayRoundedIcon />, path: '/review', authRequired: true },
-  { label: '進捗', icon: <BarChartRoundedIcon />, path: '/progress', authRequired: true },
-]
+const NAV_ICONS = {
+  sections: <GridViewRoundedIcon />,
+  review: <ReplayRoundedIcon />,
+  progress: <BarChartRoundedIcon />,
+} as const
 
 const Sidebar = () => {
   const location = useLocation()
@@ -34,6 +36,13 @@ const Sidebar = () => {
   const isLoading = useAuthStore((s) => s.isLoading)
   const user = useAuthStore((s) => s.user)
   const clearUser = useAuthStore((s) => s.clearUser)
+  const { t } = useTranslation()
+
+  const navItems = [
+    { label: t('nav.sections'), icon: NAV_ICONS.sections, path: '/sections' },
+    { label: t('nav.review'), icon: NAV_ICONS.review, path: '/review', authRequired: true },
+    { label: t('nav.progress'), icon: NAV_ICONS.progress, path: '/progress', authRequired: true },
+  ]
 
   const handleSignOut = async () => {
     try {
@@ -121,6 +130,11 @@ const Sidebar = () => {
         })}
       </List>
 
+      {/* Language Switcher */}
+      <Box sx={{ px: 2, pb: 1, display: 'flex', justifyContent: 'center' }}>
+        <LanguageSwitcher />
+      </Box>
+
       {/* User section */}
       {!isLoading && (
         <Box sx={{ p: 2, borderTop: '1px solid rgba(0,0,0,0.08)' }}>
@@ -142,7 +156,7 @@ const Sidebar = () => {
                   {user.name}
                 </Typography>
               </Box>
-              <IconButton size="small" onClick={handleSignOut} aria-label="サインアウト">
+              <IconButton size="small" onClick={handleSignOut} aria-label={t('nav.signOutAriaLabel')}>
                 <LogoutRoundedIcon fontSize="small" />
               </IconButton>
             </Box>
@@ -156,7 +170,7 @@ const Sidebar = () => {
                 <LoginRoundedIcon />
               </ListItemIcon>
               <ListItemText
-                primary="ログイン"
+                primary={t('nav.login')}
                 primaryTypographyProps={{ fontWeight: 600, fontSize: '0.9rem' }}
               />
             </ListItemButton>

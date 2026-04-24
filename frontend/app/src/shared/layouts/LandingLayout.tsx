@@ -2,10 +2,13 @@ import { Box, Button, Typography, AppBar, Toolbar, Container } from '@mui/materi
 import { Link, Outlet } from 'react-router-dom'
 import SchoolIcon from '@mui/icons-material/School'
 import { useAuthStore } from '@/features/auth/store'
+import { useTranslation } from 'react-i18next'
+import LanguageSwitcher from '@/shared/components/LanguageSwitcher'
 
 const LandingLayout = () => {
   const isSignedIn = useAuthStore((s) => s.isSignedIn)
   const isLoading = useAuthStore((s) => s.isLoading)
+  const { t } = useTranslation()
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
@@ -39,16 +42,19 @@ const LandingLayout = () => {
               </Typography>
             </Box>
             <Box sx={{ flex: 1 }} />
-            {!isLoading && !isSignedIn && (
-              <Box sx={{ display: 'flex', gap: 1 }}>
-                <Button component={Link} to="/signin" variant="outlined" size="small">
-                  ログイン
-                </Button>
-                <Button component={Link} to="/signup" variant="contained" size="small">
-                  新規登録
-                </Button>
-              </Box>
-            )}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <LanguageSwitcher />
+              {!isLoading && !isSignedIn && (
+                <>
+                  <Button component={Link} to="/signin" variant="outlined" size="small">
+                    {t('common.signIn')}
+                  </Button>
+                  <Button component={Link} to="/signup" variant="contained" size="small">
+                    {t('common.signUp')}
+                  </Button>
+                </>
+              )}
+            </Box>
           </Toolbar>
         </Container>
       </AppBar>
