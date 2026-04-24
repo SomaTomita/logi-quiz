@@ -1,18 +1,16 @@
-import { useState, useEffect } from 'react'
-import { fetchSections } from './api'
+import useSWR from 'swr'
+import { useTranslation } from 'react-i18next'
+import { fetcher } from '@/shared/api/fetcher'
 import type { Section } from './types'
 
 export const useSections = () => {
-  const [sections, setSections] = useState<Section[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
+  const { i18n } = useTranslation()
+  const locale = i18n.language === 'en' ? 'en' : 'ja'
 
-  useEffect(() => {
-    fetchSections()
-      .then((res) => setSections(res.data))
-      .catch(setError)
-      .finally(() => setIsLoading(false))
-  }, [])
+  const { data, error, isLoading, mutate } = useSWR<Section[]>(
+    `/sections?locale=${locale}`,
+    fetcher,
+  )
 
-  return { sections, isLoading, error }
+  return { sections: data ?? [], isLoading, error, refetch: mutate }
 }
