@@ -14,6 +14,7 @@ import {
   Cell,
   ComposedChart,
 } from 'recharts'
+import { useTranslation } from 'react-i18next'
 import ChartContainer from './ChartContainer'
 import { CHART_COLORS, SRS_INTERVALS, getBoxLabel, getBoxColor } from '../constants'
 import type { RetentionCurveData } from '../types'
@@ -23,27 +24,29 @@ interface SrsRetentionChartProps {
 }
 
 const SrsRetentionChart = ({ data }: SrsRetentionChartProps) => {
+  const { t } = useTranslation()
+
   // --- Retention variance by box level (proves fixed intervals are suboptimal) ---
   const varianceData = data.retentionDecay.map((d) => ({
-    boxLevel: getBoxLabel(d.boxLevel),
+    boxLevel: getBoxLabel(d.boxLevel, t),
     meanRetention: d.meanRetention,
     stdDev: d.stdDev,
     minRetention: d.minRetention,
     maxRetention: d.maxRetention,
     userCount: d.userCount,
-    interval: `${d.fixedIntervalDays}日`,
+    interval: `${d.fixedIntervalDays}${t('analytics.daysUnit')}`,
   }))
 
   // --- Box distribution ---
   const boxDistData = data.boxDistribution.map((d) => ({
-    name: getBoxLabel(d.boxLevel),
+    name: getBoxLabel(d.boxLevel, t),
     count: d.count,
     percentage: d.percentage,
   }))
 
   // --- Retention rate by box with expected interval ---
   const retentionByBoxData = data.retentionByBox.map((d) => ({
-    name: getBoxLabel(d.boxLevel),
+    name: getBoxLabel(d.boxLevel, t),
     retentionRate: d.retentionRate,
     avgAttempts: d.avgAttempts,
     intervalDays: d.expectedIntervalDays,
@@ -62,7 +65,7 @@ const SrsRetentionChart = ({ data }: SrsRetentionChartProps) => {
         sx={{ borderRadius: 3 }}
       >
         <Typography variant="body2" sx={{ fontWeight: 600, mb: 0.5 }}>
-          SRS固定間隔分析結果
+          {t('analytics.srsAnalysisTitle')}
         </Typography>
         <Typography variant="body2">
           {critique.conclusion}
@@ -71,8 +74,8 @@ const SrsRetentionChart = ({ data }: SrsRetentionChartProps) => {
 
       {/* Retention variance chart — the key visualization */}
       <ChartContainer
-        title="ボックスレベル別 記憶定着率のばらつき"
-        subtitle="同じ固定間隔でもユーザーごとに記憶定着率が大きく異なることを示す（標準偏差が高いほど個人差が大きい）"
+        title={t('analytics.retentionVarianceTitle')}
+        subtitle={t('analytics.retentionVarianceSubtitle')}
         isLoading={false}
       >
         <ResponsiveContainer width="100%" height={320}>
@@ -87,23 +90,23 @@ const SrsRetentionChart = ({ data }: SrsRetentionChartProps) => {
                 return (
                   <Box role="tooltip" aria-live="polite" sx={{ bgcolor: 'background.paper', p: 1.5, borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
                     <Typography variant="body2" sx={{ fontWeight: 700 }}>{d.boxLevel}</Typography>
-                    <Typography variant="caption" display="block">固定間隔: {d.interval}</Typography>
-                    <Typography variant="caption" display="block">平均定着率: {d.meanRetention}%</Typography>
+                    <Typography variant="caption" display="block">{t('analytics.fixedInterval', { interval: d.interval })}</Typography>
+                    <Typography variant="caption" display="block">{t('analytics.meanRetention', { value: d.meanRetention })}</Typography>
                     <Typography variant="caption" display="block" color="error.main">
-                      標準偏差: {d.stdDev}% (範囲: {d.minRetention}%-{d.maxRetention}%)
+                      {t('analytics.stdDevDetail', { stdDev: d.stdDev, min: d.minRetention, max: d.maxRetention })}
                     </Typography>
-                    <Typography variant="caption" display="block">ユーザー数: {d.userCount}</Typography>
+                    <Typography variant="caption" display="block">{t('analytics.userCount', { count: d.userCount })}</Typography>
                   </Box>
                 )
               }}
             />
             <Legend />
-            <ReferenceLine y={85} stroke={CHART_COLORS.success} strokeDasharray="5 5" label="目標85%" />
+            <ReferenceLine y={85} stroke={CHART_COLORS.success} strokeDasharray="5 5" label={t('analytics.targetLabel')} />
             <Bar
               dataKey="meanRetention"
               fill={CHART_COLORS.primary}
               radius={[4, 4, 0, 0]}
-              name="平均記憶定着率"
+              name={t('analytics.meanRetentionLegend')}
             />
             <Line
               type="monotone"
@@ -111,7 +114,7 @@ const SrsRetentionChart = ({ data }: SrsRetentionChartProps) => {
               stroke={CHART_COLORS.error}
               strokeWidth={2}
               dot={{ r: 5, fill: CHART_COLORS.error }}
-              name="標準偏差 (個人差)"
+              name={t('analytics.stdDevLegend')}
             />
           </ComposedChart>
         </ResponsiveContainer>
@@ -121,8 +124,8 @@ const SrsRetentionChart = ({ data }: SrsRetentionChartProps) => {
         {/* Box level distribution */}
         <Box sx={{ flex: 1 }}>
           <ChartContainer
-            title="ボックスレベル分布"
-            subtitle="SRSボックス別の問題数"
+            title={t('analytics.boxDistTitle')}
+            subtitle={t('analytics.boxDistSubtitle')}
             isLoading={false}
           >
             <ResponsiveContainer width="100%" height={280}>
@@ -131,7 +134,7 @@ const SrsRetentionChart = ({ data }: SrsRetentionChartProps) => {
                 <XAxis dataKey="name" tick={{ fontSize: 10 }} />
                 <YAxis tick={{ fontSize: 11 }} />
                 <Tooltip formatter={(value: number, name: string) =>
-                  name === 'count' ? [`${value}問`, '問題数'] : [`${value}%`, '割合']
+                  name === 'count' ? [value, t('analytics.questionCountLabel')] : [`${value}%`, t('analytics.percentageLabel')]
                 } />
                 <Bar dataKey="count" radius={[4, 4, 0, 0]} name="count">
                   {boxDistData.map((_, i) => (
@@ -146,8 +149,8 @@ const SrsRetentionChart = ({ data }: SrsRetentionChartProps) => {
         {/* Retention rate by box level */}
         <Box sx={{ flex: 1 }}>
           <ChartContainer
-            title="ボックスレベル別定着率"
-            subtitle="各レベルの定着率と復習間隔"
+            title={t('analytics.retentionByBoxTitle')}
+            subtitle={t('analytics.retentionByBoxSubtitle')}
             isLoading={false}
           >
             <ResponsiveContainer width="100%" height={280}>
@@ -157,7 +160,7 @@ const SrsRetentionChart = ({ data }: SrsRetentionChartProps) => {
                 <YAxis domain={[0, 100]} unit="%" tick={{ fontSize: 11 }} />
                 <Tooltip />
                 <ReferenceLine y={85} stroke={CHART_COLORS.success} strokeDasharray="5 5" />
-                <Bar dataKey="retentionRate" radius={[4, 4, 0, 0]} name="定着率">
+                <Bar dataKey="retentionRate" radius={[4, 4, 0, 0]} name={t('analytics.retentionRateLabel')}>
                   {retentionByBoxData.map((_, i) => (
                     <Cell key={i} fill={getBoxColor(i)} />
                   ))}
@@ -168,7 +171,7 @@ const SrsRetentionChart = ({ data }: SrsRetentionChartProps) => {
                   stroke={CHART_COLORS.gray}
                   strokeDasharray="5 5"
                   dot={{ r: 4 }}
-                  name="復習間隔(日)"
+                  name={t('analytics.intervalDaysLabel')}
                 />
               </ComposedChart>
             </ResponsiveContainer>
@@ -179,16 +182,16 @@ const SrsRetentionChart = ({ data }: SrsRetentionChartProps) => {
       {/* Time to mastery */}
       {masteryDist.length > 0 && (
         <ChartContainer
-          title="習得までの日数分布"
-          subtitle={`Box 4到達までの平均${data.timeToMastery.avgDays ?? '-'}日 (中央値: ${data.timeToMastery.medianDays ?? '-'}日)`}
+          title={t('analytics.masteryDistTitle')}
+          subtitle={t('analytics.masteryDistSubtitle', { avg: data.timeToMastery.avgDays ?? '-', median: data.timeToMastery.medianDays ?? '-' })}
           isLoading={false}
         >
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={masteryDist}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.06)" />
-              <XAxis dataKey="range" tick={{ fontSize: 11 }} label={{ value: '日', position: 'right', fontSize: 11 }} />
+              <XAxis dataKey="range" tick={{ fontSize: 11 }} label={{ value: t('analytics.daysUnit'), position: 'right', fontSize: 11 }} />
               <YAxis tick={{ fontSize: 11 }} />
-              <Tooltip formatter={(value: number) => [`${value}問`, '問題数']} />
+              <Tooltip formatter={(value: number) => [value, t('analytics.questionCountLabel')]} />
               <Bar dataKey="count" fill={CHART_COLORS.purple} radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
@@ -198,9 +201,7 @@ const SrsRetentionChart = ({ data }: SrsRetentionChartProps) => {
       {/* Annotation */}
       <Box sx={{ px: 2, py: 1.5, bgcolor: 'rgba(79, 70, 229, 0.04)', borderRadius: 3, border: '1px solid rgba(79, 70, 229, 0.12)' }}>
         <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8 }}>
-          固定間隔の復習スケジュール（{SRS_INTERVALS.join('日→')}日）は、学習者ごとの記憶定着パターンの違いに適応できません。
-          上のグラフは、同じボックスレベルでも学習者の特性（回答速度・正答率）によって記憶保持率が大きく異なることを示しています。
-          適応型アルゴリズムは、個人の記憶パターンに基づいて復習間隔を動的に調整する必要があります。
+          {t('analytics.fixedIntervalAnnotation', { intervals: SRS_INTERVALS.join(`${t('analytics.daysUnit')}→`) + t('analytics.daysUnit') })}
         </Typography>
       </Box>
     </Box>
