@@ -1,6 +1,8 @@
 import { test, expect, type Page } from '@playwright/test'
 import { mockSessionAPI } from '../fixtures/api-mocks'
 
+// These tests assume the default locale is 'ja' (configured in src/i18n/index.ts).
+
 test.describe.serial('Landing Page', () => {
   let page: Page
 
