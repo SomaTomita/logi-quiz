@@ -1,19 +1,33 @@
 import { useState, memo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Box, Typography, Button } from '@mui/material'
 import CircularCountdown from './CircularCountdown'
 import ConfirmDialog from '@/shared/components/ConfirmDialog'
 import SessionTopBar from '@/shared/components/SessionTopBar'
 import ChoiceList from '@/shared/components/ChoiceList'
-import type { QuizSessionState } from '../store'
+import { useQuizSessionStore } from '../store'
 
 interface QuizBodyProps {
-  store: QuizSessionState
   onExit: () => void
 }
 
-const QuizBody = memo(({ store, onExit }: QuizBodyProps) => {
+const QuizBody = memo(({ onExit }: QuizBodyProps) => {
+  const { t } = useTranslation()
   const [confirmExit, setConfirmExit] = useState(false)
-  const question = store.currentQuestion()
+
+  // Subscribe only to fields this component renders
+  const currentIndex = useQuizSessionStore((s) => s.currentIndex)
+  const totalCount = useQuizSessionStore((s) => s.questions.length)
+  const question = useQuizSessionStore((s) => s.currentQuestion())
+  const answerIndex = useQuizSessionStore((s) => s.answerIndex)
+  const isLastQuestion = useQuizSessionStore((s) => s.isLastQuestion())
+  const showTimer = useQuizSessionStore((s) => s.showTimer)
+
+  // Actions (stable references)
+  const selectAnswer = useQuizSessionStore((s) => s.selectAnswer)
+  const nextQuestion = useQuizSessionStore((s) => s.nextQuestion)
+  const handleTimeUp = useQuizSessionStore((s) => s.handleTimeUp)
+
   if (!question) return null
 
   return (
@@ -31,15 +45,15 @@ const QuizBody = memo(({ store, onExit }: QuizBodyProps) => {
         }}
       >
         <SessionTopBar
-          currentIndex={store.currentIndex}
-          totalCount={store.questions.length}
+          currentIndex={currentIndex}
+          totalCount={totalCount}
           onExit={() => setConfirmExit(true)}
           rightSlot={
-            store.showTimer ? (
+            showTimer ? (
               <CircularCountdown
-                key={store.currentIndex}
+                key={currentIndex}
                 duration={15}
-                onTimeUp={store.handleTimeUp}
+                onTimeUp={handleTimeUp}
               />
             ) : (
               <Box sx={{ width: 52, height: 52 }} />
@@ -67,8 +81,8 @@ const QuizBody = memo(({ store, onExit }: QuizBodyProps) => {
 
           <ChoiceList
             choices={question.choices}
-            selectedIndex={store.answerIndex}
-            onSelect={(index) => store.selectAnswer(index, question.choices[index])}
+            selectedIndex={answerIndex}
+            onSelect={(index) => selectAnswer(index, question.choices[index])}
           />
 
           {/* Next button */}
@@ -76,11 +90,11 @@ const QuizBody = memo(({ store, onExit }: QuizBodyProps) => {
             <Button
               variant="contained"
               size="large"
-              onClick={store.nextQuestion}
-              disabled={store.answerIndex === null}
+              onClick={nextQuestion}
+              disabled={answerIndex === null}
               sx={{ px: 5 }}
             >
-              {store.isLastQuestion() ? '完了' : '次へ'}
+              {isLastQuestion ? t('common.finish') : t('common.next')}
             </Button>
           </Box>
         </Box>
@@ -88,8 +102,8 @@ const QuizBody = memo(({ store, onExit }: QuizBodyProps) => {
 
       <ConfirmDialog
         open={confirmExit}
-        title="クイズを退出しますか？"
-        message="進行中のクイズの結果は保存されません。"
+        title={t('quiz.exitConfirmTitle')}
+        message={t('quiz.exitConfirmMessage')}
         onCancel={() => setConfirmExit(false)}
         onConfirm={() => {
           setConfirmExit(false)
