@@ -64,4 +64,27 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   Rails.application.routes.default_url_options = { host: 'test.host' }
+
+  TRUNCATABLE_TABLES = %w[
+    study_logs question_attempts user_question_states
+    user_sections choices explanations questions sections users
+  ].freeze
+
+  def truncate_all_tables
+    ActiveRecord::Base.connection.disable_referential_integrity do
+      TRUNCATABLE_TABLES.each do |table|
+        ActiveRecord::Base.connection.execute("TRUNCATE TABLE `#{table}`")
+      end
+    end
+  end
+
+  config.before(:suite) { truncate_all_tables }
+
+  config.before(:each, type: :request) do
+    host! 'localhost'
+  end
+
+  config.after(:each, type: :request) do
+    truncate_all_tables
+  end
 end

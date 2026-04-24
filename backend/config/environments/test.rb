@@ -58,4 +58,7 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  # Allow requests from www.example.com (default Rails test host)
+  config.hosts << "www.example.com"
 end
