@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { Typography, Box, Paper, Button, TextField, InputAdornment, Alert } from '@mui/material'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
@@ -11,6 +12,7 @@ import { useGuestStore } from '@/features/auth/guestStore'
 import LoginPromptModal from '@/shared/components/LoginPromptModal'
 
 const SectionListPage = () => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const { sections, isLoading, error } = useSections()
   const [search, setSearch] = useState('')
@@ -36,13 +38,13 @@ const SectionListPage = () => {
   return (
     <>
       <PageHeader
-        title="セクション一覧"
-        subtitle={sections.length > 0 ? `${sections.length} セクション` : undefined}
+        title={t('section.pageTitle')}
+        subtitle={sections.length > 0 ? t('section.sectionCount', { count: sections.length }) : undefined}
       />
 
       {!isSignedIn && (
         <Alert severity="info" sx={{ mb: 3 }}>
-          ログインなしで{3}回までクイズをお試しできます
+          {t('section.guestTrialAlert', { count: 3 })}
         </Alert>
       )}
 
@@ -50,13 +52,13 @@ const SectionListPage = () => {
         <Paper sx={{ p: 5, textAlign: 'center' }}>
           <ErrorOutlineIcon sx={{ fontSize: 40, color: 'text.secondary', mb: 2 }} />
           <Typography variant="h6" gutterBottom fontWeight={600}>
-            セクションを読み込めませんでした
+            {t('section.loadError')}
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-            通信状況を確認して、もう一度お試しください。
+            {t('common.networkError')}
           </Typography>
           <Button variant="outlined" onClick={() => window.location.reload()}>
-            再読み込み
+            {t('common.reload')}
           </Button>
         </Paper>
       ) : (
@@ -64,7 +66,7 @@ const SectionListPage = () => {
           {sections.length > 6 && (
             <TextField
               fullWidth
-              placeholder="セクションを検索..."
+              placeholder={t('section.searchPlaceholder')}
               size="small"
               value={search}
               onChange={(e) => setSearch(e.target.value)}

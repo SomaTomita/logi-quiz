@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Grid, Paper, Typography, Skeleton, Box } from '@mui/material'
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 import EmptyState from '@/shared/components/EmptyState'
@@ -11,6 +12,8 @@ interface SectionCardProps {
 }
 
 const SectionCard = memo(({ sections, onSectionClick, isLoading }: SectionCardProps) => {
+  const { t } = useTranslation()
+
   if (isLoading) {
     return (
       <Grid container spacing={2}>
@@ -26,8 +29,8 @@ const SectionCard = memo(({ sections, onSectionClick, isLoading }: SectionCardPr
   if (sections.length === 0) {
     return (
       <EmptyState
-        title="セクションがありません"
-        description="まだセクションが登録されていません。"
+        title={t('section.emptyTitle')}
+        description={t('section.emptyDescription')}
       />
     )
   }
