@@ -10,6 +10,7 @@ import {
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { useTranslation } from 'react-i18next'
 
 interface QuestionItem {
   questionText: string
@@ -20,102 +21,109 @@ interface QuestionItem {
 interface QuestionAccordionListProps {
   questions: QuestionItem[]
   correctIndices: number[]
-  userAnswers: string[]
+  userAnswers: (string | null)[]
   /** Extra chips to render per question (e.g. SRS box level) */
   extraChip?: (index: number) => ReactNode
 }
 
 const QuestionAccordionList = memo(
-  ({ questions, correctIndices, userAnswers, extraChip }: QuestionAccordionListProps) => (
-    <>
-      {questions.map((item, index) => {
-        const correctAnswer = item.choices.find((c) => c.isCorrect)?.choiceText ?? ''
-        const isCorrect = correctIndices.includes(index)
+  ({ questions, correctIndices, userAnswers, extraChip }: QuestionAccordionListProps) => {
+    const { t } = useTranslation()
+    const correctSet = new Set(correctIndices)
 
-        return (
-          <Accordion
-            key={index}
-            disableGutters
-            sx={{
-              mb: 1,
-              '&:before': { display: 'none' },
-              border: '1px solid',
-              borderColor: isCorrect ? 'success.main' : 'error.main',
-              borderRadius: '12px !important',
-              overflow: 'hidden',
-            }}
-          >
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 1.5,
-                  minWidth: 0,
-                  width: '100%',
-                  pr: 1,
-                }}
-              >
-                {isCorrect ? (
-                  <CheckCircleRoundedIcon
-                    sx={{ color: 'success.main', fontSize: 20, flexShrink: 0 }}
+    return (
+      <>
+        {questions.map((item, index) => {
+          const correctAnswer = item.choices.find((c) => c.isCorrect)?.choiceText ?? ''
+          const isCorrect = correctSet.has(index)
+
+          return (
+            <Accordion
+              key={index}
+              disableGutters
+              sx={{
+                mb: 1,
+                '&:before': { display: 'none' },
+                border: '1px solid',
+                borderColor: isCorrect ? 'success.main' : 'error.main',
+                borderRadius: '12px !important',
+                overflow: 'hidden',
+              }}
+            >
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1.5,
+                    minWidth: 0,
+                    width: '100%',
+                    pr: 1,
+                  }}
+                >
+                  {isCorrect ? (
+                    <CheckCircleRoundedIcon
+                      sx={{ color: 'success.main', fontSize: 20, flexShrink: 0 }}
+                    />
+                  ) : (
+                    <CancelRoundedIcon sx={{ color: 'error.main', fontSize: 20, flexShrink: 0 }} />
+                  )}
+                  <Typography variant="body2" sx={{ fontWeight: 600, flexShrink: 0 }}>
+                    {t('common.questionLabel', { number: index + 1 })}
+                  </Typography>
+                  <Chip
+                    label={isCorrect ? t('common.correct') : t('common.incorrect')}
+                    size="small"
+                    color={isCorrect ? 'success' : 'error'}
+                    variant="outlined"
+                    sx={{ height: 22, fontSize: '0.7rem', flexShrink: 0 }}
                   />
-                ) : (
-                  <CancelRoundedIcon sx={{ color: 'error.main', fontSize: 20, flexShrink: 0 }} />
-                )}
-                <Typography variant="body2" sx={{ fontWeight: 600, flexShrink: 0 }}>
-                  問{index + 1}
+                  {extraChip?.(index)}
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{
+                      ml: 0.5,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      minWidth: 0,
+                    }}
+                  >
+                    {item.questionText}
+                  </Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body1" sx={{ fontWeight: 600, mb: 1.5 }}>
+                  {item.questionText}
                 </Typography>
-                <Chip
-                  label={isCorrect ? '正解' : '不正解'}
-                  size="small"
-                  color={isCorrect ? 'success' : 'error'}
-                  variant="outlined"
-                  sx={{ height: 22, fontSize: '0.7rem', flexShrink: 0 }}
-                />
-                {extraChip?.(index)}
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+                  {t('common.correctAnswer', { answer: correctAnswer })}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color={isCorrect ? 'text.secondary' : 'error.main'}
+                  sx={{ mb: 1.5 }}
+                >
+                  {userAnswers[index]
+                    ? t('common.yourAnswer', { answer: userAnswers[index] })
+                    : t('common.unanswered')}
+                </Typography>
                 <Typography
                   variant="body2"
                   color="text.secondary"
-                  sx={{
-                    ml: 0.5,
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    minWidth: 0,
-                  }}
+                  sx={{ pt: 1.5, borderTop: '1px solid', borderColor: 'divider', lineHeight: 1.7 }}
                 >
-                  {item.questionText}
+                  {item.explanation.explanationText}
                 </Typography>
-              </Box>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography variant="body1" sx={{ fontWeight: 600, mb: 1.5 }}>
-                {item.questionText}
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-                正解: {correctAnswer}
-              </Typography>
-              <Typography
-                variant="body2"
-                color={isCorrect ? 'text.secondary' : 'error.main'}
-                sx={{ mb: 1.5 }}
-              >
-                あなたの回答: {userAnswers[index] ?? '未回答'}
-              </Typography>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{ pt: 1.5, borderTop: '1px solid', borderColor: 'divider', lineHeight: 1.7 }}
-              >
-                {item.explanation.explanationText}
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-        )
-      })}
-    </>
-  ),
+              </AccordionDetails>
+            </Accordion>
+          )
+        })}
+      </>
+    )
+  },
 )
 
 QuestionAccordionList.displayName = 'QuestionAccordionList'

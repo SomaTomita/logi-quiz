@@ -6,6 +6,7 @@ import {
   DialogActions,
   Button,
 } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 interface ConfirmDialogProps {
   open: boolean
@@ -15,19 +16,23 @@ interface ConfirmDialogProps {
   onCancel: () => void
 }
 
-const ConfirmDialog = ({ open, title, message, onConfirm, onCancel }: ConfirmDialogProps) => (
-  <Dialog open={open} onClose={onCancel} aria-describedby="confirm-dialog-description">
-    <DialogTitle>{title}</DialogTitle>
-    <DialogContent>
-      <DialogContentText id="confirm-dialog-description">{message}</DialogContentText>
-    </DialogContent>
-    <DialogActions>
-      <Button onClick={onCancel}>キャンセル</Button>
-      <Button onClick={onConfirm} color="error">
-        はい
-      </Button>
-    </DialogActions>
-  </Dialog>
-)
+const ConfirmDialog = ({ open, title, message, onConfirm, onCancel }: ConfirmDialogProps) => {
+  const { t } = useTranslation()
+
+  return (
+    <Dialog open={open} onClose={onCancel} aria-describedby="confirm-dialog-description">
+      <DialogTitle>{title}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="confirm-dialog-description">{message}</DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onCancel}>{t('common.cancel')}</Button>
+        <Button onClick={onConfirm} color="error">
+          {t('common.yes')}
+        </Button>
+      </DialogActions>
+    </Dialog>
+  )
+}
 
 export default ConfirmDialog
