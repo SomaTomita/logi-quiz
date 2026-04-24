@@ -38,6 +38,6 @@ class Admin::SectionsController < ApplicationController
   end
 
   def section_params
-    params.require(:section).permit(:section_name)
+    params.require(:section).permit(:section_name, :locale)
   end
 end
