@@ -118,7 +118,8 @@
     "saveRecordTitle": "Save your study records",
     "saveRecordDescription": "Sign in to track your progress, play time, and scores on the dashboard.",
     "dashboardPreviewText": "The dashboard shows:",
-    "clearCountShort": "Quizzes Cleared"
+    "clearCountShort": "Quizzes Cleared",
+    "heroQuestionProgress": "Q 3 / 10"
   },
   "auth": {
     "brandTagline1": "Learn with quizzes.",
