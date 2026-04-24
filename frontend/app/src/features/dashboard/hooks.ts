@@ -1,22 +1,25 @@
-import { useState, useEffect } from 'react'
-import { fetchDashboardData } from './api'
+import useSWR from 'swr'
+import { fetcher } from '@/shared/api/fetcher'
 import { useAuthStore } from '@/features/auth/store'
 import type { DashboardData } from './types'
 
+interface DashboardResponse {
+  data: DashboardData
+}
+
 export const useDashboard = () => {
   const user = useAuthStore((s) => s.user)
-  const [data, setData] = useState<DashboardData | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
 
-  useEffect(() => {
-    if (!user) return
+  const { data, error, isLoading, mutate } = useSWR<DashboardResponse>(
+    user ? '/dashboard/dashboard_data' : null,
+    fetcher,
+  )
 
-    fetchDashboardData()
-      .then((res) => setData(res.data.data))
-      .catch(setError)
-      .finally(() => setIsLoading(false))
-  }, [user?.id])
-
-  return { data, isLoading, error, user }
+  return {
+    data: data?.data ?? null,
+    isLoading,
+    error,
+    user,
+    refetch: mutate,
+  }
 }
