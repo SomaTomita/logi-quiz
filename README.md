@@ -30,7 +30,7 @@ See [LOCAL_SETUP.md](LOCAL_SETUP.md) for full details.
 | Challenge                               | Solution                                                        |
 | --------------------------------------- | --------------------------------------------------------------- |
 | Want to learn casually while having fun | Enjoy quizzes without logging in (up to 3 sections as a guest)  |
-| Want to make good use of commute time   | 15-second timer per question for focused, efficient sessions     |
+| Want to make good use of commute time   | 15-second timer per question for focused, efficient sessions    |
 | Worried about staying motivated         | Study streak tracking + SRS review to reinforce weak areas      |
 | Hard to retain knowledge long-term      | Spaced Repetition System (Leitner box) schedules optimal review |
 
