@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm, type SubmitHandler } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { TextField, Button, Box, Alert, Typography } from '@mui/material'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import AuthLayout from '@/shared/layouts/AuthLayout'
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const ResetForm = ({ resetPasswordToken }: Props) => {
+  const { t } = useTranslation()
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const {
@@ -28,7 +30,7 @@ const ResetForm = ({ resetPasswordToken }: Props) => {
       await resetPassword({ ...data, resetPasswordToken })
       setIsSubmitted(true)
     } catch {
-      setError('パスワードのリセットに失敗しました。もう一度お試しください。')
+      setError(t('auth.resetPasswordError'))
     }
   }
 
@@ -38,13 +40,13 @@ const ResetForm = ({ resetPasswordToken }: Props) => {
         <Box sx={{ textAlign: 'center' }}>
           <CheckCircleRoundedIcon sx={{ fontSize: 56, color: 'success.main', mb: 2 }} />
           <Typography variant="h4" sx={{ mb: 1 }}>
-            パスワードを変更しました
+            {t('auth.passwordChangedTitle')}
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-            新しいパスワードでログインしてください。
+            {t('auth.passwordChangedDescription')}
           </Typography>
           <Button component={Link} to="/signin" variant="contained">
-            ログインへ
+            {t('auth.goToLogin')}
           </Button>
         </Box>
       </AuthLayout>
@@ -54,10 +56,10 @@ const ResetForm = ({ resetPasswordToken }: Props) => {
   return (
     <AuthLayout>
       <Typography variant="h3" component="h1" sx={{ mb: 0.5 }}>
-        新しいパスワード
+        {t('auth.newPasswordTitle')}
       </Typography>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-        新しいパスワードを設定してください
+        {t('auth.newPasswordSubtitle')}
       </Typography>
 
       {error && (
@@ -69,28 +71,28 @@ const ResetForm = ({ resetPasswordToken }: Props) => {
       <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
         <TextField
           fullWidth
-          label="新しいパスワード"
+          label={t('auth.newPasswordLabel')}
           type="password"
           autoComplete="new-password"
           margin="normal"
           error={!!errors.password}
           helperText={errors.password?.message}
           {...register('password', {
-            required: 'パスワードを入力してください',
-            minLength: { value: 6, message: 'パスワードは6文字以上で入力してください' },
+            required: t('auth.passwordRequired'),
+            minLength: { value: 6, message: t('auth.passwordMinLength') },
           })}
         />
         <TextField
           fullWidth
-          label="新しいパスワード（確認）"
+          label={t('auth.newPasswordConfirmLabel')}
           type="password"
           autoComplete="new-password"
           margin="normal"
           error={!!errors.passwordConfirmation}
           helperText={errors.passwordConfirmation?.message}
           {...register('passwordConfirmation', {
-            required: 'パスワード確認を入力してください',
-            validate: (v) => v === password || 'パスワードが一致しません',
+            required: t('auth.passwordConfirmRequired'),
+            validate: (v) => v === password || t('auth.passwordMismatch'),
           })}
         />
         <input type="hidden" value={resetPasswordToken} {...register('resetPasswordToken')} />
@@ -102,7 +104,7 @@ const ResetForm = ({ resetPasswordToken }: Props) => {
           disabled={!password}
           sx={{ mt: 2, py: 1.5 }}
         >
-          パスワードを変更
+          {t('auth.changePassword')}
         </Button>
       </Box>
     </AuthLayout>

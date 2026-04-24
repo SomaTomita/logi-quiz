@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { setAuthCookies } from '@/shared/api/client'
 import { Typography, TextField, Button, Box, Alert } from '@mui/material'
 import AuthLayout from '@/shared/layouts/AuthLayout'
@@ -14,6 +15,7 @@ interface SignInForm {
 }
 
 const SignInPage = () => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const setUser = useAuthStore((s) => s.setUser)
   const [error, setError] = useState<string | null>(null)
@@ -39,7 +41,7 @@ const SignInPage = () => {
       setError(
         Array.isArray(msgs) && msgs.length > 0
           ? msgs.join(', ')
-          : 'メールアドレスまたはパスワードが正しくありません',
+          : t('auth.signInError'),
       )
     }
   }
@@ -47,10 +49,10 @@ const SignInPage = () => {
   return (
     <AuthLayout>
       <Typography variant="h3" component="h1" sx={{ mb: 0.5 }}>
-        おかえりなさい
+        {t('auth.signInTitle')}
       </Typography>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-        ログインして学習を続けましょう
+        {t('auth.signInSubtitle')}
       </Typography>
 
       {error && (
@@ -62,31 +64,31 @@ const SignInPage = () => {
       <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
         <TextField
           fullWidth
-          label="メールアドレス"
+          label={t('auth.emailLabel')}
           type="email"
           autoComplete="email"
           margin="normal"
           error={!!errors.email}
           helperText={errors.email?.message}
           {...register('email', {
-            required: 'メールアドレスを入力してください',
+            required: t('auth.emailRequired'),
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: '正しいメールアドレスを入力してください',
+              message: t('auth.emailInvalid'),
             },
           })}
         />
         <TextField
           fullWidth
-          label="パスワード"
+          label={t('auth.passwordLabel')}
           type="password"
           autoComplete="current-password"
           margin="normal"
           error={!!errors.password}
           helperText={errors.password?.message}
           {...register('password', {
-            required: 'パスワードを入力してください',
-            minLength: { value: 6, message: 'パスワードは6文字以上で入力してください' },
+            required: t('auth.passwordRequired'),
+            minLength: { value: 6, message: t('auth.passwordMinLength') },
           })}
         />
         <Box sx={{ textAlign: 'right', mt: 0.5, mb: 2 }}>
@@ -100,7 +102,7 @@ const SignInPage = () => {
               '&:hover': { textDecoration: 'underline' },
             }}
           >
-            パスワードをお忘れですか？
+            {t('auth.forgotPassword')}
           </Typography>
         </Box>
         <Button
@@ -111,13 +113,13 @@ const SignInPage = () => {
           disabled={isSubmitting}
           sx={{ py: 1.5 }}
         >
-          {isSubmitting ? 'ログイン中...' : 'ログイン'}
+          {isSubmitting ? t('auth.signingIn') : t('common.signIn')}
         </Button>
       </Box>
 
       <Box sx={{ textAlign: 'center', mt: 3 }}>
         <Typography variant="body2" color="text.secondary">
-          アカウントをお持ちでないですか？{' '}
+          {t('auth.noAccount')}{' '}
           <Typography
             component={Link}
             to="/signup"
@@ -129,7 +131,7 @@ const SignInPage = () => {
               '&:hover': { textDecoration: 'underline' },
             }}
           >
-            新規登録
+            {t('common.signUp')}
           </Typography>
         </Typography>
       </Box>
@@ -145,7 +147,7 @@ const SignInPage = () => {
             '&:hover': { textDecoration: 'underline' },
           }}
         >
-          ログインせずにクイズを試す
+          {t('auth.tryWithoutLogin')}
         </Typography>
       </Box>
     </AuthLayout>
