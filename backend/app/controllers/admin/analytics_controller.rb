@@ -32,16 +32,18 @@ class Admin::AnalyticsController < ApplicationController
     }
   end
 
-  # GET /admin/analytics/topic_accuracy?period=weekly
+  # GET /admin/analytics/topic_accuracy?period=weekly&locale=en
   def topic_accuracy
     period = validated_period
-    cache_key = "admin/analytics/topic_accuracy/#{period}/#{params[:section_id].to_i}"
+    locale = validated_locale
+    cache_key = "admin/analytics/topic_accuracy/#{period}/#{params[:section_id].to_i}/#{locale}"
 
     render json: {
       data: Rails.cache.fetch(cache_key, expires_in: 10.minutes) {
         Analytics::TopicAccuracyService.call(
           period: period,
-          section_id: params[:section_id]
+          section_id: params[:section_id],
+          locale: locale
         )
       }
     }
@@ -97,6 +99,10 @@ class Admin::AnalyticsController < ApplicationController
 
   def validated_period(default = 'weekly')
     VALID_PERIODS.include?(params[:period]) ? params[:period] : default
+  end
+
+  def validated_locale
+    %w[ja en].include?(params[:locale]) ? params[:locale] : 'ja'
   end
 
   def active_user_count(days)

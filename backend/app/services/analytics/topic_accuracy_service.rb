@@ -1,14 +1,15 @@
 module Analytics
   class TopicAccuracyService
-    def self.call(period: 'weekly', section_id: nil)
+    def self.call(period: 'weekly', section_id: nil, locale: 'ja')
       {
-        current: current_accuracy(section_id: section_id),
-        trend: accuracy_trend(period: period, section_id: section_id)
+        current: current_accuracy(section_id: section_id, locale: locale),
+        trend: accuracy_trend(period: period, section_id: section_id, locale: locale)
       }
     end
 
-    def self.current_accuracy(section_id: nil)
+    def self.current_accuracy(section_id: nil, locale: 'ja')
       scope = QuestionAttempt.joins(question: :section)
+      scope = scope.where(sections: { locale: locale })
       scope = scope.where(questions: { section_id: section_id }) if section_id
 
       scope.group('sections.id', 'sections.section_name')
@@ -24,10 +25,11 @@ module Analytics
            .map { |r| r.attributes.except('id') }
     end
 
-    def self.accuracy_trend(period: 'weekly', section_id: nil)
+    def self.accuracy_trend(period: 'weekly', section_id: nil, locale: 'ja')
       date_trunc = date_trunc_sql(period)
 
       scope = QuestionAttempt.joins(question: :section)
+      scope = scope.where(sections: { locale: locale })
       scope = scope.where(questions: { section_id: section_id }) if section_id
       scope = scope.where('question_attempts.created_at >= ?', trend_start_date(period))
 
