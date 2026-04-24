@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_04_15_000001) do
+ActiveRecord::Schema[7.0].define(version: 2026_04_25_000001) do
   create_table "choices", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "question_id"
     t.string "choice_text"
@@ -38,10 +38,9 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_15_000001) do
     t.datetime "updated_at", null: false
     t.index ["choice_id"], name: "index_question_attempts_on_choice_id"
     t.index ["created_at"], name: "index_question_attempts_on_created_at"
-    t.index ["correct", "response_time_ms"], name: "idx_qa_correct_response_time"
-    t.index ["created_at", "user_id"], name: "idx_qa_created_user"
-    t.index ["question_id", "created_at"], name: "idx_qa_question_created"
+    t.index ["question_id", "correct", "created_at"], name: "idx_qa_question_correct_created"
     t.index ["question_id"], name: "index_question_attempts_on_question_id"
+    t.index ["response_time_ms", "correct"], name: "idx_qa_response_time_correct"
     t.index ["user_id", "question_id", "created_at"], name: "idx_qa_user_question_created"
     t.index ["user_id"], name: "index_question_attempts_on_user_id"
   end
@@ -58,6 +57,8 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_15_000001) do
     t.string "section_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "locale", default: "ja", null: false
+    t.index ["section_name", "locale"], name: "index_sections_on_section_name_and_locale", unique: true
   end
 
   create_table "study_logs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -80,8 +81,9 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_15_000001) do
     t.integer "correct_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["box_level"], name: "index_user_question_states_on_box_level"
+    t.index ["question_id", "box_level"], name: "index_user_question_states_on_question_id_and_box_level"
     t.index ["question_id"], name: "index_user_question_states_on_question_id"
-    t.index ["user_id", "box_level"], name: "idx_uqs_user_box_level"
     t.index ["user_id", "next_review_at"], name: "index_user_question_states_on_user_id_and_next_review_at"
     t.index ["user_id", "question_id"], name: "index_user_question_states_on_user_id_and_question_id", unique: true
     t.index ["user_id"], name: "index_user_question_states_on_user_id"
