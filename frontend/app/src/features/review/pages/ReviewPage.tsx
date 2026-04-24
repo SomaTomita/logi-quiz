@@ -1,4 +1,5 @@
 import { useReducer, useEffect, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { Box, Typography, Button, Paper, Alert, Chip } from '@mui/material'
 import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded'
@@ -13,7 +14,7 @@ import { shuffleArray } from '@/shared/utils/array'
 import { fetchReviewQueue, completeReview } from '../api'
 import type { ReviewQuestion, ReviewCompleteResult } from '../types'
 
-const BOX_LABELS = ['毎日', '3日後', '1週間後', '2週間後', '1ヶ月後']
+const BOX_LABEL_KEYS = ['review.boxLabel0', 'review.boxLabel1', 'review.boxLabel2', 'review.boxLabel3', 'review.boxLabel4'] as const
 
 // --- State & Reducer ---
 
@@ -89,6 +90,7 @@ function reducer(state: State, action: Action): State {
 // --- Component ---
 
 const ReviewPage = () => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const [state, dispatch] = useReducer(reducer, initialState)
 
@@ -104,9 +106,9 @@ const ReviewPage = () => {
         dispatch({ type: 'LOAD_SUCCESS', questions: shuffled, totalDue: data.totalDue })
       })
       .catch(() => {
-        dispatch({ type: 'LOAD_ERROR', error: '復習データの読み込みに失敗しました。' })
+        dispatch({ type: 'LOAD_ERROR', error: t('review.loadError') })
       })
-  }, [])
+  }, [t])
 
   useEffect(() => {
     loadQueue()
@@ -129,15 +131,16 @@ const ReviewPage = () => {
     } else {
       dispatch({ type: 'FINISH', correctIndices: newCorrectIndices, userAnswers: newUserAnswers, userChoiceIds: newUserChoiceIds })
 
+      const correctSet = new Set(newCorrectIndices)
       const questionResults = state.questions.map((q, i) => ({
         questionId: q.id,
         choiceId: newUserChoiceIds[i] ?? null,
-        correct: newCorrectIndices.includes(i),
+        correct: correctSet.has(i),
       }))
 
       completeReview(questionResults)
         .then((res) => dispatch({ type: 'SET_RESULTS', results: res.data.results }))
-        .catch(() => dispatch({ type: 'SET_ERROR', error: '復習結果の保存に失敗しました。' }))
+        .catch(() => dispatch({ type: 'SET_ERROR', error: t('review.saveError') }))
     }
   }
 
@@ -155,17 +158,17 @@ const ReviewPage = () => {
         )}
 
         <Typography variant="h5" sx={{ fontWeight: 700, mb: 3 }}>
-          復習
+          {t('review.title')}
         </Typography>
 
         {state.questions.length > 0 ? (
           <Paper sx={{ p: 4, textAlign: 'center' }}>
             <ReplayRoundedIcon sx={{ fontSize: 48, color: 'primary.main', mb: 2 }} />
             <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
-              {state.totalDue}問
+              {t('review.dueCount', { count: state.totalDue })}
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-              復習すべき問題があります
+              {t('review.dueMessage')}
             </Typography>
             <Button
               variant="contained"
@@ -173,20 +176,20 @@ const ReviewPage = () => {
               onClick={() => dispatch({ type: 'START_SESSION' })}
               sx={{ px: 5 }}
             >
-              復習を始める
+              {t('review.startReview')}
             </Button>
           </Paper>
         ) : (
           <Paper sx={{ p: 4, textAlign: 'center' }}>
             <CheckCircleRoundedIcon sx={{ fontSize: 48, color: 'success.main', mb: 2 }} />
             <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
-              復習完了！
+              {t('review.completedTitle')}
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-              現在、復習すべき問題はありません。クイズに挑戦して問題を追加しましょう。
+              {t('review.completedMessage')}
             </Typography>
             <Button variant="outlined" size="large" onClick={() => navigate('/sections')} sx={{ px: 4 }}>
-              セクション一覧へ
+              {t('common.backToSections')}
             </Button>
           </Paper>
         )}
@@ -213,7 +216,7 @@ const ReviewPage = () => {
             currentIndex={state.currentIndex}
             totalCount={state.questions.length}
             onExit={() => dispatch({ type: 'SET_CONFIRM_EXIT', open: true })}
-            centerExtra={<Chip label="復習" size="small" color="primary" variant="outlined" />}
+            centerExtra={<Chip label={t('review.chipLabel')} size="small" color="primary" variant="outlined" />}
           />
 
           {/* Question content */}
@@ -248,7 +251,7 @@ const ReviewPage = () => {
                 disabled={state.answerIndex === null}
                 sx={{ px: 5 }}
               >
-                {isLastQuestion ? '完了' : '次へ'}
+                {isLastQuestion ? t('common.finish') : t('common.next')}
               </Button>
             </Box>
           </Box>
@@ -256,8 +259,8 @@ const ReviewPage = () => {
 
         <ConfirmDialog
           open={state.confirmExit}
-          title="復習を退出しますか？"
-          message="進行中の復習の結果は保存されません。"
+          title={t('review.exitConfirmTitle')}
+          message={t('review.exitConfirmMessage')}
           onCancel={() => dispatch({ type: 'SET_CONFIRM_EXIT', open: false })}
           onConfirm={() => {
             dispatch({ type: 'SET_CONFIRM_EXIT', open: false })
@@ -274,9 +277,9 @@ const ReviewPage = () => {
     const percentage =
       state.questions.length > 0 ? (state.correctIndices.length / state.questions.length) * 100 : 0
     const getMessage = () => {
-      if (percentage >= 80) return '素晴らしい！'
-      if (percentage >= 50) return 'いい調子！'
-      return 'もう一度挑戦しよう！'
+      if (percentage >= 80) return t('common.resultExcellent')
+      if (percentage >= 50) return t('common.resultGood')
+      return t('common.resultEncourage')
     }
 
     return (
@@ -293,12 +296,12 @@ const ReviewPage = () => {
             {getMessage()}
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ mt: 1 }}>
-            {state.questions.length}問中{state.correctIndices.length}問正解
+            {t('common.scoreText', { total: state.questions.length, correct: state.correctIndices.length })}
           </Typography>
         </Box>
 
         <Typography variant="h5" sx={{ mb: 2 }}>
-          復習結果
+          {t('review.resultTitle')}
         </Typography>
 
         <QuestionAccordionList
@@ -311,7 +314,7 @@ const ReviewPage = () => {
             )
             return result ? (
               <Chip
-                label={`次回: ${BOX_LABELS[result.boxLevel]}`}
+                label={t('review.nextBoxLabel', { label: t(BOX_LABEL_KEYS[result.boxLevel]) })}
                 size="small"
                 variant="outlined"
                 sx={{ height: 22, fontSize: '0.7rem', flexShrink: 0 }}
@@ -322,10 +325,10 @@ const ReviewPage = () => {
 
         <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center', gap: 2, pb: 4 }}>
           <Button variant="contained" size="large" onClick={loadQueue} sx={{ px: 4 }}>
-            続けて復習
+            {t('review.continueReview')}
           </Button>
           <Button variant="outlined" size="large" onClick={() => navigate('/sections')} sx={{ px: 4 }}>
-            セクション一覧へ
+            {t('common.backToSections')}
           </Button>
         </Box>
       </Box>
