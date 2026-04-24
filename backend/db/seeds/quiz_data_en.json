@@ -1,0 +1,3352 @@
+[
+  {
+    "section_name": "Incoterms",
+    "questions": [
+      {
+        "question_text": "Under FOB terms, at what point does risk transfer from the seller to the buyer?",
+        "choices": [
+          {
+            "choice_text": "When the goods are placed on board the vessel",
+            "is_correct": true
+          },
+          {
+            "choice_text": "When the goods arrive at the port",
+            "is_correct": false
+          },
+          {
+            "choice_text": "When the goods are handed over to the shipping company",
+            "is_correct": false
+          },
+          {
+            "choice_text": "When export customs clearance is completed",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Under FOB (Free On Board), risk transfers from the seller to the buyer when the goods are placed on board the vessel at the named port of shipment. This was further clarified in the Incoterms 2020 revision."
+      },
+      {
+        "question_text": "What is the seller required to arrange under CIF terms?",
+        "choices": [
+          {
+            "choice_text": "Ocean freight and insurance",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Ocean freight only",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Insurance only",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Import customs clearance costs",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Under CIF (Cost, Insurance and Freight), the seller bears both the ocean freight and insurance costs to the named port of destination. However, risk transfers at the port of shipment when the goods are loaded on board the vessel."
+      },
+      {
+        "question_text": "Under EXW terms, who is responsible for export customs clearance?",
+        "choices": [
+          {
+            "choice_text": "The buyer",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The seller",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The customs broker",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The carrier",
+            "is_correct": false
+          }
+        ],
+        "explanation": "EXW (Ex Works) requires the seller to deliver goods at their premises. All subsequent costs and risks, including export customs clearance, are borne by the buyer."
+      },
+      {
+        "question_text": "Under DDP terms, which cost is NOT borne by the seller?",
+        "choices": [
+          {
+            "choice_text": "Unloading costs at the destination",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Import duties",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Import customs clearance costs",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Freight to the destination",
+            "is_correct": false
+          }
+        ],
+        "explanation": "DDP (Delivered Duty Paid) places the maximum obligation on the seller. However, unloading costs at the destination are borne by the buyer. Import duties, customs clearance costs, and freight are all the seller's responsibility."
+      },
+      {
+        "question_text": "Under FCA terms, which of the following does NOT qualify as a 'carrier'?",
+        "choices": [
+          {
+            "choice_text": "A warehouse worker employed by the consignee",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A trucking company",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A shipping line",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An airline",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Under FCA (Free Carrier), a 'carrier' refers to any party that undertakes the carriage of goods under a contract of carriage with the seller. A warehouse worker employed by the consignee does not qualify as a carrier."
+      },
+      {
+        "question_text": "What is the difference between CPT and CIP terms?",
+        "choices": [
+          {
+            "choice_text": "CIP requires the seller to arrange insurance",
+            "is_correct": true
+          },
+          {
+            "choice_text": "CPT is exclusively for ocean transport",
+            "is_correct": false
+          },
+          {
+            "choice_text": "CIP has a different risk transfer point",
+            "is_correct": false
+          },
+          {
+            "choice_text": "CPT includes an import customs clearance obligation",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The key difference between CPT (Carriage Paid To) and CIP (Carriage and Insurance Paid To) is that CIP obligates the seller to arrange insurance. The risk transfer point is the same for both: when goods are handed over to the first carrier."
+      },
+      {
+        "question_text": "Which new trade term was introduced in Incoterms 2020?",
+        "choices": [
+          {
+            "choice_text": "No new terms were added",
+            "is_correct": true
+          },
+          {
+            "choice_text": "DPU",
+            "is_correct": false
+          },
+          {
+            "choice_text": "DAT",
+            "is_correct": false
+          },
+          {
+            "choice_text": "FAS",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Incoterms 2020 did not introduce any entirely new terms. However, DAT (Delivered at Terminal) was renamed to DPU (Delivered at Place Unloaded) to clarify that delivery can occur at any place, not just a terminal."
+      },
+      {
+        "question_text": "At what point does risk transfer under DAP terms?",
+        "choices": [
+          {
+            "choice_text": "When the goods are ready for unloading at the named destination",
+            "is_correct": true
+          },
+          {
+            "choice_text": "When the goods arrive at the destination port",
+            "is_correct": false
+          },
+          {
+            "choice_text": "When import customs clearance is completed",
+            "is_correct": false
+          },
+          {
+            "choice_text": "When the goods arrive at the buyer's warehouse",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Under DAP (Delivered at Place), risk transfers when the goods are placed at the buyer's disposal on the arriving means of transport, ready for unloading at the named place of destination."
+      },
+      {
+        "question_text": "Which mode of transport does FAS apply to?",
+        "choices": [
+          {
+            "choice_text": "Sea and inland waterway transport only",
+            "is_correct": true
+          },
+          {
+            "choice_text": "All modes of transport",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Air transport only",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Multimodal transport only",
+            "is_correct": false
+          }
+        ],
+        "explanation": "FAS (Free Alongside Ship) applies only to sea and inland waterway transport, as delivery occurs when the goods are placed alongside the vessel at the named port of shipment."
+      },
+      {
+        "question_text": "What do the Incoterms rules primarily govern?",
+        "choices": [
+          {
+            "choice_text": "The allocation of costs and risks between seller and buyer",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The terms of the contract of carriage",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The terms of the insurance contract",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Customs duty rates",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Incoterms are international rules established by the ICC (International Chamber of Commerce) that define the allocation of costs and the point of risk transfer between sellers and buyers. They do not govern contracts of carriage or insurance themselves."
+      },
+      {
+        "question_text": "Under CFR terms, when does the buyer begin to bear risk?",
+        "choices": [
+          {
+            "choice_text": "When the goods are loaded on board the vessel at the port of shipment",
+            "is_correct": true
+          },
+          {
+            "choice_text": "When the goods arrive at the port of destination",
+            "is_correct": false
+          },
+          {
+            "choice_text": "When the seller pays the freight",
+            "is_correct": false
+          },
+          {
+            "choice_text": "When the B/L is issued",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Under CFR (Cost and Freight), while the seller bears costs to the port of destination, risk transfers to the buyer when the goods are placed on board the vessel at the port of shipment. It is important to note that the cost and risk transfer points differ."
+      },
+      {
+        "question_text": "Which statement correctly describes a feature of DPU terms?",
+        "choices": [
+          {
+            "choice_text": "It is the only Incoterm where the seller bears the cost and risk of unloading",
+            "is_correct": true
+          },
+          {
+            "choice_text": "It is exclusively for sea transport",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The buyer is responsible for export customs clearance",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Insurance arrangement is mandatory",
+            "is_correct": false
+          }
+        ],
+        "explanation": "DPU (Delivered at Place Unloaded) is the only one of the 11 Incoterms where the seller bears the cost and risk of unloading at the destination. It is applicable to all modes of transport."
+      },
+      {
+        "question_text": "How many Incoterms 2020 rules apply to all modes of transport?",
+        "choices": [
+          {
+            "choice_text": "7",
+            "is_correct": true
+          },
+          {
+            "choice_text": "4",
+            "is_correct": false
+          },
+          {
+            "choice_text": "11",
+            "is_correct": false
+          },
+          {
+            "choice_text": "6",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Seven Incoterms apply to all modes of transport: EXW, FCA, CPT, CIP, DAP, DPU, and DDP. The remaining four — FAS, FOB, CFR, and CIF — are exclusive to sea and inland waterway transport."
+      },
+      {
+        "question_text": "What is the minimum insured amount the seller must obtain under CIF terms?",
+        "choices": [
+          {
+            "choice_text": "110% of the contract value",
+            "is_correct": true
+          },
+          {
+            "choice_text": "100% of the contract value",
+            "is_correct": false
+          },
+          {
+            "choice_text": "120% of the contract value",
+            "is_correct": false
+          },
+          {
+            "choice_text": "150% of the contract value",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Under CIF terms, the seller is obligated to procure cargo insurance for a minimum of 110% of the contract value, with coverage at least equivalent to ICC(C). Under CIP terms, the required minimum coverage is ICC(A)."
+      },
+      {
+        "question_text": "What is the key difference between FOB and FCA?",
+        "choices": [
+          {
+            "choice_text": "FOB is exclusive to sea transport, while FCA applies to all modes of transport",
+            "is_correct": true
+          },
+          {
+            "choice_text": "FOB places a greater burden on the seller",
+            "is_correct": false
+          },
+          {
+            "choice_text": "FCA includes an obligation to arrange insurance",
+            "is_correct": false
+          },
+          {
+            "choice_text": "FOB includes an import customs clearance obligation",
+            "is_correct": false
+          }
+        ],
+        "explanation": "FOB is used only for sea and inland waterway transport, whereas FCA applies to all modes of transport including truck, air, and rail. The ICC recommends using FCA rather than FOB for containerized shipments."
+      }
+    ]
+  },
+  {
+    "section_name": "Trade Documents",
+    "questions": [
+      {
+        "question_text": "Which of the following is NOT one of the three main functions of a Bill of Lading (B/L)?",
+        "choices": [
+          {
+            "choice_text": "Function as an insurance policy",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Evidence of the contract of carriage",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Receipt for the goods",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Document of title (negotiable instrument)",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The three main functions of a B/L are: (1) evidence of the contract of carriage, (2) receipt for the goods, and (3) document of title (negotiable instrument). Insurance is covered by the Insurance Policy, not the B/L."
+      },
+      {
+        "question_text": "In a letter of credit transaction, what is the act of a bank purchasing the documents called?",
+        "choices": [
+          {
+            "choice_text": "Negotiation",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Acceptance",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Advising",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Confirming",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Negotiation refers to the act of the nominated bank purchasing the draft and/or shipping documents presented by the beneficiary (exporter) after verifying their compliance with the L/C terms under UCP 600."
+      },
+      {
+        "question_text": "Which item is NOT required on a Commercial Invoice?",
+        "choices": [
+          {
+            "choice_text": "Insurance premium rate",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Description of goods",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Trade terms (Incoterms)",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Unit price and total amount",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A Commercial Invoice includes the description of goods, quantity, unit price, total amount, and trade terms. The insurance premium rate belongs on the Insurance Policy, not the Commercial Invoice."
+      },
+      {
+        "question_text": "What is the primary purpose of a Packing List?",
+        "choices": [
+          {
+            "choice_text": "To detail the packing contents of the shipment",
+            "is_correct": true
+          },
+          {
+            "choice_text": "To request payment",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To serve as the basis for customs declaration",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To provide instructions to the carrier",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A Packing List details the contents, weight, and dimensions of each package, enabling the consignee to verify the shipment. It also serves as a supplementary document to the Commercial Invoice."
+      },
+      {
+        "question_text": "Which institution issues a Certificate of Origin (C/O)?",
+        "choices": [
+          {
+            "choice_text": "The Chamber of Commerce",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Customs authorities",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A bank",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A shipping line",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A Certificate of Origin is typically issued by the Chamber of Commerce in the exporting country. For preferential tariff treatment, a specific preferential Certificate of Origin is required — in Japan, it is issued by the JCCI (Japan Chamber of Commerce and Industry)."
+      },
+      {
+        "question_text": "What is a Surrendered B/L?",
+        "choices": [
+          {
+            "choice_text": "A B/L that has been returned to the carrier at the port of loading",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A B/L that has been endorsed and transferred",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A copy of the B/L",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An electronic B/L",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A Surrendered B/L is one where the original B/L is returned (surrendered) to the shipping line at the port of loading, allowing the consignee to collect the cargo at the destination port without presenting an original B/L."
+      },
+      {
+        "question_text": "Which of the following correctly describes a feature of a Sea Waybill?",
+        "choices": [
+          {
+            "choice_text": "It is not a document of title",
+            "is_correct": true
+          },
+          {
+            "choice_text": "It can be endorsed and transferred",
+            "is_correct": false
+          },
+          {
+            "choice_text": "It is issued in a set of three originals",
+            "is_correct": false
+          },
+          {
+            "choice_text": "It is always required in L/C transactions",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A Sea Waybill serves as a receipt for goods and evidence of the contract of carriage, but it is not a document of title (negotiable instrument). It cannot be endorsed or transferred, but the consignee can collect the cargo without presenting an original."
+      },
+      {
+        "question_text": "In trade transactions, who is typically the drawer of a Bill of Exchange (Draft)?",
+        "choices": [
+          {
+            "choice_text": "The exporter (seller)",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The importer (buyer)",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The issuing bank",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The advising bank",
+            "is_correct": false
+          }
+        ],
+        "explanation": "In a letter of credit transaction, the Bill of Exchange is drawn by the exporter (beneficiary) as the drawer, with the issuing bank named as the drawee (payer)."
+      },
+      {
+        "question_text": "What is a key difference between an AWB (Air Waybill) and a B/L?",
+        "choices": [
+          {
+            "choice_text": "An AWB is not a document of title",
+            "is_correct": true
+          },
+          {
+            "choice_text": "An AWB can be endorsed and transferred",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A B/L is not a document of title",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An AWB is issued in a set of three originals",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Unlike a B/L, an AWB (Air Waybill) is not a document of title (negotiable instrument). It functions only as a receipt for the goods and evidence of the contract of carriage."
+      },
+      {
+        "question_text": "What is a discrepancy in the context of trade finance?",
+        "choices": [
+          {
+            "choice_text": "A mismatch between the documents presented and the L/C terms",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A difference in exchange rates",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A shortage in cargo quantity",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An excess or shortfall in insured amount",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A discrepancy refers to any inconsistency between the documents presented and the terms and conditions of the letter of credit. Banks examine documents based on the principle of strict compliance under UCP 600."
+      },
+      {
+        "question_text": "Who sends a Shipping Advice and to whom?",
+        "choices": [
+          {
+            "choice_text": "The exporter sends it to the importer",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The shipping line sends it to the importer",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The customs broker sends it to the exporter",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The bank sends it to the importer",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A Shipping Advice is sent by the exporter to the importer to notify that the goods have been shipped. It typically includes the vessel name, sailing date, B/L number, and other details that help the importer arrange insurance and plan for receipt of goods."
+      },
+      {
+        "question_text": "When is a preferential Certificate of Origin required?",
+        "choices": [
+          {
+            "choice_text": "When applying for preferential tariff rates under an EPA/FTA",
+            "is_correct": true
+          },
+          {
+            "choice_text": "When transporting dangerous goods",
+            "is_correct": false
+          },
+          {
+            "choice_text": "When exporting high-value goods",
+            "is_correct": false
+          },
+          {
+            "choice_text": "When importing food products",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A preferential Certificate of Origin is required to claim preferential tariff rates under an EPA (Economic Partnership Agreement) or FTA (Free Trade Agreement). It certifies that the goods meet the rules of origin specified in the agreement."
+      },
+      {
+        "question_text": "What is the difference between an Insurance Policy and an Insurance Certificate?",
+        "choices": [
+          {
+            "choice_text": "A Policy is the original contract; a Certificate is proof of coverage under an open policy",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A Certificate provides higher coverage than a Policy",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A Policy cannot be used in L/C transactions",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A Certificate covers sea transport only",
+            "is_correct": false
+          }
+        ],
+        "explanation": "An Insurance Policy is the document evidencing an individual insurance contract. An Insurance Certificate is a document issued under an Open Policy (blanket insurance) that certifies coverage for a specific shipment."
+      },
+      {
+        "question_text": "What is the FOB price stated on an export declaration?",
+        "choices": [
+          {
+            "choice_text": "The free-on-board price (including all costs up to the port of export)",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The ex-works price",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The price at arrival at the port of destination",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The price including insurance",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Export declarations use the FOB price, which includes all costs incurred up to loading the goods on board the vessel at the port of export, such as domestic transport and customs clearance fees."
+      },
+      {
+        "question_text": "What is the purpose of a Forwarder's Cargo Receipt (FCR)?",
+        "choices": [
+          {
+            "choice_text": "It certifies that the freight forwarder has received the goods",
+            "is_correct": true
+          },
+          {
+            "choice_text": "It serves as a freight invoice",
+            "is_correct": false
+          },
+          {
+            "choice_text": "It acts as a customs clearance permit",
+            "is_correct": false
+          },
+          {
+            "choice_text": "It provides proof of insurance coverage",
+            "is_correct": false
+          }
+        ],
+        "explanation": "An FCR is a document issued by a freight forwarder (NVOCC) certifying that it has received the goods from the shipper. Unlike a B/L, an FCR is not a document of title."
+      }
+    ]
+  },
+  {
+    "section_name": "Ocean Freight",
+    "questions": [
+      {
+        "question_text": "What unit represents one 20-foot container?",
+        "choices": [
+          {
+            "choice_text": "TEU",
+            "is_correct": true
+          },
+          {
+            "choice_text": "FEU",
+            "is_correct": false
+          },
+          {
+            "choice_text": "CBM",
+            "is_correct": false
+          },
+          {
+            "choice_text": "M/T",
+            "is_correct": false
+          }
+        ],
+        "explanation": "TEU (Twenty-foot Equivalent Unit) represents one 20-foot container. A 40-foot container equals one FEU (Forty-foot Equivalent Unit), which is 2 TEUs."
+      },
+      {
+        "question_text": "What is the difference between FCL and LCL cargo?",
+        "choices": [
+          {
+            "choice_text": "FCL is a full container load; LCL is a consolidated (less-than-container) load",
+            "is_correct": true
+          },
+          {
+            "choice_text": "FCL is always cheaper than LCL",
+            "is_correct": false
+          },
+          {
+            "choice_text": "LCL is a full container load",
+            "is_correct": false
+          },
+          {
+            "choice_text": "FCL is for air freight only",
+            "is_correct": false
+          }
+        ],
+        "explanation": "FCL (Full Container Load) means a single shipper occupies an entire container. LCL (Less than Container Load) means cargo from multiple shippers is consolidated into a single container."
+      },
+      {
+        "question_text": "What is demurrage?",
+        "choices": [
+          {
+            "choice_text": "A charge levied when a container exceeds the free time at the terminal",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A vessel berthing fee",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A warehouse storage fee",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A customs delay penalty",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Demurrage is a charge incurred when an import container remains at the container yard (CY) beyond the allotted free time. Prompt pick-up is essential to avoid these charges."
+      },
+      {
+        "question_text": "What is detention?",
+        "choices": [
+          {
+            "choice_text": "A charge for keeping a container outside the terminal beyond the free time",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Compensation for a vessel's late arrival",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Compensation for cargo damage",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A penalty for delayed export permits",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Detention is a charge incurred when a container is not returned empty to the container yard within the allotted free time after being picked up. It is distinct from demurrage, which applies while the container is still at the terminal."
+      },
+      {
+        "question_text": "What is BAF (Bunker Adjustment Factor)?",
+        "choices": [
+          {
+            "choice_text": "A surcharge to account for fluctuations in fuel costs",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A surcharge for currency fluctuations",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A surcharge for port congestion",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A surcharge for war risk",
+            "is_correct": false
+          }
+        ],
+        "explanation": "BAF is a surcharge applied to ocean freight rates to compensate for fluctuations in bunker (fuel) prices. CAF (Currency Adjustment Factor) is a separate surcharge for currency fluctuations."
+      },
+      {
+        "question_text": "What is the role of a CFS (Container Freight Station)?",
+        "choices": [
+          {
+            "choice_text": "A facility for consolidating and deconsolidating LCL cargo",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A storage area for FCL cargo",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A container repair facility",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A location for customs procedures",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A CFS is a facility where LCL cargo is stuffed (vanned) into containers or stripped (devanned) from containers and sorted for delivery to individual consignees."
+      },
+      {
+        "question_text": "What is the main function of a CY (Container Yard)?",
+        "choices": [
+          {
+            "choice_text": "A place for receiving, storing, and delivering FCL containers",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A place for consolidating LCL cargo",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A ship repair facility",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An office for preparing customs documentation",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A CY (Container Yard) is a designated area where FCL containers are received, stored, and dispatched. It serves as the point where the shipping line takes delivery of or releases containers."
+      },
+      {
+        "question_text": "What does THC (Terminal Handling Charge) cover?",
+        "choices": [
+          {
+            "choice_text": "Container handling costs at the terminal",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A portion of the ocean freight",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Trucking costs",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Documentation fees",
+            "is_correct": false
+          }
+        ],
+        "explanation": "THC covers the cost of handling containers at the container terminal. It is an ancillary charge billed by the shipping line to shippers."
+      },
+      {
+        "question_text": "What is the purpose of shipping line alliances?",
+        "choices": [
+          {
+            "choice_text": "To improve vessel deployment efficiency and expand service coverage",
+            "is_correct": true
+          },
+          {
+            "choice_text": "To standardize freight rates",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To create a monopoly",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To jointly build port facilities",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Shipping alliances are cooperative arrangements among multiple carriers to share vessel space (slot sharing), expand port coverage, and improve the efficiency of vessel deployment."
+      },
+      {
+        "question_text": "What is a reefer container?",
+        "choices": [
+          {
+            "choice_text": "A temperature-controlled container",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A container designed for hazardous goods",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A tank container for liquid cargo",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An open-top container",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A reefer container is equipped with refrigeration/freezing capability and is used for transporting temperature-sensitive cargo such as food products and pharmaceuticals."
+      },
+      {
+        "question_text": "What is free time in shipping?",
+        "choices": [
+          {
+            "choice_text": "The period during which a container may be used without charge",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The period during which a vessel may berth for free",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The free storage period at a warehouse",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The standard number of days required for customs clearance",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Free time is the allotted period during which containers may be stored at the terminal or container yard at no charge. Once free time expires, demurrage charges begin to accrue."
+      },
+      {
+        "question_text": "What is an NVOCC (Non-Vessel Operating Common Carrier)?",
+        "choices": [
+          {
+            "choice_text": "A carrier that does not operate its own vessels",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A stevedore",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A customs broker",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A marine insurance company",
+            "is_correct": false
+          }
+        ],
+        "explanation": "An NVOCC is a carrier that does not own or operate vessels but provides ocean transport services to shippers by utilizing space on actual carriers (shipping lines). NVOCCs issue their own House B/Ls."
+      },
+      {
+        "question_text": "What do ETA and ETD stand for?",
+        "choices": [
+          {
+            "choice_text": "Estimated Time of Arrival / Estimated Time of Departure",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Export Tax Amount / Import Tax Amount",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Electronic Trade Application / Electronic Trade Declaration",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Emergency Transport Arrangement / Emergency Transport Delivery",
+            "is_correct": false
+          }
+        ],
+        "explanation": "ETA (Estimated Time of Arrival) is the expected date and time of arrival, and ETD (Estimated Time of Departure) is the expected date and time of departure. Both are essential terms for managing vessel schedules."
+      },
+      {
+        "question_text": "What is a gantry crane used for?",
+        "choices": [
+          {
+            "choice_text": "Loading and unloading containers from container ships",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Discharging bulk cargo",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Moving cargo within a warehouse",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Loading cargo onto trucks",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A gantry crane (also called a ship-to-shore crane or STS crane) is a large piece of cargo handling equipment installed at container terminals for loading and unloading containers between the ship and the container yard."
+      },
+      {
+        "question_text": "What does 'booking' mean in the context of ocean freight?",
+        "choices": [
+          {
+            "choice_text": "Reserving space on a vessel with the shipping line",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Entering into a trade contract",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Applying for insurance",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Scheduling a customs appointment",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Booking is the act of a shipper or freight forwarder reserving container space (slot) on a vessel with the shipping line, specifying the vessel name, sailing date, destination port, and other details."
+      }
+    ]
+  },
+  {
+    "section_name": "Air Freight",
+    "questions": [
+      {
+        "question_text": "What is the formula for calculating volumetric weight in air cargo?",
+        "choices": [
+          {
+            "choice_text": "Length x Width x Height (cm) / 6,000",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Length x Width x Height (cm) / 5,000",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Length x Width x Height (cm) / 4,000",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Length x Width x Height (cm) / 3,000",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The volumetric (dimensional) weight for air cargo is calculated as Length x Width x Height (cm) / 6,000. The chargeable weight is whichever is greater: the actual gross weight or the volumetric weight."
+      },
+      {
+        "question_text": "What is the role of IATA?",
+        "choices": [
+          {
+            "choice_text": "Setting international standards for air transport",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Regulating ocean freight rates",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Standardizing customs procedures",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Operating trade insurance",
+            "is_correct": false
+          }
+        ],
+        "explanation": "IATA (International Air Transport Association) is the global trade body for airlines. It establishes standards for air cargo and passenger transport, including rate rules, documentation standards, and safety regulations."
+      },
+      {
+        "question_text": "What is the difference between a MAWB (Master Air Waybill) and a HAWB (House Air Waybill)?",
+        "choices": [
+          {
+            "choice_text": "A MAWB is issued by the airline; a HAWB is issued by the freight forwarder",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A MAWB is issued by the forwarder; a HAWB is issued by the airline",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A MAWB is for imports; a HAWB is for exports",
+            "is_correct": false
+          },
+          {
+            "choice_text": "There is no difference",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A MAWB is the air waybill issued by the airline, while a HAWB is issued by the freight forwarder (consolidator) to individual shippers. In consolidated shipments, there is a dual-layer structure with both a MAWB and multiple HAWBs."
+      },
+      {
+        "question_text": "What is the primary advantage of air freight?",
+        "choices": [
+          {
+            "choice_text": "Short transit time",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Suitable for large-volume shipments",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Low freight costs",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Suitable for heavy cargo",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The greatest advantage of air freight is speed — goods can arrive within days compared to weeks by sea. It is ideal for high-value goods, time-sensitive shipments, and perishable products."
+      },
+      {
+        "question_text": "What is a ULD (Unit Load Device) in air cargo?",
+        "choices": [
+          {
+            "choice_text": "A standardized pallet or container designed for loading onto aircraft",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A ground transport truck",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A storage rack at the cargo terminal",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A unit of measurement for air freight charges",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A ULD is a standardized pallet or container designed for efficient loading into the cargo hold of an aircraft. ULDs are specially shaped to conform to the aircraft fuselage."
+      },
+      {
+        "question_text": "Which organization establishes the regulations for transporting dangerous goods by air?",
+        "choices": [
+          {
+            "choice_text": "ICAO (International Civil Aviation Organization)",
+            "is_correct": true
+          },
+          {
+            "choice_text": "IMO (International Maritime Organization)",
+            "is_correct": false
+          },
+          {
+            "choice_text": "WTO (World Trade Organization)",
+            "is_correct": false
+          },
+          {
+            "choice_text": "ICC (International Chamber of Commerce)",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The international standards for the air transport of dangerous goods are based on ICAO's Technical Instructions. In practice, IATA's DGR (Dangerous Goods Regulations) is widely used by the industry."
+      },
+      {
+        "question_text": "What is the benefit of air cargo consolidation?",
+        "choices": [
+          {
+            "choice_text": "It reduces freight costs for small shipments",
+            "is_correct": true
+          },
+          {
+            "choice_text": "It shortens transit time",
+            "is_correct": false
+          },
+          {
+            "choice_text": "It exempts goods from customs clearance",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Insurance is automatically included",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Consolidation combines multiple small shipments from different shippers into one bulk consignment tendered to the airline. This allows each shipper to benefit from volume discounts that would not be available on their individual shipments."
+      },
+      {
+        "question_text": "Why is screening required for air cargo?",
+        "choices": [
+          {
+            "choice_text": "For security (aviation security inspection)",
+            "is_correct": true
+          },
+          {
+            "choice_text": "For quality control",
+            "is_correct": false
+          },
+          {
+            "choice_text": "For customs clearance",
+            "is_correct": false
+          },
+          {
+            "choice_text": "For freight rate calculation",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Air cargo screening is a security measure to prevent terrorism. Methods such as X-ray inspection are used to verify that shipments do not contain explosives or other prohibited items."
+      },
+      {
+        "question_text": "How far in advance of departure is the typical cut-off time for air cargo?",
+        "choices": [
+          {
+            "choice_text": "Approximately 3 to 6 hours before departure",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Approximately 1 hour before departure",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Approximately 12 hours before departure",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Approximately 24 hours before departure",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The cut-off time for air cargo is typically 3 to 6 hours before departure, as time is needed for security screening and ULD build-up. Although shorter than ocean freight cut-offs, timely delivery to the terminal is essential."
+      },
+      {
+        "question_text": "What is an advantage of using a charter flight for cargo?",
+        "choices": [
+          {
+            "choice_text": "Large volumes can be shipped at once with a customizable schedule",
+            "is_correct": true
+          },
+          {
+            "choice_text": "It is always cheaper than scheduled flights",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Customs clearance is not required",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Insurance coverage is waived",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A charter flight involves hiring an entire aircraft, enabling the shipper to transport large volumes of cargo at once and set the departure date, time, and routing according to their requirements."
+      },
+      {
+        "question_text": "What is a benefit of the e-AWB (electronic Air Waybill)?",
+        "choices": [
+          {
+            "choice_text": "Improved operational efficiency through paperless processing",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Automatic freight discounts",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Exemption from customs clearance",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Shorter transit times",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The e-AWB replaces the paper AWB with electronic data, reducing printing, courier, and archiving costs while improving data accuracy and processing speed."
+      },
+      {
+        "question_text": "What is the minimum charge in air freight?",
+        "choices": [
+          {
+            "choice_text": "The minimum freight rate applied regardless of the shipment's weight",
+            "is_correct": true
+          },
+          {
+            "choice_text": "An additional charge for dangerous goods",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A surcharge for night flights",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A surcharge during peak season",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The minimum charge is the lowest freight amount an airline will accept for a shipment, regardless of how light it is. It applies when the rate calculated by actual or volumetric weight falls below this threshold."
+      },
+      {
+        "question_text": "What is a BUP (Built-Up Pallet)?",
+        "choices": [
+          {
+            "choice_text": "A shipment method where the shipper pre-loads cargo onto a ULD pallet before delivery to the airline",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A shipment method where the airline loads cargo onto the pallet",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A method for delivering bulk cargo",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A special packaging method for dangerous goods",
+            "is_correct": false
+          }
+        ],
+        "explanation": "BUP (Built-Up Pallet) is a method where the shipper or freight forwarder pre-loads cargo onto a ULD pallet and delivers it ready-built to the airline, improving cargo handling efficiency."
+      },
+      {
+        "question_text": "What is 'belly cargo' in air transport?",
+        "choices": [
+          {
+            "choice_text": "Cargo carried in the lower hold of a passenger aircraft",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Cargo carried on a dedicated freighter aircraft",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Cargo transported by ground vehicle",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Unclaimed cargo",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Belly cargo refers to freight carried in the lower deck (belly) hold of a passenger aircraft, utilizing available space below the passenger cabin. This contrasts with cargo transported on dedicated freighter aircraft."
+      },
+      {
+        "question_text": "What does a GHA (Ground Handling Agent) do?",
+        "choices": [
+          {
+            "choice_text": "Provides ground handling services for air cargo at airports",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Manages airline flight schedules",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Underwrites aviation insurance",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Sets air freight rates",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A GHA performs ground handling operations at airports on behalf of airlines, including cargo acceptance, storage, ULD build-up/breakdown, and delivery of cargo."
+      }
+    ]
+  },
+  {
+    "section_name": "Customs Procedures",
+    "questions": [
+      {
+        "question_text": "What is an HS code?",
+        "choices": [
+          {
+            "choice_text": "An internationally standardized tariff classification number",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A vessel identification number",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A hazardous goods classification code",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An import/export permit number",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The HS code (Harmonized System code) is an internationally standardized system of commodity classification developed by the WCO (World Customs Organization). The first 6 digits are common worldwide; individual countries add further digits for national tariff and statistical purposes."
+      },
+      {
+        "question_text": "Which of the following is NOT a type of bonded area in Japan?",
+        "choices": [
+          {
+            "choice_text": "Free trade port",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Bonded warehouse",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Bonded factory",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Bonded exhibition site",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Japan's Customs Act defines five types of bonded areas: designated bonded area, bonded warehouse, bonded factory, bonded exhibition site, and comprehensive bonded area. A 'free trade port' is not part of the Japanese bonded area system."
+      },
+      {
+        "question_text": "Why are customs duties calculated based on CIF value?",
+        "choices": [
+          {
+            "choice_text": "Because Japan's Customs Act defines the dutiable value as the CIF value",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Because CIF is the lowest price",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Because it is required by an international treaty",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Because the exporting country's laws require it",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Under Japan's Customs Act, the dutiable value of imported goods is, in principle, based on the CIF value — which comprises the cost of the goods plus freight and insurance to the port of importation. This is known as the CIF-based customs valuation method."
+      },
+      {
+        "question_text": "What is the purpose of the AEO program?",
+        "choices": [
+          {
+            "choice_text": "To achieve both supply chain security and trade facilitation",
+            "is_correct": true
+          },
+          {
+            "choice_text": "To exempt goods from customs duties",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To restrict import quantities",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To certify origin of goods",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The AEO (Authorized Economic Operator) program certifies businesses that demonstrate high standards of security management and regulatory compliance, granting them facilitated customs procedures and other benefits."
+      },
+      {
+        "question_text": "Under what circumstances is a Before Permit (BP) release allowed for imports?",
+        "choices": [
+          {
+            "choice_text": "When the goods are urgently needed before the duty amount is finalized",
+            "is_correct": true
+          },
+          {
+            "choice_text": "When customs duties are waived",
+            "is_correct": false
+          },
+          {
+            "choice_text": "When all documents are in order",
+            "is_correct": false
+          },
+          {
+            "choice_text": "It is always permitted",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Before Permit (BP) is a system that allows the release of imported goods prior to payment of duties, subject to the provision of a security deposit and approval from the Director-General of Customs. It is used when goods are needed urgently."
+      },
+      {
+        "question_text": "What is NACCS?",
+        "choices": [
+          {
+            "choice_text": "An electronic processing system for customs procedures",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Automatic duty calculation software",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An online application system for trade insurance",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An exchange rate information service",
+            "is_correct": false
+          }
+        ],
+        "explanation": "NACCS (Nippon Automated Cargo and Port Consolidated System) is an electronic system that connects customs, shipping lines, airlines, customs brokers, and other parties to electronically process import and export procedures."
+      },
+      {
+        "question_text": "What is a specific duty?",
+        "choices": [
+          {
+            "choice_text": "A duty levied based on the quantity or weight of the goods",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A duty levied based on the value of the goods",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A duty that fluctuates with the season",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A duty imposed on goods from specific countries",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A specific duty is levied based on the physical quantity (weight, volume, number of units, etc.) of the goods rather than their value. Unlike ad valorem duties, specific duties are not affected by price fluctuations."
+      },
+      {
+        "question_text": "What is the 'substantial transformation' criterion in rules of origin?",
+        "choices": [
+          {
+            "choice_text": "The country of origin is where processing results in a change in HS code heading",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The country of origin is where the highest-value component is produced",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The country of origin is where the last processing takes place",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The country of origin is where the raw materials are sourced",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The substantial transformation criterion, also known as the tariff shift criterion, determines origin based on where processing causes the HS code (at the heading level) of the finished product to differ from that of the imported raw materials."
+      },
+      {
+        "question_text": "When should an import declaration be filed?",
+        "choices": [
+          {
+            "choice_text": "After the goods have been brought into a bonded area",
+            "is_correct": true
+          },
+          {
+            "choice_text": "At the time of loading at the port of origin",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Immediately after the sales contract is signed",
+            "is_correct": false
+          },
+          {
+            "choice_text": "After payment has been completed",
+            "is_correct": false
+          }
+        ],
+        "explanation": "In principle, an import declaration must be filed after the goods have been placed in a bonded area. However, AEO-certified importers may be permitted to file a pre-arrival declaration as a special exception."
+      },
+      {
+        "question_text": "What is the purpose of the Generalized System of Preferences (GSP)?",
+        "choices": [
+          {
+            "choice_text": "To promote imports from developing countries",
+            "is_correct": true
+          },
+          {
+            "choice_text": "To promote trade among developed countries",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To promote exports",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To increase customs revenue",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The GSP (Generalized System of Preferences) applies lower tariff rates to imports from developing countries to support their economic development. These rates are lower than the most-favored-nation (MFN) rates."
+      },
+      {
+        "question_text": "What is a post-clearance audit?",
+        "choices": [
+          {
+            "choice_text": "A customs verification of declaration details conducted after import clearance",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A pre-shipment document review",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A physical cargo inspection in a bonded area",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A security inspection before export clearance",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A post-clearance audit is conducted by customs officials who visit the importer's premises after goods have been cleared and released, to verify the accuracy of import declarations based on books, records, and other documents."
+      },
+      {
+        "question_text": "What does 'other law compliance verification' mean in customs?",
+        "choices": [
+          {
+            "choice_text": "Confirming permits or approvals required under laws other than the Customs Act",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Verifying consistency with the customs laws of other countries",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Checking for duplicate entries by other importers",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Sharing information between customs offices",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Other law compliance verification checks whether an import or export requires permits, approvals, or inspections under laws beyond the Customs Act, such as the Food Sanitation Act, the Plant Protection Act, or the Pharmaceutical and Medical Devices Act."
+      },
+      {
+        "question_text": "Under what conditions is the simplified duty rate applied?",
+        "choices": [
+          {
+            "choice_text": "When the total dutiable value is 200,000 yen or less",
+            "is_correct": true
+          },
+          {
+            "choice_text": "When importing from specific countries",
+            "is_correct": false
+          },
+          {
+            "choice_text": "When importing specific product categories",
+            "is_correct": false
+          },
+          {
+            "choice_text": "When the importer is AEO-certified",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The simplified duty rate is applied to small-value imports where the total dutiable value is 200,000 yen or less. It uses a simplified classification system with fewer categories than the standard tariff schedule, making the procedure quicker."
+      },
+      {
+        "question_text": "What is the advance ruling system in customs?",
+        "choices": [
+          {
+            "choice_text": "A system that allows importers to inquire about HS codes and duty rates before import",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A system for applying for duty reductions or exemptions",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A licensing system for customs brokers",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A permit system for bonded areas",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The advance ruling system enables importers to submit written inquiries to customs before importation regarding commodity classification (HS codes), tariff rates, origin determination, and other matters. This enhances predictability in international trade."
+      },
+      {
+        "question_text": "What is the purpose of export controls based on Japan's Export Trade Control Order, Appended Table 1?",
+        "choices": [
+          {
+            "choice_text": "Security trade controls (preventing proliferation of weapons of mass destruction)",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Quality control",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Consumer protection",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Environmental protection",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Appended Table 1 of Japan's Export Trade Control Order (the 'list control') regulates the export of goods and technologies that could be diverted to the development or manufacture of weapons of mass destruction or conventional weapons. Export of listed items requires a license from the Minister of Economy, Trade and Industry."
+      }
+    ]
+  },
+  {
+    "section_name": "Trade Insurance",
+    "questions": [
+      {
+        "question_text": "Which of the following correctly describes the scope of coverage under ICC(A)?",
+        "choices": [
+          {
+            "choice_text": "All risks coverage",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Free from particular average",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Named perils only",
+            "is_correct": false
+          },
+          {
+            "choice_text": "War risks only",
+            "is_correct": false
+          }
+        ],
+        "explanation": "ICC(A) (Institute Cargo Clauses A) provides all risks coverage, offering the broadest scope of protection. It covers all fortuitous losses or damages except those specifically excluded, such as war and strikes."
+      },
+      {
+        "question_text": "Which of the following risks is NOT covered under ICC(B)?",
+        "choices": [
+          {
+            "choice_text": "Theft and non-delivery",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Fire and explosion",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Stranding and sinking of the vessel",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Seawater damage caused by heavy weather",
+            "is_correct": false
+          }
+        ],
+        "explanation": "ICC(B) covers only the perils specifically listed in the clause. While fire, explosion, stranding, sinking, and heavy weather damage are covered, theft, non-delivery, and pilferage are not. These are only covered under ICC(A)."
+      },
+      {
+        "question_text": "What is General Average?",
+        "choices": [
+          {
+            "choice_text": "A system where sacrifices and expenses made for the common safety of the vessel and cargo are shared among all stakeholders",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A system where insurers compensate all cargo damage",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A liability system for maritime accidents",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A system for sharing port facility maintenance costs",
+            "is_correct": false
+          }
+        ],
+        "explanation": "General Average is a principle of maritime law under which voluntary sacrifices (such as jettison of cargo) and extraordinary expenses (such as port of refuge costs) made for the common safety of the vessel and its cargo are shared proportionally among the shipowner and all cargo owners based on the value of their respective interests."
+      },
+      {
+        "question_text": "What is the purpose of insurance provided by NEXI (Nippon Export and Investment Insurance)?",
+        "choices": [
+          {
+            "choice_text": "Coverage against political risks and commercial (credit) risks in trade transactions",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Compensation for marine cargo damage",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Coverage against default in domestic transactions",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Workers' compensation for employees",
+            "is_correct": false
+          }
+        ],
+        "explanation": "NEXI is a government-backed institution that provides trade insurance (public insurance) covering losses from political risks such as war and terrorism, as well as commercial risks such as the insolvency of trading partners. Similar entities exist in other countries, such as the Export-Import Bank of the United States and UK Export Finance."
+      },
+      {
+        "question_text": "Which ICC clause corresponds to the former W/A (With Average) condition?",
+        "choices": [
+          {
+            "choice_text": "ICC(B)",
+            "is_correct": true
+          },
+          {
+            "choice_text": "ICC(A)",
+            "is_correct": false
+          },
+          {
+            "choice_text": "ICC(C)",
+            "is_correct": false
+          },
+          {
+            "choice_text": "ICC(Air)",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The former W/A (With Average) clause, which covered particular average losses, roughly corresponds to ICC(B) under the current Institute Cargo Clauses. Similarly, the former FPA (Free from Particular Average) clause roughly corresponds to ICC(C)."
+      },
+      {
+        "question_text": "What is the coverage period of a cargo insurance policy?",
+        "choices": [
+          {
+            "choice_text": "Warehouse to warehouse",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Port to port",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Vessel to vessel",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Customs to customs",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Marine cargo insurance operates under the Warehouse to Warehouse Clause as a general rule. Coverage begins when the goods leave the warehouse at the place of origin and continues until they arrive at the warehouse at the final destination."
+      },
+      {
+        "question_text": "What is the difference between a franchise deductible and an excess deductible?",
+        "choices": [
+          {
+            "choice_text": "A franchise pays the full amount once the threshold is exceeded; an excess pays only the amount above the threshold",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A franchise pays only the excess; an excess pays the full amount",
+            "is_correct": false
+          },
+          {
+            "choice_text": "There is no difference",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A franchise applies to marine only; an excess applies to air only",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Under a franchise deductible, the insurer pays the entire loss once the damage exceeds the deductible threshold. Under an excess (deductible) arrangement, the insurer pays only the portion of the loss that exceeds the deductible amount, with the insured bearing the deductible portion."
+      },
+      {
+        "question_text": "What is Particular Average?",
+        "choices": [
+          {
+            "choice_text": "A loss or damage sustained by specific cargo only",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A loss shared among all stakeholders",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A loss not covered by insurance",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Damage to port facilities",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Particular Average refers to a partial loss or damage that affects specific cargo or the vessel individually, as opposed to General Average. It includes fortuitous damage such as seawater wetting, breakage, and similar accidental losses to particular goods."
+      },
+      {
+        "question_text": "What is Abandonment in marine insurance?",
+        "choices": [
+          {
+            "choice_text": "The act of the insured relinquishing the subject matter to the insurer and claiming a total loss",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The cancellation of an insurance policy",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A request for a premium refund",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An installment payment of an insurance claim",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Abandonment occurs when a constructive total loss has taken place, allowing the insured to transfer all rights to the remaining property to the insurer and claim as if for an actual total loss. The insurer then acquires ownership of whatever remains of the insured property."
+      },
+      {
+        "question_text": "Why is War Risks Insurance written separately from general cargo insurance?",
+        "choices": [
+          {
+            "choice_text": "Because war risks are difficult to predict and may result in catastrophic losses",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Because it is required by law",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Because the premiums are lower",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Because the coverage period differs",
+            "is_correct": false
+          }
+        ],
+        "explanation": "War, civil unrest, and terrorism risks are inherently unpredictable in frequency and can cause catastrophic losses when they occur. For this reason, they are underwritten separately from standard cargo insurance policies, allowing insurers to manage this concentration of risk appropriately."
+      },
+      {
+        "question_text": "What is the rationale for insuring cargo at 110% of the CIF value?",
+        "choices": [
+          {
+            "choice_text": "To include a 10% anticipated profit margin",
+            "is_correct": true
+          },
+          {
+            "choice_text": "To include a 10% commission",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To include 10% in taxes",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To account for 10% exchange rate fluctuation risk",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The international custom of insuring at 110% of the CIF value includes an additional 10% to cover the expected profit that the buyer would have earned had the goods arrived safely. This practice ensures the insured is made whole for both the goods' cost and the lost profit opportunity."
+      },
+      {
+        "question_text": "What is the right of Subrogation?",
+        "choices": [
+          {
+            "choice_text": "The insurer's right to pursue a claim against the liable third party after paying the insured",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The insured's right to request an increase in the insurance payout",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The right to transfer an insurance policy to a third party",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The right to request a premium reduction",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Subrogation is the legal right that allows the insurer, after paying a claim to the insured, to step into the insured's shoes and pursue recovery from the third party (such as the carrier) who caused the loss. This prevents the insured from receiving double compensation."
+      },
+      {
+        "question_text": "What is the main advantage of an Open Policy (blanket insurance)?",
+        "choices": [
+          {
+            "choice_text": "No need to arrange insurance for each individual shipment",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Premiums are waived",
+            "is_correct": false
+          },
+          {
+            "choice_text": "All risks are covered",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The policy period is unlimited",
+            "is_correct": false
+          }
+        ],
+        "explanation": "An Open Policy (also known as a blanket or floating policy) provides comprehensive coverage for all shipments within a specified period under a single contract. This eliminates the need to arrange individual policies for each shipment and prevents the risk of coverage gaps from declaration omissions."
+      },
+      {
+        "question_text": "Which of the following documents is NOT typically required when filing a cargo insurance claim?",
+        "choices": [
+          {
+            "choice_text": "Export permit",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Insurance policy",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Survey report",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Claim note",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Filing a cargo insurance claim typically requires the insurance policy, bill of lading, commercial invoice, survey report, and claim note. An export permit is not normally among the required documents for an insurance claim."
+      },
+      {
+        "question_text": "What are the York-Antwerp Rules?",
+        "choices": [
+          {
+            "choice_text": "Internationally recognized rules governing the adjustment of General Average",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Standards for calculating marine insurance premiums",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Safety standards for vessels",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Rules governing port operations",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The York-Antwerp Rules are a set of internationally recognized rules that define the requirements for declaring General Average, the methods for apportioning contributions, and the procedures for settlement. They are commonly incorporated by reference into marine insurance policies and bills of lading."
+      }
+    ]
+  },
+  {
+    "section_name": "Foreign Exchange",
+    "questions": [
+      {
+        "question_text": "What is the TTS (Telegraphic Transfer Selling Rate)?",
+        "choices": [
+          {
+            "choice_text": "The exchange rate at which a bank sells foreign currency to its customers",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The exchange rate at which a bank buys foreign currency from its customers",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The interbank exchange rate",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The official rate set by the central bank",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The TTS is the rate applied when a bank sells foreign currency to a customer (i.e., when a customer converts domestic currency into foreign currency). It is calculated by adding a bank margin to the mid-rate (TTM)."
+      },
+      {
+        "question_text": "What is the purpose of a forward exchange contract?",
+        "choices": [
+          {
+            "choice_text": "To lock in a future exchange rate and hedge against currency risk",
+            "is_correct": true
+          },
+          {
+            "choice_text": "To guarantee a foreign exchange gain",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To increase the interest rate on foreign currency deposits",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To authorize a trade transaction",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A forward exchange contract fixes the exchange rate for a specified future date, thereby hedging against exchange rate fluctuation risk. It is widely used by importers and exporters to protect their profit margins from adverse currency movements."
+      },
+      {
+        "question_text": "When the domestic currency appreciates (e.g., the yen strengthens), which party is most adversely affected?",
+        "choices": [
+          {
+            "choice_text": "Domestic exporters",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Domestic importers",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Outbound tourists",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Foreign currency deposit holders",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A stronger domestic currency reduces the home-currency value of export proceeds denominated in foreign currency, making it disadvantageous for exporters. Conversely, importers benefit because their foreign currency payment obligations become cheaper in domestic currency terms."
+      },
+      {
+        "question_text": "In an L/C transaction, what does 'usance' refer to?",
+        "choices": [
+          {
+            "choice_text": "The grace period for payment on a bill of exchange",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The validity period of the letter of credit",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The period during which the exchange rate applies",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The deadline for presenting documents",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Usance refers to the period of time allowed for payment of a bill of exchange. For example, 'at 90 days after sight' means the drawee has a 90-day grace period from the date the draft is presented before payment is due."
+      },
+      {
+        "question_text": "What is D/P (Documents against Payment)?",
+        "choices": [
+          {
+            "choice_text": "A settlement method where shipping documents are released to the buyer upon payment",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A deferred payment method",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A settlement method using a letter of credit",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An advance payment method",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Under D/P terms, the collecting bank releases the shipping documents to the importer only upon receipt of payment. Since there is no bank payment guarantee as with an L/C, the exporter bears greater risk than under L/C terms."
+      },
+      {
+        "question_text": "What is the difference between D/A (Documents against Acceptance) and D/P?",
+        "choices": [
+          {
+            "choice_text": "Under D/A, documents are released upon acceptance of a draft; under D/P, documents are released upon payment",
+            "is_correct": true
+          },
+          {
+            "choice_text": "D/A poses lower risk for the exporter",
+            "is_correct": false
+          },
+          {
+            "choice_text": "D/P requires a letter of credit",
+            "is_correct": false
+          },
+          {
+            "choice_text": "There is no difference",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Under D/A terms, the importer obtains the shipping documents by accepting (i.e., promising to pay at a future date) a bill of exchange, rather than paying immediately as required under D/P. This makes D/A riskier for the exporter, since the importer receives the goods before making payment."
+      },
+      {
+        "question_text": "What is the TTM (Telegraphic Transfer Middle Rate)?",
+        "choices": [
+          {
+            "choice_text": "The mid-rate between TTS and TTB, published by banks each morning",
+            "is_correct": true
+          },
+          {
+            "choice_text": "An official rate set by the central bank",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The previous day's closing rate",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An average of interbank transaction rates",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The TTM (Telegraphic Transfer Middle Rate) is the benchmark customer exchange rate published by banks each business day, typically around 10:00 AM. It serves as the midpoint between the TTS (selling rate) and TTB (buying rate)."
+      },
+      {
+        "question_text": "What right does the buyer of a put option hold?",
+        "choices": [
+          {
+            "choice_text": "The right to sell foreign currency at a specified rate",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The right to buy foreign currency at a specified rate",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The obligation to fix the exchange rate",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The right to receive the option premium",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The buyer of a put option has the right, but not the obligation, to sell foreign currency at a predetermined strike price. It functions like insurance, allowing the holder to sell at a favorable rate if the domestic currency appreciates beyond the strike price."
+      },
+      {
+        "question_text": "What is the main advantage of T/T remittance (telegraphic transfer)?",
+        "choices": [
+          {
+            "choice_text": "Simple procedures and low cost",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Elimination of exchange rate risk",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Bank payment guarantee",
+            "is_correct": false
+          },
+          {
+            "choice_text": "No risk of document discrepancies",
+            "is_correct": false
+          }
+        ],
+        "explanation": "T/T remittance (telegraphic transfer) does not involve letters of credit or bills of exchange, making the procedure straightforward and bank fees comparatively low. However, it does not provide a bank payment guarantee, so it is typically used between parties with an established trust relationship."
+      },
+      {
+        "question_text": "What is a cross rate?",
+        "choices": [
+          {
+            "choice_text": "An exchange rate between two currencies derived without using the US dollar as an intermediary",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The average of the day's high and low exchange rates",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The difference between the forward rate and the spot rate",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The average rate across multiple banks",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A cross rate is an exchange rate between two currencies that is calculated indirectly through a third currency, typically the US dollar. For example, the JPY/EUR rate is derived from the JPY/USD and USD/EUR rates."
+      },
+      {
+        "question_text": "What is a foreign exchange swap?",
+        "choices": [
+          {
+            "choice_text": "A transaction combining a spot and a forward deal in opposite directions simultaneously",
+            "is_correct": true
+          },
+          {
+            "choice_text": "An exchange of one foreign currency for another",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A transaction exchanging interest rates for exchange rates",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Simultaneous buying and selling of options",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A foreign exchange swap involves simultaneously executing a spot transaction and an offsetting forward transaction in the same currency pair. It is commonly used for short-term funding and liquidity management without taking on directional currency exposure."
+      },
+      {
+        "question_text": "What are 'leads and lags' in foreign exchange risk management?",
+        "choices": [
+          {
+            "choice_text": "Accelerating or delaying payments and receipts based on anticipated exchange rate movements",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Settling transactions in multiple currencies simultaneously",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Splitting forward contracts into multiple parts",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A combination of forward and spot transactions",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Leads (acceleration) and lags (deferral) involve intentionally adjusting the timing of payments or collections based on expectations of future exchange rate movements. For example, an importer expecting the domestic currency to depreciate may accelerate (lead) payment to lock in the current favorable rate."
+      },
+      {
+        "question_text": "What is 'matching' (also known as 'marry') in foreign exchange management?",
+        "choices": [
+          {
+            "choice_text": "Offsetting receivables and payables denominated in the same foreign currency within the company",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Canceling a forward exchange contract",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Converting multiple currencies in a single transaction",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Adjusting exchange positions between banks",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Matching (or marry) is a technique where a company offsets its foreign currency receivables (e.g., export proceeds) against its payables (e.g., import costs) in the same currency internally. This reduces the number and volume of foreign exchange transactions, thereby mitigating exchange rate risk."
+      },
+      {
+        "question_text": "What is netting?",
+        "choices": [
+          {
+            "choice_text": "Offsetting intercompany receivables and payables and settling only the net difference",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A type of forward exchange contract",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A method of settling trade insurance",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A customs duty refund method",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Netting is the practice of consolidating and offsetting multiple intercompany receivables and payables within a corporate group over a defined period, then settling only the net balance. This reduces remittance costs and foreign exchange exposure."
+      },
+      {
+        "question_text": "What is a 'natural hedge' as a method of managing exchange rate risk?",
+        "choices": [
+          {
+            "choice_text": "Aligning foreign currency revenues and expenses to offset exchange rate exposure",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Insurance against natural disasters",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Central bank intervention in the foreign exchange market",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Diversifying investments across multiple currencies",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A natural hedge mitigates exchange rate risk through business operations rather than financial instruments. For example, a company that earns revenue in US dollars from exports and also sources raw materials priced in US dollars naturally offsets its USD exposure without needing forward contracts or options."
+      }
+    ]
+  },
+  {
+    "section_name": "Letters of Credit (L/C)",
+    "questions": [
+      {
+        "question_text": "What is the key feature of a Letter of Credit (L/C)?",
+        "choices": [
+          {
+            "choice_text": "The bank guarantees payment",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Freight charges are waived",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Customs duties are exempted",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Exchange rate risk is eliminated",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A Letter of Credit (L/C) is a written undertaking by the issuing bank to pay the exporter, provided that documents strictly complying with the L/C terms are presented. By substituting bank credit for the buyer's commercial credit, it significantly enhances the security of international trade transactions."
+      },
+      {
+        "question_text": "What is an Irrevocable Letter of Credit?",
+        "choices": [
+          {
+            "choice_text": "An L/C that cannot be amended or cancelled without the consent of all parties involved",
+            "is_correct": true
+          },
+          {
+            "choice_text": "An L/C that the importer may cancel at any time",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An L/C with no expiry date",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An L/C with no monetary limit",
+            "is_correct": false
+          }
+        ],
+        "explanation": "An irrevocable L/C cannot be amended or cancelled without the agreement of the issuing bank, the confirming bank (if any), and the beneficiary. Under UCP 600, all letters of credit are irrevocable by default."
+      },
+      {
+        "question_text": "What is UCP 600?",
+        "choices": [
+          {
+            "choice_text": "The latest revision of the Uniform Customs and Practice for Documentary Credits",
+            "is_correct": true
+          },
+          {
+            "choice_text": "An international version of exchange control regulations",
+            "is_correct": false
+          },
+          {
+            "choice_text": "International export/import security regulations",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An international standard for customs valuation",
+            "is_correct": false
+          }
+        ],
+        "explanation": "UCP 600 (Uniform Customs and Practice for Documentary Credits, ICC Publication No. 600) is the internationally recognized set of rules governing documentary credit transactions, published by the International Chamber of Commerce (ICC). It came into effect on July 1, 2007, and is the current version in force."
+      },
+      {
+        "question_text": "What is the advantage of a Confirmed Letter of Credit?",
+        "choices": [
+          {
+            "choice_text": "A confirming bank adds its own payment guarantee in addition to the issuing bank's guarantee",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Fees are waived",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Document examination is not required",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Credit investigation of the importer is not required",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A confirmed L/C provides a second layer of payment assurance because a confirming bank (typically located in the exporter's country) adds its own irrevocable undertaking to pay, in addition to the issuing bank's obligation. This mitigates both the issuing bank's credit risk and the country risk of the issuing bank's jurisdiction."
+      },
+      {
+        "question_text": "What is the 'doctrine of strict compliance' in L/C transactions?",
+        "choices": [
+          {
+            "choice_text": "Banks may refuse payment if documents do not comply literally with L/C terms",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Goods must exactly match the L/C description",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The L/C application must perfectly match the sales contract",
+            "is_correct": false
+          },
+          {
+            "choice_text": "All banks must apply the same exchange rate",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The doctrine of strict compliance requires that documents presented by the beneficiary must conform exactly to the terms and conditions of the L/C. If there is any discrepancy — even a minor typographical error — the bank may treat it as a discrepancy and refuse to make payment."
+      },
+      {
+        "question_text": "Who is the 'beneficiary' in an L/C transaction?",
+        "choices": [
+          {
+            "choice_text": "The exporter (seller)",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The importer (buyer)",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The issuing bank",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The advising bank",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The beneficiary is the party in whose favor the L/C is issued, typically the exporter (seller). The beneficiary receives payment from the bank upon presenting documents that comply with the L/C terms and conditions."
+      },
+      {
+        "question_text": "What is an Amendment in the context of an L/C?",
+        "choices": [
+          {
+            "choice_text": "A modification of the L/C terms and conditions",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Cancellation of the L/C",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Correction of a bill of exchange",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A change in insurance terms",
+            "is_correct": false
+          }
+        ],
+        "explanation": "An amendment is a formal modification to the terms of an L/C, such as changes to the amount, shipment deadline, or document requirements. For an irrevocable L/C, the beneficiary's consent is required for the amendment to take effect."
+      },
+      {
+        "question_text": "In what situation is a Transferable L/C typically used?",
+        "choices": [
+          {
+            "choice_text": "In intermediary (triangular) trade transactions",
+            "is_correct": true
+          },
+          {
+            "choice_text": "In large-volume transactions",
+            "is_correct": false
+          },
+          {
+            "choice_text": "In government-to-government transactions",
+            "is_correct": false
+          },
+          {
+            "choice_text": "In transactions that include insurance",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A transferable L/C allows the first beneficiary (typically a trading intermediary) to transfer all or part of the L/C to a second beneficiary (the actual manufacturer or supplier). This is commonly used in intermediary or back-to-back trade to ensure payment directly to the actual supplier."
+      },
+      {
+        "question_text": "What is the characteristic feature of a Revolving L/C?",
+        "choices": [
+          {
+            "choice_text": "The credit amount is automatically reinstated after each drawing",
+            "is_correct": true
+          },
+          {
+            "choice_text": "It is processed at high speed like a revolving door",
+            "is_correct": false
+          },
+          {
+            "choice_text": "It can be used by multiple beneficiaries",
+            "is_correct": false
+          },
+          {
+            "choice_text": "It has no monetary limit",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A revolving L/C allows the credit to be used multiple times within a specified period, with the available amount being automatically restored after each utilization. It is ideal for ongoing, repetitive transactions with the same trading partner, eliminating the need to open a new L/C for each shipment."
+      },
+      {
+        "question_text": "What is a Deferred Payment L/C?",
+        "choices": [
+          {
+            "choice_text": "An L/C where payment is made after a specified period, without requiring a bill of exchange",
+            "is_correct": true
+          },
+          {
+            "choice_text": "An L/C with immediate payment",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An L/C with installment payments",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An L/C with conditional payment",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A deferred payment L/C provides that the issuing bank will make payment at a determinable future date after complying documents have been presented. Unlike a usance L/C, it does not require the drawing of a bill of exchange, simplifying the documentation process while still granting the buyer a credit period."
+      },
+      {
+        "question_text": "What is the characteristic feature of a Red Clause L/C?",
+        "choices": [
+          {
+            "choice_text": "It allows the beneficiary to receive an advance payment before shipment",
+            "is_correct": true
+          },
+          {
+            "choice_text": "It can only be used by companies operating at a loss",
+            "is_correct": false
+          },
+          {
+            "choice_text": "It is used for dangerous goods transactions",
+            "is_correct": false
+          },
+          {
+            "choice_text": "It can only be used in emergencies",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A Red Clause L/C contains a special clause (historically printed in red ink) authorizing the advising or negotiating bank to make advance payments to the beneficiary before shipment. This pre-shipment financing can be used to fund raw material procurement or production costs."
+      },
+      {
+        "question_text": "What is the obligation of the Issuing Bank?",
+        "choices": [
+          {
+            "choice_text": "To honor complying presentations of documents under the L/C",
+            "is_correct": true
+          },
+          {
+            "choice_text": "To inspect the goods",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To investigate the exporter's creditworthiness",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To guarantee the exchange rate",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The issuing bank is irrevocably obligated to honor (pay, accept, or negotiate) a complying presentation of documents under the L/C. Banks deal in documents only and are not concerned with the underlying goods, services, or performance of the contract."
+      },
+      {
+        "question_text": "What is a Back-to-Back L/C?",
+        "choices": [
+          {
+            "choice_text": "A new L/C opened using the original (master) L/C as collateral",
+            "is_correct": true
+          },
+          {
+            "choice_text": "An L/C simultaneously guaranteed by two banks",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An L/C for round-trip transactions",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An L/C that can be used twice",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A back-to-back L/C is a second L/C opened by an intermediary using the original (master) L/C received from the end buyer as security. The intermediary's bank issues the new L/C in favor of the actual supplier. This is commonly used in intermediary trade arrangements."
+      },
+      {
+        "question_text": "What is the difference between a Standby L/C and a commercial L/C?",
+        "choices": [
+          {
+            "choice_text": "A Standby L/C functions as a guarantee against default",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A Standby L/C has lower fees",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A commercial L/C does not require document examination",
+            "is_correct": false
+          },
+          {
+            "choice_text": "There is no difference",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A Standby L/C is similar in function to a bank guarantee. While a commercial L/C is intended to be drawn upon as the primary payment mechanism, a Standby L/C serves as a safety net — the beneficiary draws on it only if the obligor fails to fulfill their contractual obligations."
+      },
+      {
+        "question_text": "What is the role of the Negotiating Bank?",
+        "choices": [
+          {
+            "choice_text": "A bank that purchases (negotiates) documents and drafts from the beneficiary",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A bank that issues the L/C",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A bank that advises the L/C to the beneficiary",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A bank that collects payment from the importer",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The negotiating bank examines the documents and drafts presented by the beneficiary, and if they comply with the L/C terms, purchases (negotiates) them and advances payment to the beneficiary. The negotiating bank then forwards the documents to the issuing bank for reimbursement."
+      }
+    ]
+  },
+  {
+    "section_name": "Import/Export Regulations",
+    "questions": [
+      {
+        "question_text": "What is the Catch-All control?",
+        "choices": [
+          {
+            "choice_text": "A regulation that controls exports of items not on the control list when there is concern they may be diverted to weapons of mass destruction programs",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A system that uniformly restricts all exports",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A system that bans all imports from specific countries",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A system that totally prohibits the transport of dangerous goods",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The Catch-All control (also known as end-use/end-user control) is a supplementary export regulation that requires a license for items not listed on the control list if there is concern they could be used in the development of weapons of mass destruction (WMD) or their delivery systems. It serves as a safety net beyond list-based controls."
+      },
+      {
+        "question_text": "What is the Wassenaar Arrangement?",
+        "choices": [
+          {
+            "choice_text": "An international framework for export control of conventional weapons and dual-use goods and technologies",
+            "is_correct": true
+          },
+          {
+            "choice_text": "An international agreement on trade liberalization",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An international treaty on maritime security",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An international framework for intellectual property protection",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The Wassenaar Arrangement is a multilateral export control regime focused on conventional arms and dual-use goods and technologies. With 42 participating states, it promotes transparency and responsibility in transfers of these items to prevent destabilizing accumulations."
+      },
+      {
+        "question_text": "What is export classification (item classification)?",
+        "choices": [
+          {
+            "choice_text": "The process of determining whether goods to be exported fall under export control lists",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Determining the customs tariff rate",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Determining the country of origin",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Inspecting the quality of goods",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Export classification is the mandatory procedure of determining whether goods or technology intended for export are controlled under the export control lists (such as the Commerce Control List in the US, or Appended Table 1 of Japan's Export Trade Control Order). It is a fundamental obligation of the exporter."
+      },
+      {
+        "question_text": "What is the purpose of the Foreign Exchange and Foreign Trade Act (FEFTA)?",
+        "choices": [
+          {
+            "choice_text": "To ensure the sound development of foreign transactions and maintain national security",
+            "is_correct": true
+          },
+          {
+            "choice_text": "To fix exchange rates",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To collect import duties",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To protect domestic industries",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The FEFTA (Japan's Foreign Exchange and Foreign Trade Act) aims to promote the sound development of foreign transactions while implementing the minimum necessary controls and adjustments to maintain international peace and security. Similar export control legislation exists in other countries, such as the Export Administration Regulations (EAR) in the US and the EU's Dual-Use Regulation."
+      },
+      {
+        "question_text": "What types of goods are subject to the Import Quota (IQ) system?",
+        "choices": [
+          {
+            "choice_text": "Fishery products and certain agricultural products",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Electronic devices",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Automobiles",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Petroleum products",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The Import Quota (IQ) system restricts the quantity of certain items that may be imported. In Japan, it primarily applies to fishery products (such as herring and cod) and certain agricultural products. Similar quota systems exist in other countries to manage sensitive commodity imports."
+      },
+      {
+        "question_text": "What is the legal basis for list-based export controls?",
+        "choices": [
+          {
+            "choice_text": "The Export Trade Control Order (Appended Table 1)",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The Customs Act",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The Customs Brokerage Act",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The Foreign Exchange Order",
+            "is_correct": false
+          }
+        ],
+        "explanation": "List-based export controls are defined in Appended Table 1 of Japan's Export Trade Control Order, which enumerates controlled items across 15 categories including weapons, nuclear-related items, chemical weapons-related items, and missile-related items. In the US, the equivalent is the Commerce Control List (CCL) under the EAR."
+      },
+      {
+        "question_text": "What is deemed export control?",
+        "choices": [
+          {
+            "choice_text": "Regulation that treats the transfer of controlled technology from a resident to a non-resident as an export",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Treating sample exports as commercial exports",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Treating personal exports as commercial exports",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Treating electronic data transmission as an export",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Deemed export control treats the provision of controlled technology from a resident to a non-resident within the same country as an export requiring a license. This means that sharing sensitive technology with a foreign national, even within domestic borders, is subject to export control regulations. In the US, this concept applies under the EAR's deemed export rules."
+      },
+      {
+        "question_text": "What is a Safeguard measure?",
+        "choices": [
+          {
+            "choice_text": "An emergency measure to restrict imports when a surge in imports of a specific product threatens serious injury to domestic industry",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A subsidy system to promote exports",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Border enforcement against intellectual property infringement",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A food safety inspection system",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A safeguard is an emergency trade remedy allowed under the WTO Agreement on Safeguards. When imports of a product increase so rapidly that they cause or threaten serious injury to the domestic industry, a country may temporarily raise tariffs or impose quantitative restrictions to protect that industry."
+      },
+      {
+        "question_text": "What is an anti-dumping duty?",
+        "choices": [
+          {
+            "choice_text": "An additional duty imposed on goods exported at unfairly low prices",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A duty imposed for environmental protection purposes",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A type of retaliatory tariff",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A customs duty refund system",
+            "is_correct": false
+          }
+        ],
+        "explanation": "An anti-dumping duty is a special tariff levied on imported goods that are being sold at less than their normal value in the exporting country (dumped), causing material injury to the domestic industry. The duty is designed to offset the price difference and level the playing field, as permitted under the WTO Anti-Dumping Agreement."
+      },
+      {
+        "question_text": "What does CITES (the Washington Convention) regulate?",
+        "choices": [
+          {
+            "choice_text": "International trade in endangered species of wild fauna and flora",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The use of chemical weapons",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Nuclear non-proliferation",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Marine pollution",
+            "is_correct": false
+          }
+        ],
+        "explanation": "CITES (Convention on International Trade in Endangered Species of Wild Fauna and Flora) regulates international trade in specimens of wild animals and plants to ensure that such trade does not threaten their survival. Species are classified into Appendices I, II, and III based on the level of protection required."
+      },
+      {
+        "question_text": "Which agency is responsible for border enforcement against goods infringing intellectual property rights?",
+        "choices": [
+          {
+            "choice_text": "Customs authorities",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The police",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The patent office",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The trade ministry",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Customs authorities are responsible for intercepting goods that infringe intellectual property rights (patents, trademarks, copyrights, etc.) at the border. Rights holders can file applications with customs for the suspension of release of suspected infringing goods."
+      },
+      {
+        "question_text": "Which agency conducts import inspections under food safety laws?",
+        "choices": [
+          {
+            "choice_text": "Quarantine stations (under the health ministry)",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Customs authorities (under the finance ministry)",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The agriculture ministry",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The trade ministry",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Import inspections of food products are conducted by quarantine stations under the jurisdiction of the health ministry. These stations review import notifications, conduct mandatory inspections, and perform monitoring inspections to ensure imported food complies with domestic food safety standards."
+      },
+      {
+        "question_text": "What is the purpose of the Plant Protection Act (phytosanitary regulations)?",
+        "choices": [
+          {
+            "choice_text": "To prevent the introduction of harmful pests and diseases into the country",
+            "is_correct": true
+          },
+          {
+            "choice_text": "To regulate genetic modification of plants",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To restrict pesticide use",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To protect forests",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The Plant Protection Act (and equivalent phytosanitary regulations worldwide) aims to prevent the entry and spread of plant pests and diseases through imported plants and plant products. All imported plant materials must undergo inspection by the plant quarantine service, in accordance with international standards set by the IPPC (International Plant Protection Convention)."
+      },
+      {
+        "question_text": "What is the legal basis for economic sanctions, including export bans?",
+        "choices": [
+          {
+            "choice_text": "The Foreign Exchange and Foreign Trade Act (FEFTA)",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The Customs Act",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The Import/Export Transaction Act",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The Customs Brokerage Act",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Economic sanctions — including export bans targeting specific countries or entities — are implemented under the FEFTA in Japan. These measures are typically enacted in response to UN Security Council resolutions or as independent national sanctions. In the US, comparable authority rests with the International Emergency Economic Powers Act (IEEPA) and OFAC regulations."
+      },
+      {
+        "question_text": "What is a Tariff Rate Quota (TRQ)?",
+        "choices": [
+          {
+            "choice_text": "A system where imports up to a certain quantity receive a lower tariff rate, while quantities exceeding that threshold are subject to a higher rate",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A system that imposes a uniform tariff on all imports",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A system that exempts goods from tariffs",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A system that imposes tariffs on exports",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A Tariff Rate Quota (TRQ) applies a lower duty rate (the in-quota rate) to imports within a specified quantity, and a higher duty rate (the over-quota rate) to imports exceeding that quantity. TRQs are used to balance domestic industry protection with market access commitments under WTO and free trade agreements."
+      }
+    ]
+  },
+  {
+    "section_name": "International Logistics Basics",
+    "questions": [
+      {
+        "question_text": "Which of the following correctly describes the role of a freight forwarder?",
+        "choices": [
+          {
+            "choice_text": "Arranging optimal transportation on behalf of shippers",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Operating vessels directly",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Determining customs tariff rates",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Underwriting trade insurance",
+            "is_correct": false
+          }
+        ],
+        "explanation": "A freight forwarder (NVOCC or logistics intermediary) acts between the shipper and the actual carrier (shipping line, airline, etc.), arranging optimal transport routes and modes, handling customs procedures, and coordinating the various links of the logistics chain as a specialized logistics professional."
+      },
+      {
+        "question_text": "What is 3PL (Third-Party Logistics)?",
+        "choices": [
+          {
+            "choice_text": "Outsourcing logistics operations to a specialized external provider",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Transport routed through a third country",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Transport combining three modes of transport",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A logistics company jointly owned by three firms",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Third-Party Logistics (3PL) is a business model where a company outsources its logistics functions — warehousing, transportation, distribution processing, and more — to a specialized third-party provider. This allows the shipper to focus on core competencies while achieving logistics efficiency through the provider's expertise and scale."
+      },
+      {
+        "question_text": "What is the definition of international multimodal transport?",
+        "choices": [
+          {
+            "choice_text": "Through transportation combining two or more different modes of transport under a single contract",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Transport passing through multiple countries using a single mode",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Consolidated transport of cargo from multiple shippers",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A round-trip transport arrangement under a single contract",
+            "is_correct": false
+          }
+        ],
+        "explanation": "International multimodal transport involves the carriage of goods using two or more different modes of transport (sea, air, rail, road, etc.) under a single contract, with a single multimodal transport operator assuming responsibility for the entire journey from origin to destination."
+      },
+      {
+        "question_text": "What is the objective of Supply Chain Management (SCM)?",
+        "choices": [
+          {
+            "choice_text": "To optimize the entire supply chain from raw materials to the end consumer",
+            "is_correct": true
+          },
+          {
+            "choice_text": "To minimize freight costs",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To eliminate all inventory",
+            "is_correct": false
+          },
+          {
+            "choice_text": "To reduce transit time to zero",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Supply Chain Management (SCM) is an integrated management approach that coordinates the entire supply chain — from procurement of raw materials through manufacturing, logistics, and distribution to the end consumer — to simultaneously achieve cost reduction and improved service levels."
+      },
+      {
+        "question_text": "What is the key characteristic of JIT (Just-In-Time)?",
+        "choices": [
+          {
+            "choice_text": "Procuring and producing only what is needed, when it is needed, in the quantity needed",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Maintaining large inventories to prevent stockouts",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Fully automating all processes",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Purchasing from the cheapest supplier",
+            "is_correct": false
+          }
+        ],
+        "explanation": "JIT (Just-In-Time), famously developed as part of the Toyota Production System, is a production management methodology that delivers the right parts at the right time in the right quantity. This minimizes inventory levels, reduces lead times, and eliminates waste throughout the production process."
+      },
+      {
+        "question_text": "What do 'vanning' and 'devanning' mean?",
+        "choices": [
+          {
+            "choice_text": "Loading cargo into a container and unloading cargo from a container",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Loading cargo onto a vessel and discharging cargo from a vessel",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Receiving goods into a warehouse and dispatching goods from a warehouse",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Stacking cargo on a pallet and removing cargo from a pallet",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Vanning (also called stuffing) is the process of loading cargo into a container, while devanning (also called stripping or unstuffing) is the process of unloading cargo from a container. Efficient vanning directly impacts transportation costs by maximizing container utilization."
+      },
+      {
+        "question_text": "What is VMI (Vendor Managed Inventory)?",
+        "choices": [
+          {
+            "choice_text": "A system where the supplier manages and replenishes the customer's inventory",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A system where a company manages its own inventory",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A government-managed inventory system",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A system that aims for zero inventory",
+            "is_correct": false
+          }
+        ],
+        "explanation": "VMI (Vendor Managed Inventory) is an inventory management model where the supplier (vendor) monitors the customer's inventory levels and takes responsibility for replenishing stock at the appropriate time. This reduces the customer's inventory management burden and helps prevent stockouts."
+      },
+      {
+        "question_text": "What is the milk run method?",
+        "choices": [
+          {
+            "choice_text": "A collection method where a single vehicle makes rounds to pick up from multiple suppliers",
+            "is_correct": true
+          },
+          {
+            "choice_text": "A method specialized in transporting milk",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A method of making deliveries at a fixed time every morning",
+            "is_correct": false
+          },
+          {
+            "choice_text": "A method of making delivery rounds using refrigerated vehicles",
+            "is_correct": false
+          }
+        ],
+        "explanation": "The milk run method involves a single truck visiting multiple suppliers in a planned sequence to collect parts or goods, similar to how milk deliveries were historically made along a set route. This consolidation approach improves vehicle utilization and reduces the total number of transport trips compared to direct shipping from each supplier."
+      },
+      {
+        "question_text": "What is modal shift?",
+        "choices": [
+          {
+            "choice_text": "Shifting freight transport from trucks to rail or maritime shipping",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Introducing new transportation technology",
+            "is_correct": false
+          },
+          {
+            "choice_text": "An automated system for switching transport modes",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Converting international transport to domestic transport",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Modal shift refers to the transition of freight transport from road (truck) to more environmentally friendly modes such as rail or coastal/inland waterway shipping. It is promoted as a strategy to reduce CO2 emissions and address truck driver shortages."
+      },
+      {
+        "question_text": "What is bonded transportation (OLT: Overland Transport in bond)?",
+        "choices": [
+          {
+            "choice_text": "Transporting foreign cargo between bonded areas within a country without paying duties",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Cross-border land transport",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Domestic delivery of duty-free goods",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Insured land transport",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Bonded transportation allows foreign cargo (goods that have not yet cleared customs) to be moved between bonded areas within a country without payment of customs duties. This requires approval from the customs authority and enables goods to be moved to a more convenient bonded facility for processing or storage."
+      },
+      {
+        "question_text": "What is cross-docking?",
+        "choices": [
+          {
+            "choice_text": "A logistics method where inbound goods are immediately sorted and shipped out without being stored",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Exchanging goods at intersections",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Moving cargo between ship docks",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Simultaneously using two warehouses",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Cross-docking is a logistics practice where incoming goods are received at a distribution facility, immediately sorted by destination, and transferred to outbound vehicles with minimal or no storage time. This reduces lead times, lowers inventory carrying costs, and increases supply chain velocity."
+      },
+      {
+        "question_text": "What is lead time?",
+        "choices": [
+          {
+            "choice_text": "The total time from placing an order to receiving the goods",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The storage period of cargo",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The time required for customs clearance",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The transit time of a vessel",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Lead time is the total elapsed time from when an order is placed to when the goods are delivered. In international logistics, the total lead time comprises manufacturing, customs clearance, transit, and last-mile delivery, each contributing to the overall duration."
+      },
+      {
+        "question_text": "What is 'last mile' delivery?",
+        "choices": [
+          {
+            "choice_text": "The final leg of delivery from the last distribution hub to the end recipient",
+            "is_correct": true
+          },
+          {
+            "choice_text": "The first mile of transportation",
+            "is_correct": false
+          },
+          {
+            "choice_text": "The longest segment of transportation",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Transportation from port to warehouse",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Last mile delivery refers to the final stage of the delivery process — from the last distribution hub or fulfillment center to the end recipient's doorstep or retail location. It typically accounts for a disproportionately large share of total delivery costs and remains one of the most challenging areas in logistics optimization."
+      },
+      {
+        "question_text": "What is drayage?",
+        "choices": [
+          {
+            "choice_text": "Short-distance container transport from a port or rail terminal",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Long-distance truck transport",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Ground transport of air freight",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Forklift operations within a warehouse",
+            "is_correct": false
+          }
+        ],
+        "explanation": "Drayage is the short-distance transport of shipping containers by truck between a port, container terminal, or rail yard and a nearby warehouse or facility. It plays a critical role as the connector between international ocean or rail transport and local distribution networks."
+      },
+      {
+        "question_text": "What is the role of logistics in a BCP (Business Continuity Plan)?",
+        "choices": [
+          {
+            "choice_text": "Securing alternative transportation means to prevent supply disruption during disasters",
+            "is_correct": true
+          },
+          {
+            "choice_text": "Reducing logistics costs",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Acquiring new customers",
+            "is_correct": false
+          },
+          {
+            "choice_text": "Employee safety training",
+            "is_correct": false
+          }
+        ],
+        "explanation": "In a BCP, the logistics function is responsible for ensuring continuity of supply during emergencies such as natural disasters, pandemics, or geopolitical disruptions. This involves establishing alternative transportation routes and facilities, diversifying suppliers, maintaining safety stock, and pre-arranging backup logistics partners to minimize supply chain interruption."
+      }
+    ]
+  }
+]
