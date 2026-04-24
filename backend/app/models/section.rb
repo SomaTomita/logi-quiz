@@ -4,6 +4,9 @@ class Section < ApplicationRecord
   has_many :user_sections, dependent: :destroy
   has_many :users, through: :user_sections
 
-  # セクション名は必須かつ一意（重複セクション防止）
-  validates :section_name, presence: true, uniqueness: true
+  # セクション名は必須かつロケール内で一意
+  validates :section_name, presence: true, uniqueness: { scope: :locale }
+  validates :locale, presence: true, inclusion: { in: %w[ja en] }
+
+  scope :by_locale, ->(locale) { where(locale: locale) }
 end
