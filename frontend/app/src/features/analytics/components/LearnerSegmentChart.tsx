@@ -14,6 +14,7 @@ import {
   Cell,
   Legend,
 } from 'recharts'
+import { useTranslation } from 'react-i18next'
 import ChartContainer from './ChartContainer'
 import { CHART_COLORS, SEGMENT_COLORS, getBoxLabel } from '../constants'
 import type { LearnerSegmentData, SegmentKey } from '../types'
@@ -23,6 +24,7 @@ interface LearnerSegmentChartProps {
 }
 
 const LearnerSegmentChart = ({ data }: LearnerSegmentChartProps) => {
+  const { t } = useTranslation()
   // Group scatter data by segment
   const segmentGroups = data.segments.reduce<Record<string, { x: number; y: number; z: number; label: string }[]>>(
     (acc, user) => {
@@ -58,7 +60,7 @@ const LearnerSegmentChart = ({ data }: LearnerSegmentChartProps) => {
         {summaryData.map((s) => (
           <Chip
             key={s.segment}
-            label={`${s.name}: ${s.userCount}人 (${s.avgAccuracy}%, ${s.avgResponseSec}s)`}
+            label={`${t('analytics.segmentUserCount', { label: s.name, count: s.userCount })} (${s.avgAccuracy}%, ${s.avgResponseSec}s)`}
             sx={{
               bgcolor: SEGMENT_COLORS[s.segment],
               color: '#fff',
@@ -73,8 +75,8 @@ const LearnerSegmentChart = ({ data }: LearnerSegmentChartProps) => {
         {/* Scatter plot */}
         <Box sx={{ flex: 8 }}>
           <ChartContainer
-            title="学習者セグメント分析"
-            subtitle="回答速度 x 正答率による4象限分類"
+            title={t('analytics.learnerSegmentTitle')}
+            subtitle={t('analytics.learnerSegmentSubtitle')}
             isLoading={false}
           >
             <ResponsiveContainer width="100%" height={350}>
@@ -83,21 +85,21 @@ const LearnerSegmentChart = ({ data }: LearnerSegmentChartProps) => {
                 <XAxis
                   type="number"
                   dataKey="x"
-                  name="回答時間"
+                  name={t('analytics.responseTimeAxis')}
                   unit="s"
                   tick={{ fontSize: 11 }}
-                  label={{ value: '平均回答時間 (秒)', position: 'bottom', fontSize: 12 }}
+                  label={{ value: t('analytics.responseTimeAxis'), position: 'bottom', fontSize: 12 }}
                 />
                 <YAxis
                   type="number"
                   dataKey="y"
-                  name="正答率"
+                  name={t('analytics.accuracyAxis')}
                   unit="%"
                   domain={[0, 100]}
                   tick={{ fontSize: 11 }}
-                  label={{ value: '正答率 (%)', angle: -90, position: 'insideLeft', fontSize: 12 }}
+                  label={{ value: t('analytics.accuracyAxis'), angle: -90, position: 'insideLeft', fontSize: 12 }}
                 />
-                <ZAxis type="number" dataKey="z" range={[40, 400]} name="回答数" />
+                <ZAxis type="number" dataKey="z" range={[40, 400]} name={t('analytics.attemptCountLabel')} />
                 <Tooltip
                   content={({ active, payload }) => {
                     if (!active || !payload?.length) return null
@@ -105,9 +107,9 @@ const LearnerSegmentChart = ({ data }: LearnerSegmentChartProps) => {
                     return (
                       <Box role="tooltip" aria-live="polite" sx={{ bgcolor: 'background.paper', p: 1.5, borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
                         <Typography variant="body2" sx={{ fontWeight: 700 }}>{d.label}</Typography>
-                        <Typography variant="caption" display="block">正答率: {d.y}%</Typography>
-                        <Typography variant="caption" display="block">回答時間: {d.x.toFixed(1)}s</Typography>
-                        <Typography variant="caption" display="block">回答数: {d.z}</Typography>
+                        <Typography variant="caption" display="block">{t('analytics.accuracyAxis')}: {d.y}%</Typography>
+                        <Typography variant="caption" display="block">{t('analytics.responseTimeAxis')}: {d.x.toFixed(1)}s</Typography>
+                        <Typography variant="caption" display="block">{t('analytics.attemptCountLabel')}: {d.z}</Typography>
                       </Box>
                     )
                   }}
@@ -133,8 +135,8 @@ const LearnerSegmentChart = ({ data }: LearnerSegmentChartProps) => {
         {/* Per-segment SRS outcomes */}
         <Box sx={{ flex: 4 }}>
           <ChartContainer
-            title="セグメント別SRS結果"
-            subtitle="同じ固定間隔でもセグメントにより異なる定着率"
+            title={t('analytics.segmentSrsTitle')}
+            subtitle={t('analytics.segmentSrsSubtitle')}
             isLoading={false}
           >
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -142,7 +144,7 @@ const LearnerSegmentChart = ({ data }: LearnerSegmentChartProps) => {
                 const retentionData = impact.retentionByBox
                   .filter((b) => b.retention !== null)
                   .map((b) => ({
-                    box: getBoxLabel(b.boxLevel),
+                    box: getBoxLabel(b.boxLevel, t),
                     retention: b.retention,
                   }))
 
@@ -151,13 +153,13 @@ const LearnerSegmentChart = ({ data }: LearnerSegmentChartProps) => {
                 return (
                   <Box key={impact.segment}>
                     <Typography variant="caption" sx={{ fontWeight: 700, color: SEGMENT_COLORS[impact.segment] }}>
-                      {impact.label} ({impact.userCount}人)
+                      {t('analytics.segmentUserCount', { label: impact.label, count: impact.userCount })}
                     </Typography>
                     <ResponsiveContainer width="100%" height={60}>
                       <BarChart data={retentionData} layout="vertical" margin={{ left: 0, right: 0 }}>
                         <XAxis type="number" domain={[0, 100]} hide />
                         <YAxis type="category" dataKey="box" hide />
-                        <Tooltip formatter={(v: number) => [`${v}%`, '定着率']} />
+                        <Tooltip formatter={(v: number) => [`${v}%`, t('analytics.retentionRateLabel')]} />
                         <Bar dataKey="retention" radius={[0, 4, 4, 0]}>
                           {retentionData.map((_, i) => (
                             <Cell key={i} fill={SEGMENT_COLORS[impact.segment]} fillOpacity={0.3 + i * 0.15} />

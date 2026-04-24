@@ -12,6 +12,7 @@ import {
   BarChart,
 } from 'recharts'
 import { Box } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 import ChartContainer from './ChartContainer'
 import { CHART_COLORS } from '../constants'
 import type { EngagementData } from '../types'
@@ -26,6 +27,7 @@ const formatDate = (dateStr: string) => {
 }
 
 const StudyPatternsChart = ({ data }: StudyPatternsChartProps) => {
+  const { t } = useTranslation()
   const trendData = data.activeUsers.map((d) => ({
     date: formatDate(d.periodStart),
     activeUsers: d.activeUsers,
@@ -39,8 +41,8 @@ const StudyPatternsChart = ({ data }: StudyPatternsChartProps) => {
     <Box sx={{ display: 'flex', gap: 3, flexDirection: { xs: 'column', md: 'row' } }}>
       <Box sx={{ flex: 7 }}>
         <ChartContainer
-          title="学習パターン推移"
-          subtitle="アクティブユーザー数と平均学習時間のトレンド"
+          title={t('analytics.studyPatternTitle')}
+          subtitle={t('analytics.studyPatternSubtitle')}
           isLoading={false}
         >
           <ResponsiveContainer width="100%" height={300}>
@@ -58,7 +60,7 @@ const StudyPatternsChart = ({ data }: StudyPatternsChartProps) => {
                 fill={CHART_COLORS.primaryLight}
                 fillOpacity={0.15}
                 stroke={CHART_COLORS.primaryLight}
-                name="平均学習時間(分)"
+                name={t('analytics.avgStudyTimeLegend')}
               />
               <Line
                 yAxisId="left"
@@ -67,7 +69,7 @@ const StudyPatternsChart = ({ data }: StudyPatternsChartProps) => {
                 stroke={CHART_COLORS.primary}
                 strokeWidth={2}
                 dot={{ r: 3 }}
-                name="アクティブユーザー"
+                name={t('analytics.activeUsersLegend')}
               />
             </ComposedChart>
           </ResponsiveContainer>
@@ -76,16 +78,16 @@ const StudyPatternsChart = ({ data }: StudyPatternsChartProps) => {
 
       <Box sx={{ flex: 5 }}>
         <ChartContainer
-          title="学習時間分布"
-          subtitle="1日あたりの学習時間ヒストグラム"
+          title={t('analytics.studyTimeDistTitle')}
+          subtitle={t('analytics.studyTimeDistSubtitle')}
           isLoading={false}
         >
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={distData}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.06)" />
-              <XAxis dataKey="range" tick={{ fontSize: 11 }} label={{ value: '分', position: 'right', fontSize: 11 }} />
+              <XAxis dataKey="range" tick={{ fontSize: 11 }} label={{ value: t('analytics.minuteUnit'), position: 'right', fontSize: 11 }} />
               <YAxis tick={{ fontSize: 11 }} />
-              <Tooltip formatter={(value: number) => [`${value}件`, 'セッション数']} />
+              <Tooltip formatter={(value: number) => [value, t('analytics.sessionCountLabel')]} />
               <Bar dataKey="count" fill={CHART_COLORS.info} radius={[4, 4, 0, 0]} name="count" />
             </BarChart>
           </ResponsiveContainer>

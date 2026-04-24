@@ -1,13 +1,7 @@
-import { useState, useEffect, useCallback } from 'react'
+import useSWR from 'swr'
+import { fetcher } from '@/shared/api/fetcher'
 import { useAuthStore } from '@/features/auth/store'
-import {
-  fetchAnalyticsOverview,
-  fetchTopicAccuracy,
-  fetchEngagement,
-  fetchResponseTimes,
-  fetchRetentionCurves,
-  fetchLearnerSegments,
-} from './api'
+import { useTranslation } from 'react-i18next'
 import type {
   AnalyticsOverview,
   TopicAccuracyData,
@@ -17,81 +11,81 @@ import type {
   LearnerSegmentData,
 } from './types'
 
-interface AnalyticsState {
-  overview: AnalyticsOverview | null
-  topicAccuracy: TopicAccuracyData | null
-  engagement: EngagementData | null
-  responseTimes: ResponseTimeData | null
-  retentionCurves: RetentionCurveData | null
-  learnerSegments: LearnerSegmentData | null
-  isLoading: boolean
-  error: Error | null
+// Wrapper types matching the `{ data: T }` envelope from the API
+interface Envelope<T> {
+  data: T
+}
+
+const useAnalyticsEndpoint = <T>(path: string | null) => {
+  const { data, error, isLoading, mutate } = useSWR<Envelope<T>>(
+    path,
+    fetcher,
+  )
+  return { data: data?.data ?? null, error, isLoading, mutate }
 }
 
 export const useAnalytics = () => {
-  const user = useAuthStore((s) => s.user)
-  const [state, setState] = useState<AnalyticsState>({
-    overview: null,
-    topicAccuracy: null,
-    engagement: null,
-    responseTimes: null,
-    retentionCurves: null,
-    learnerSegments: null,
-    isLoading: true,
-    error: null,
-  })
+  const userId = useAuthStore((s) => s.user)?.id ?? null
+  const enabled = userId !== null
+  const { i18n } = useTranslation()
+  const locale = i18n.language === 'en' ? 'en' : 'ja'
 
-  const userId = user?.id ?? null
+  const overview = useAnalyticsEndpoint<AnalyticsOverview>(
+    enabled ? '/admin/analytics/overview' : null,
+  )
+  const topicAccuracy = useAnalyticsEndpoint<TopicAccuracyData>(
+    enabled ? `/admin/analytics/topic_accuracy?period=weekly&locale=${locale}` : null,
+  )
+  const engagement = useAnalyticsEndpoint<EngagementData>(
+    enabled ? '/admin/analytics/engagement?period=monthly' : null,
+  )
+  const responseTimes = useAnalyticsEndpoint<ResponseTimeData>(
+    enabled ? '/admin/analytics/response_times' : null,
+  )
+  const retentionCurves = useAnalyticsEndpoint<RetentionCurveData>(
+    enabled ? '/admin/analytics/retention_curves' : null,
+  )
+  const learnerSegments = useAnalyticsEndpoint<LearnerSegmentData>(
+    enabled ? '/admin/analytics/learner_segments' : null,
+  )
 
-  const load = useCallback(async () => {
-    setState((prev) => ({ ...prev, isLoading: true, error: null }))
-    try {
-      const [overview, topicAccuracy, engagement, responseTimes, retentionCurves, learnerSegments] =
-        await Promise.all([
-          fetchAnalyticsOverview(),
-          fetchTopicAccuracy(),
-          fetchEngagement(),
-          fetchResponseTimes(),
-          fetchRetentionCurves(),
-          fetchLearnerSegments(),
-        ])
+  const isLoading =
+    overview.isLoading ||
+    topicAccuracy.isLoading ||
+    engagement.isLoading ||
+    responseTimes.isLoading ||
+    retentionCurves.isLoading ||
+    learnerSegments.isLoading
 
-      setState({
-        overview: overview.data.data,
-        topicAccuracy: topicAccuracy.data.data,
-        engagement: engagement.data.data,
-        responseTimes: responseTimes.data.data,
-        retentionCurves: retentionCurves.data.data,
-        learnerSegments: learnerSegments.data.data,
-        isLoading: false,
-        error: null,
-      })
-    } catch (err) {
-      setState((prev) => ({
-        ...prev,
-        isLoading: false,
-        error: err instanceof Error ? err : new Error('Failed to load analytics'),
-      }))
-    }
-  }, [])
+  const error =
+    overview.error ??
+    topicAccuracy.error ??
+    engagement.error ??
+    responseTimes.error ??
+    retentionCurves.error ??
+    learnerSegments.error ??
+    null
 
-  useEffect(() => {
-    if (!userId) {
-      setState({
-        overview: null,
-        topicAccuracy: null,
-        engagement: null,
-        responseTimes: null,
-        retentionCurves: null,
-        learnerSegments: null,
-        isLoading: false,
-        error: null,
-      })
-      return
-    }
+  const refetch = async () => {
+    await Promise.all([
+      overview.mutate(),
+      topicAccuracy.mutate(),
+      engagement.mutate(),
+      responseTimes.mutate(),
+      retentionCurves.mutate(),
+      learnerSegments.mutate(),
+    ])
+  }
 
-    load()
-  }, [userId, load])
-
-  return { ...state, refetch: load }
+  return {
+    overview: overview.data,
+    topicAccuracy: topicAccuracy.data,
+    engagement: engagement.data,
+    responseTimes: responseTimes.data,
+    retentionCurves: retentionCurves.data,
+    learnerSegments: learnerSegments.data,
+    isLoading,
+    error,
+    refetch,
+  }
 }

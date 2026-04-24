@@ -30,15 +30,17 @@ export const SECTION_PALETTE = [
   '#14B8A6',
 ] as const
 
+import type { TFunction } from 'i18next'
+
 export const SRS_INTERVALS = [1, 3, 7, 14, 30] as const
 
-export const BOX_LABELS = [
-  'Box 0 (1日)',
-  'Box 1 (3日)',
-  'Box 2 (7日)',
-  'Box 3 (14日)',
-  'Box 4 (30日)',
-] as const
+export const getBoxLabels = (t: TFunction) => [
+  t('analytics.boxLabel0'),
+  t('analytics.boxLabel1'),
+  t('analytics.boxLabel2'),
+  t('analytics.boxLabel3'),
+  t('analytics.boxLabel4'),
+]
 
 export const BOX_COLORS = [
   CHART_COLORS.error,
@@ -48,8 +50,8 @@ export const BOX_COLORS = [
   CHART_COLORS.success,
 ] as const
 
-export const getBoxLabel = (level: number): string =>
-  BOX_LABELS[level] ?? `Box ${level}`
+export const getBoxLabel = (level: number, t: TFunction): string =>
+  getBoxLabels(t)[level] ?? `Box ${level}`
 
 export const getBoxColor = (level: number): string =>
   BOX_COLORS[level] ?? CHART_COLORS.gray
