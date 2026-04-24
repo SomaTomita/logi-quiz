@@ -9,7 +9,7 @@ interface CircularCountdownProps {
 const SIZE = 52
 const STROKE_WIDTH = 4
 const RADIUS = (SIZE - STROKE_WIDTH) / 2
-const CIRCUMFERENCE = 2 * Math.PI * RADIUS
+const CIRCUMFERENCE = Math.round(2 * Math.PI * RADIUS * 100) / 100
 
 const CircularCountdown = ({ duration, onTimeUp }: CircularCountdownProps) => {
   const [elapsed, setElapsed] = useState(0)
@@ -17,8 +17,8 @@ const CircularCountdown = ({ duration, onTimeUp }: CircularCountdownProps) => {
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
-      setElapsed((prev) => prev + 0.1)
-    }, 100)
+      setElapsed((prev) => prev + 1)
+    }, 1000)
     return () => clearInterval(intervalRef.current)
   }, [])
 
@@ -69,7 +69,7 @@ const CircularCountdown = ({ duration, onTimeUp }: CircularCountdownProps) => {
           strokeLinecap="round"
           strokeDasharray={CIRCUMFERENCE}
           strokeDashoffset={offset}
-          style={{ transition: 'stroke 300ms ease' }}
+          style={{ transition: 'stroke-dashoffset 1s linear, stroke 0.3s ease' }}
         />
       </svg>
       <Box

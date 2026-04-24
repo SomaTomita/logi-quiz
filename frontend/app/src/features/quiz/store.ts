@@ -8,7 +8,7 @@ export interface QuizSessionState {
   answerIndex: number | null
   isCorrect: boolean | null
   correctIndices: number[]
-  userAnswers: string[]
+  userAnswers: (string | null)[]
   userChoiceIds: (number | null)[]
   showResult: boolean
   isStarted: boolean
@@ -79,7 +79,7 @@ export const useQuizSessionStore = create<QuizSessionState>((set, get) => ({
 
     const newCorrectIndices = isCorrect ? [...correctIndices, currentIndex] : correctIndices
     const currentQ = questions[currentIndex]
-    const selectedText = answerIndex !== null ? currentQ.choices[answerIndex].choiceText : '未回答'
+    const selectedText = answerIndex !== null ? currentQ.choices[answerIndex].choiceText : null
     const selectedChoiceId = answerIndex !== null ? currentQ.choices[answerIndex].id : null
     const newUserAnswers = [...userAnswers, selectedText]
     const newUserChoiceIds = [...userChoiceIds, selectedChoiceId]

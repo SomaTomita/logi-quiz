@@ -12,8 +12,8 @@ const AnswerTimer = ({ duration, onTimeUp }: AnswerTimerProps) => {
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
-      setCounter((prev) => prev + 0.1)
-    }, 100)
+      setCounter((prev) => prev + 1)
+    }, 1000)
     return () => clearInterval(intervalRef.current)
   }, [])
 
@@ -36,7 +36,7 @@ const AnswerTimer = ({ duration, onTimeUp }: AnswerTimerProps) => {
           height: 5,
           '& .MuiLinearProgress-bar': {
             backgroundColor: isWarning ? 'error.main' : 'primary.main',
-            transition: 'width 0.1s linear',
+            transition: 'width 1s linear',
           },
           backgroundColor: 'transparent',
         }}
