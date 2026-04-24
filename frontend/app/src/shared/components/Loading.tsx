@@ -1,6 +1,10 @@
 import { Box, CircularProgress, Typography } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
-const Loading = () => (
+const Loading = () => {
+  const { t } = useTranslation()
+
+  return (
   <Box
     display="flex"
     flexDirection="column"
@@ -11,9 +15,10 @@ const Loading = () => (
   >
     <CircularProgress color="primary" size={36} />
     <Typography variant="body2" color="text.secondary">
-      読み込み中...
+      {t('common.loading')}
     </Typography>
   </Box>
-)
+  )
+}
 
 export default Loading
