@@ -10,7 +10,7 @@ const languages = [
 ] as const
 
 const LanguageSwitcher = () => {
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -31,7 +31,7 @@ const LanguageSwitcher = () => {
       <IconButton
         onClick={handleOpen}
         size="small"
-        aria-label="Change language"
+        aria-label={t('language.changeLanguageLabel')}
         sx={{ color: 'text.secondary' }}
       >
         <LanguageRoundedIcon fontSize="small" />

@@ -25,7 +25,7 @@ test('displays EN badge after switching to English', async () => {
     </I18nextProvider>
   )
 
-  await user.click(screen.getByRole('button', { name: /change language/i }))
+  await user.click(screen.getByRole('button', { name: '言語を変更する' }))
   await user.click(screen.getByRole('menuitem', { name: 'English' }))
 
   expect(screen.getByText('EN')).toBeInTheDocument()
@@ -44,4 +44,14 @@ test('displays JA badge after switching back to Japanese', async () => {
   await user.click(screen.getByRole('menuitem', { name: '日本語' }))
 
   expect(screen.getByText('JA')).toBeInTheDocument()
+})
+
+test('aria-label is in Japanese when language is Japanese', () => {
+  // beforeEach already sets language to 'ja'
+  render(
+    <I18nextProvider i18n={i18n}>
+      <LanguageSwitcher />
+    </I18nextProvider>
+  )
+  expect(screen.getByRole('button', { name: '言語を変更する' })).toBeInTheDocument()
 })
