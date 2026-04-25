@@ -4,6 +4,7 @@ import { I18nextProvider } from 'react-i18next'
 import { MemoryRouter } from 'react-router-dom'
 import i18n from '../../i18n'
 import SignInPage from '../../features/auth/pages/SignInPage'
+import SignUpPage from '../../features/auth/pages/SignUpPage'
 import en from '../../i18n/locales/en/translation.json'
 import ja from '../../i18n/locales/ja/translation.json'
 
@@ -79,4 +80,27 @@ test('SignInPage validation messages update after language switch', async () => 
     expect(screen.queryByText('Please enter your email address')).not.toBeInTheDocument()
   })
   expect(screen.getByText('メールアドレスを入力してください')).toBeInTheDocument()
+})
+
+test('SignUpPage validation messages update after language switch', async () => {
+  const user = userEvent.setup()
+  await i18n.changeLanguage('en')
+
+  render(
+    <MemoryRouter>
+      <I18nextProvider i18n={i18n}>
+        <SignUpPage />
+      </I18nextProvider>
+    </MemoryRouter>
+  )
+
+  await user.click(screen.getByRole('button', { name: /sign up/i }))
+  expect(await screen.findByText('Please enter your name')).toBeInTheDocument()
+
+  await i18n.changeLanguage('ja')
+
+  await waitFor(() => {
+    expect(screen.queryByText('Please enter your name')).not.toBeInTheDocument()
+  })
+  expect(screen.getByText('名前を入力してください')).toBeInTheDocument()
 })
