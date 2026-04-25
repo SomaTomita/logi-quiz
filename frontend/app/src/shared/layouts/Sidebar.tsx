@@ -16,6 +16,7 @@ import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import LoginRoundedIcon from '@mui/icons-material/LoginRounded'
 import SchoolIcon from '@mui/icons-material/School'
+import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded'
 import { useAuthStore } from '@/features/auth/store'
 import { signOut } from '@/features/auth/api'
 import { useTranslation } from 'react-i18next'
@@ -33,6 +34,7 @@ const Sidebar = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const isSignedIn = useAuthStore((s) => s.isSignedIn)
+  const isAdmin = useAuthStore((s) => s.isAdmin)
   const isLoading = useAuthStore((s) => s.isLoading)
   const user = useAuthStore((s) => s.user)
   const clearUser = useAuthStore((s) => s.clearUser)
@@ -78,7 +80,7 @@ const Sidebar = () => {
       {/* Logo */}
       <Box
         component={Link}
-        to="/"
+        to={isAdmin ? '/admin/sections' : isSignedIn ? '/sections' : '/'}
         sx={{
           display: 'flex',
           alignItems: 'center',
@@ -129,6 +131,28 @@ const Sidebar = () => {
           )
         })}
       </List>
+
+      {/* Admin Panel link — only for admin users */}
+      {isAdmin && (
+        <>
+          <Divider />
+          <List sx={{ px: 1.5, py: 1 }}>
+            <ListItemButton
+              component={Link}
+              to="/admin/sections"
+              sx={{ borderRadius: 2 }}
+            >
+              <ListItemIcon sx={{ minWidth: 40, color: 'text.secondary' }}>
+                <AdminPanelSettingsRoundedIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={t('nav.headerAdminPanel')}
+                primaryTypographyProps={{ fontWeight: 600, fontSize: '0.9rem' }}
+              />
+            </ListItemButton>
+          </List>
+        </>
+      )}
 
       {/* Language Switcher */}
       <Box sx={{ px: 2, pb: 1, display: 'flex', justifyContent: 'center' }}>
