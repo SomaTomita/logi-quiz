@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 import { useTranslation } from 'react-i18next'
 import { setAuthCookies } from '@/shared/api/client'
 import { Typography, TextField, Button, Box, Alert } from '@mui/material'
@@ -9,22 +11,42 @@ import { useAuthStore } from '../store'
 import { signIn } from '../api'
 import type { User } from '../types'
 
-interface SignInForm {
-  email: string
-  password: string
-}
-
 const SignInPage = () => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const setUser = useAuthStore((s) => s.setUser)
   const [error, setError] = useState<string | null>(null)
 
+  const schema = useMemo(
+    () =>
+      z.object({
+        email: z
+          .string()
+          .min(1, t('auth.emailRequired'))
+          .regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, t('auth.emailInvalid')),
+        password: z
+          .string()
+          .min(1, t('auth.passwordRequired'))
+          .min(6, t('auth.passwordMinLength')),
+      }),
+    [t],
+  )
+
+  type SignInForm = z.infer<typeof schema>
+
   const {
     register,
     handleSubmit,
+    trigger,
     formState: { errors, isSubmitting },
-  } = useForm<SignInForm>({ mode: 'onBlur' })
+  } = useForm<SignInForm>({
+    resolver: zodResolver(schema),
+    mode: 'onBlur',
+  })
+
+  useEffect(() => {
+    trigger()
+  }, [i18n.language, trigger])
 
   const onSubmit = async (data: SignInForm) => {
     setError(null)
@@ -70,13 +92,7 @@ const SignInPage = () => {
           margin="normal"
           error={!!errors.email}
           helperText={errors.email?.message}
-          {...register('email', {
-            required: t('auth.emailRequired'),
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: t('auth.emailInvalid'),
-            },
-          })}
+          {...register('email')}
         />
         <TextField
           fullWidth
@@ -86,10 +102,7 @@ const SignInPage = () => {
           margin="normal"
           error={!!errors.password}
           helperText={errors.password?.message}
-          {...register('password', {
-            required: t('auth.passwordRequired'),
-            minLength: { value: 6, message: t('auth.passwordMinLength') },
-          })}
+          {...register('password')}
         />
         <Box sx={{ textAlign: 'right', mt: 0.5, mb: 2 }}>
           <Typography
