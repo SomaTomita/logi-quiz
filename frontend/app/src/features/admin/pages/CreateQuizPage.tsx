@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useForm, useFieldArray } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 import {
   TextField,
   Checkbox,
@@ -17,35 +20,66 @@ import EditNoteIcon from '@mui/icons-material/EditNote'
 import { useAdminSections } from '../hooks'
 import { createQuiz } from '../api'
 import Loading from '@/shared/components/Loading'
-import type { QuizFormData } from '../types'
+
+type FormValues = {
+  sectionId: string
+  questionText: string
+  choicesAttributes: { choiceText: string; isCorrect: boolean }[]
+  explanation: string
+}
 
 const CreateQuizPage = () => {
   const { t } = useTranslation()
   const { sections, isLoading } = useAdminSections()
-  const [quizData, setQuizData] = useState<QuizFormData>({
-    questionText: '',
-    choicesAttributes: [
-      { choiceText: '', isCorrect: false },
-      { choiceText: '', isCorrect: false },
-      { choiceText: '', isCorrect: false },
-      { choiceText: '', isCorrect: false },
-    ],
-    explanationAttributes: { explanationText: '' },
+
+  const schema = useMemo(
+    () =>
+      z.object({
+        sectionId: z.string().min(1, t('admin.sectionRequired')),
+        questionText: z.string().min(1, t('admin.questionTextRequired')),
+        choicesAttributes: z.array(
+          z.object({
+            choiceText: z.string(),
+            isCorrect: z.boolean(),
+          }),
+        ),
+        explanation: z.string(),
+      }),
+    [t],
+  )
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      sectionId: '',
+      questionText: '',
+      choicesAttributes: [
+        { choiceText: '', isCorrect: false },
+        { choiceText: '', isCorrect: false },
+        { choiceText: '', isCorrect: false },
+        { choiceText: '', isCorrect: false },
+      ],
+      explanation: '',
+    },
   })
-  const [selectedSection, setSelectedSection] = useState<number | string>('')
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    const { name, value, type, checked } = e.target
-    const actualValue = type === 'checkbox' ? checked : value
-    const list = [...quizData.choicesAttributes]
-    ;(list[index] as any)[name] = actualValue
-    setQuizData({ ...quizData, choicesAttributes: list })
-  }
+  const { fields } = useFieldArray({
+    control,
+    name: 'choicesAttributes',
+  })
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const onSubmit = async (values: FormValues) => {
     try {
-      await createQuiz(selectedSection, quizData)
+      await createQuiz(Number(values.sectionId), {
+        questionText: values.questionText,
+        choicesAttributes: values.choicesAttributes,
+        explanationAttributes: { explanationText: values.explanation },
+      })
     } catch (error) {
       console.error('Error creating quiz:', error)
     }
@@ -53,12 +87,8 @@ const CreateQuizPage = () => {
 
   if (isLoading || sections.length === 0) return <Loading />
 
-  if (!selectedSection && sections.length > 0) {
-    setSelectedSection(sections[0].id)
-  }
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Typography variant="h5" sx={{ mb: 5 }}>
         {t('admin.createQuizTitle')}
       </Typography>
@@ -68,9 +98,11 @@ const CreateQuizPage = () => {
             <TextField
               select
               label={t('admin.sectionLabel')}
-              value={selectedSection}
-              onChange={(e) => setSelectedSection(e.target.value)}
+              defaultValue=""
               sx={{ mt: 2, width: '50%' }}
+              error={!!errors.sectionId}
+              helperText={errors.sectionId?.message}
+              inputProps={register('sectionId')}
             >
               {sections.map((s) => (
                 <MenuItem key={s.id} value={s.id}>
@@ -84,25 +116,23 @@ const CreateQuizPage = () => {
               label={t('admin.questionTextLabel')}
               placeholder={t('admin.questionTextPlaceholder')}
               multiline
-              onChange={(e) => setQuizData({ ...quizData, questionText: e.target.value })}
+              error={!!errors.questionText}
+              helperText={errors.questionText?.message}
               sx={{ mt: 2, mb: 2, width: '50%' }}
+              {...register('questionText')}
             />
           </Grid>
-          {quizData.choicesAttributes.map((choice, index) => (
-            <Grid item xs={12} key={index}>
+          {fields.map((field, index) => (
+            <Grid item xs={12} key={field.id}>
               <TextField
                 label={t('admin.choiceLabel', { number: index + 1 })}
-                name="choiceText"
-                value={choice.choiceText}
                 placeholder={t('admin.choicePlaceholder')}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange(e, index)}
+                {...register(`choicesAttributes.${index}.choiceText`)}
               />
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={choice.isCorrect}
-                    onChange={(e) => handleInputChange(e, index)}
-                    name="isCorrect"
+                    {...register(`choicesAttributes.${index}.isCorrect`)}
                     sx={{ ml: 2 }}
                   />
                 }
@@ -116,17 +146,12 @@ const CreateQuizPage = () => {
               placeholder={t('admin.explanationPlaceholder')}
               fullWidth
               multiline
-              onChange={(e) =>
-                setQuizData({
-                  ...quizData,
-                  explanationAttributes: { explanationText: e.target.value },
-                })
-              }
               sx={{ mt: 2, width: '50%' }}
+              {...register('explanation')}
             />
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" type="submit" sx={{ mt: 2, mb: 2 }}>
+            <Button variant="contained" type="submit" disabled={isSubmitting} sx={{ mt: 2, mb: 2 }}>
               {t('common.submit')}
             </Button>
           </Grid>
