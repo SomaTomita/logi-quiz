@@ -55,14 +55,14 @@ setup:
 	@echo "  Backend:  http://localhost:3001"
 
 build:
-	docker-compose build
+	docker compose build
 
 # ===========================================
 # Docker
 # ===========================================
 
 up:
-	docker-compose up -d
+	docker compose up -d
 	@echo ""
 	@echo "Services started:"
 	@echo "  Frontend: http://localhost:3000"
@@ -72,25 +72,25 @@ up:
 	@echo "Use 'make logs' to view logs"
 
 down:
-	docker-compose down
+	docker compose down
 
 restart:
-	docker-compose restart
+	docker compose restart
 
 logs:
-	docker-compose logs -f
+	docker compose logs -f
 
 logs-api:
-	docker-compose logs -f api
+	docker compose logs -f api
 
 logs-front:
-	docker-compose logs -f front
+	docker compose logs -f front
 
 ps:
-	docker-compose ps
+	docker compose ps
 
 clean:
-	docker-compose down -v --rmi local
+	docker compose down -v --rmi local
 	@echo "Containers and volumes removed"
 
 # ===========================================
@@ -98,32 +98,32 @@ clean:
 # ===========================================
 
 db-setup:
-	docker-compose exec api rails db:create db:migrate db:seed
+	docker compose exec api rails db:create db:migrate db:seed
 
 db-migrate:
-	docker-compose exec api rails db:migrate
+	docker compose exec api rails db:migrate
 
 db-seed:
-	docker-compose exec api rails db:seed
+	docker compose exec api rails db:seed
 
 db-reset:
-	docker-compose exec api rails db:drop db:create db:migrate db:seed
+	docker compose exec api rails db:drop db:create db:migrate db:seed
 
 # ===========================================
 # Development
 # ===========================================
 
 console:
-	docker-compose exec api rails c
+	docker compose exec api rails c
 
 bash-api:
-	docker-compose exec api bash
+	docker compose exec api bash
 
 bash-front:
-	docker-compose exec front sh
+	docker compose exec front sh
 
 test:
-	docker-compose exec api bundle exec rspec
+	docker compose exec api bundle exec rspec
 
 lint:
-	docker-compose exec api bundle exec rubocop
+	docker compose exec api bundle exec rubocop
