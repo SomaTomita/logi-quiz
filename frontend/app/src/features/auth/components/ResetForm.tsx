@@ -1,33 +1,65 @@
-import { useState } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useForm, type SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 import { useTranslation } from 'react-i18next'
 import { TextField, Button, Box, Alert, Typography } from '@mui/material'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import AuthLayout from '@/shared/layouts/AuthLayout'
 import { resetPassword } from '../api'
-import type { PasswordResetParams } from '../types'
 
 interface Props {
   resetPasswordToken: string
 }
 
 const ResetForm = ({ resetPasswordToken }: Props) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  const schema = useMemo(
+    () =>
+      z
+        .object({
+          resetPasswordToken: z.string(),
+          password: z
+            .string()
+            .min(1, t('auth.passwordRequired'))
+            .min(6, t('auth.passwordMinLength')),
+          passwordConfirmation: z.string().min(1, t('auth.passwordConfirmRequired')),
+        })
+        .refine((data) => data.password === data.passwordConfirmation, {
+          message: t('auth.passwordMismatch'),
+          path: ['passwordConfirmation'],
+        }),
+    [t],
+  )
+
+  type ResetFormData = z.infer<typeof schema>
+
   const {
     register,
-    formState: { errors },
     handleSubmit,
+    trigger,
     watch,
-  } = useForm<PasswordResetParams>({ criteriaMode: 'all' })
+    formState: { errors },
+  } = useForm<ResetFormData>({
+    resolver: zodResolver(schema),
+    criteriaMode: 'all',
+    defaultValues: { resetPasswordToken },
+  })
+
+  useEffect(() => {
+    trigger()
+  }, [i18n.language, trigger])
+
   const password = watch('password', '')
 
-  const onSubmit: SubmitHandler<PasswordResetParams> = async (data) => {
+  const onSubmit = async (data: ResetFormData) => {
     setError(null)
     try {
-      await resetPassword({ ...data, resetPasswordToken })
+      await resetPassword(data)
       setIsSubmitted(true)
     } catch {
       setError(t('auth.resetPasswordError'))
@@ -77,10 +109,7 @@ const ResetForm = ({ resetPasswordToken }: Props) => {
           margin="normal"
           error={!!errors.password}
           helperText={errors.password?.message}
-          {...register('password', {
-            required: t('auth.passwordRequired'),
-            minLength: { value: 6, message: t('auth.passwordMinLength') },
-          })}
+          {...register('password')}
         />
         <TextField
           fullWidth
@@ -90,12 +119,9 @@ const ResetForm = ({ resetPasswordToken }: Props) => {
           margin="normal"
           error={!!errors.passwordConfirmation}
           helperText={errors.passwordConfirmation?.message}
-          {...register('passwordConfirmation', {
-            required: t('auth.passwordConfirmRequired'),
-            validate: (v) => v === password || t('auth.passwordMismatch'),
-          })}
+          {...register('passwordConfirmation')}
         />
-        <input type="hidden" value={resetPasswordToken} {...register('resetPasswordToken')} />
+        <input type="hidden" {...register('resetPasswordToken')} />
         <Button
           type="submit"
           variant="contained"
