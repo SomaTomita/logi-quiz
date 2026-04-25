@@ -1,26 +1,50 @@
-import { useState } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useForm, type SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 import { useTranslation } from 'react-i18next'
 import { TextField, Button, Box, Alert, Typography } from '@mui/material'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import AuthLayout from '@/shared/layouts/AuthLayout'
 import { sendResetEmail } from '../api'
-import type { SendResetMailParams } from '../types'
 
 const SendResetMail = () => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  const schema = useMemo(
+    () =>
+      z.object({
+        email: z
+          .string()
+          .min(1, t('auth.emailRequired'))
+          .regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, t('auth.emailInvalid')),
+      }),
+    [t],
+  )
+
+  type SendResetMailForm = z.infer<typeof schema>
+
   const {
     register,
-    formState: { errors },
     handleSubmit,
+    trigger,
     watch,
-  } = useForm<SendResetMailParams>({ criteriaMode: 'all' })
+    formState: { errors },
+  } = useForm<SendResetMailForm>({
+    resolver: zodResolver(schema),
+    criteriaMode: 'all',
+  })
+
+  useEffect(() => {
+    trigger()
+  }, [i18n.language, trigger])
+
   const watchedEmail = watch('email')
 
-  const onSubmit: SubmitHandler<SendResetMailParams> = async (data) => {
+  const onSubmit = async (data: SendResetMailForm) => {
     setError(null)
     try {
       await sendResetEmail(data)
@@ -73,9 +97,7 @@ const SendResetMail = () => {
           margin="normal"
           error={!!errors.email}
           helperText={errors.email?.message}
-          {...register('email', {
-            required: t('auth.emailRequired'),
-          })}
+          {...register('email')}
         />
         <Button
           type="submit"
