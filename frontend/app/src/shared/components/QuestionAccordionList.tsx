@@ -50,25 +50,30 @@ const QuestionAccordionList = memo(
                 overflow: 'hidden',
               }}
             >
-              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                sx={{ '& .MuiAccordionSummary-content': { minWidth: 0, overflow: 'hidden' } }}
+              >
                 <Box
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 1.5,
+                    gap: 1,
                     minWidth: 0,
-                    width: '100%',
-                    pr: 1,
+                    flex: 1,
                   }}
                 >
                   {isCorrect ? (
                     <CheckCircleRoundedIcon
-                      sx={{ color: 'success.main', fontSize: 20, flexShrink: 0 }}
+                      sx={{ color: 'success.main', fontSize: 22, flexShrink: 0 }}
                     />
                   ) : (
-                    <CancelRoundedIcon sx={{ color: 'error.main', fontSize: 20, flexShrink: 0 }} />
+                    <CancelRoundedIcon sx={{ color: 'error.main', fontSize: 22, flexShrink: 0 }} />
                   )}
-                  <Typography variant="body2" sx={{ fontWeight: 600, flexShrink: 0 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{ fontWeight: 700, flexShrink: 0, color: 'text.primary' }}
+                  >
                     {t('common.questionLabel', { number: index + 1 })}
                   </Typography>
                   <Chip
@@ -88,6 +93,7 @@ const QuestionAccordionList = memo(
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap',
                       minWidth: 0,
+                      flex: 1,
                     }}
                   >
                     {item.questionText}
