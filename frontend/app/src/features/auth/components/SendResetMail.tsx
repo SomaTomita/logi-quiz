@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -38,7 +38,9 @@ const SendResetMail = () => {
     criteriaMode: 'all',
   })
 
+  const isFirstRender = useRef(true)
   useEffect(() => {
+    if (isFirstRender.current) { isFirstRender.current = false; return }
     trigger()
   }, [i18n.language, trigger])
 
