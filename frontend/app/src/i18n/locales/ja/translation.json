@@ -353,7 +353,8 @@
     "headerSignIn": "サインイン",
     "headerSignUp": "新規登録",
     "headerCreateQuiz": "クイズ作成",
-    "headerCreateSection": "セクション作成"
+    "headerCreateSection": "セクション作成",
+    "headerAdminPanel": "管理画面"
   },
   "loginPrompt": {
     "title": "無料体験の上限に達しました",

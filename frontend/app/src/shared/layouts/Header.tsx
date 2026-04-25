@@ -43,11 +43,8 @@ const Header = () => {
     if (isAdmin) {
       return (
         <>
-          <Button component={Link} to="/create-quiz" color="inherit">
-            {t('nav.headerCreateQuiz')}
-          </Button>
-          <Button component={Link} to="/create-section" color="inherit">
-            {t('nav.headerCreateSection')}
+          <Button component={Link} to="/admin/sections" color="inherit">
+            {t('nav.headerAdminPanel')}
           </Button>
           <Button color="inherit" onClick={handleSignOut}>
             {t('nav.headerSignOut')}
@@ -111,7 +108,7 @@ const Header = () => {
           <DirectionsBoatIcon sx={{ mr: 1.5 }} />
           <Typography
             component={Link}
-            to={isSignedIn || isAdmin ? '/sections' : '/'}
+            to={isAdmin ? '/admin/sections' : isSignedIn ? '/sections' : '/'}
             variant="h6"
             sx={{ flexGrow: 1, textDecoration: 'none', color: 'inherit' }}
           >
