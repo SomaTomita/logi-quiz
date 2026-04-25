@@ -332,7 +332,10 @@
     "saveSuccess": "Changes saved successfully!",
     "saveError": "Error saving changes",
     "quizEditAriaLabel": "Edit Quiz",
-    "sectionEditAriaLabel": "Edit Section"
+    "sectionEditAriaLabel": "Edit Section",
+    "sectionNameRequired": "Section name is required",
+    "questionTextRequired": "Question text is required",
+    "sectionRequired": "Please select a section"
   },
   "nav": {
     "sections": "Sections",

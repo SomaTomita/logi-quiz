@@ -332,7 +332,10 @@
     "saveSuccess": "変更を保存しました！",
     "saveError": "保存中にエラーが発生しました",
     "quizEditAriaLabel": "クイズ編集",
-    "sectionEditAriaLabel": "セクション編集"
+    "sectionEditAriaLabel": "セクション編集",
+    "sectionNameRequired": "セクション名を入力してください",
+    "questionTextRequired": "問題文を入力してください",
+    "sectionRequired": "セクションを選択してください"
   },
   "nav": {
     "sections": "セクション",
