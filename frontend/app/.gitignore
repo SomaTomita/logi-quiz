@@ -56,3 +56,4 @@ chrome-user-data
 # python cache files
 *~
 *.pyc
+package-lock.json
