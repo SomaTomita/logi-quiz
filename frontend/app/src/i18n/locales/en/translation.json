@@ -353,7 +353,8 @@
     "headerSignIn": "Sign in",
     "headerSignUp": "Sign Up",
     "headerCreateQuiz": "Create Quiz",
-    "headerCreateSection": "Create Section"
+    "headerCreateSection": "Create Section",
+    "headerAdminPanel": "Admin Panel"
   },
   "loginPrompt": {
     "title": "Free trial limit reached",
