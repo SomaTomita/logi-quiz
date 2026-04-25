@@ -111,7 +111,7 @@ const Header = () => {
           <DirectionsBoatIcon sx={{ mr: 1.5 }} />
           <Typography
             component={Link}
-            to="/home"
+            to={isSignedIn || isAdmin ? '/sections' : '/'}
             variant="h6"
             sx={{ flexGrow: 1, textDecoration: 'none', color: 'inherit' }}
           >
