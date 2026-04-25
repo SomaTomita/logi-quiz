@@ -364,6 +364,7 @@
   },
   "language": {
     "ja": "日本語",
-    "en": "English"
+    "en": "English",
+    "changeLanguageLabel": "Change language"
   }
 }
