@@ -22,7 +22,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    command: yarn dev
+    command: sh -c "yarn install --frozen-lockfile && yarn dev"
     volumes:
       - ./frontend/app:/front:cached
       - node-modules-volume:/front/node_modules
