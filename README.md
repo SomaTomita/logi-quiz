@@ -116,7 +116,15 @@ See [LOCAL_SETUP.md](LOCAL_SETUP.md) for full details.
 
 ## Infrastructure Diagram
 
-![Infra Chart](frontend/app/public/docs/diagrams_infra.png)
+### New Infrastructure (Terraform, multi-region — in progress)
+
+Production runs in ap-northeast-1 (Tokyo); staging runs on-demand in ap-southeast-1 (Singapore) and shares the Tokyo-based ECR repository and SES domain identity across regions.
+
+![New Infra Chart](frontend/app/public/docs/diagrams_infra_terraform.png)
+
+### Legacy Infrastructure (pre-Terraform, manually provisioned)
+
+![Legacy Infra Chart](frontend/app/public/docs/diagrams_infra.png)
 
 ## Screenshots
 
