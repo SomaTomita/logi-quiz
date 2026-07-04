@@ -112,7 +112,106 @@ See [LOCAL_SETUP.md](LOCAL_SETUP.md) for full details.
 
 ## ER Diagram
 
-![ER Diagram](frontend/app/public/docs/dbdiagram_ERchart.png)
+### New ER Diagram (Mermaid, renders natively on GitHub)
+
+Generated from `backend/db/schema.rb` and the Rails model associations. Source: [`docs/diagrams/db/er-diagram.md`](docs/diagrams/db/er-diagram.md).
+
+```mermaid
+erDiagram
+    USERS ||--o{ STUDY_LOGS : logs
+    USERS ||--o{ QUESTION_ATTEMPTS : attempts
+    USERS ||--o{ USER_QUESTION_STATES : tracks
+    USERS ||--o{ USER_SECTIONS : clears
+
+    SECTIONS ||--o{ QUESTIONS : contains
+    SECTIONS ||--o{ USER_SECTIONS : "cleared by"
+
+    QUESTIONS ||--o{ CHOICES : has
+    QUESTIONS ||--|| EXPLANATIONS : has
+    QUESTIONS ||--o{ QUESTION_ATTEMPTS : "answered in"
+    QUESTIONS ||--o{ USER_QUESTION_STATES : "tracked in"
+
+    CHOICES ||--o{ QUESTION_ATTEMPTS : "selected in"
+
+    USERS {
+        bigint id PK
+        string email UK
+        string encrypted_password
+        string uid
+        string provider
+        boolean admin
+        integer total_play_time
+        integer total_questions_cleared
+        datetime created_at
+    }
+
+    SECTIONS {
+        bigint id PK
+        string section_name
+        string locale
+        datetime created_at
+    }
+
+    QUESTIONS {
+        bigint id PK
+        bigint section_id FK
+        text question_text
+        datetime created_at
+    }
+
+    CHOICES {
+        bigint id PK
+        bigint question_id FK
+        string choice_text
+        boolean is_correct
+    }
+
+    EXPLANATIONS {
+        bigint id PK
+        bigint question_id FK
+        text explanation_text
+    }
+
+    QUESTION_ATTEMPTS {
+        bigint id PK
+        bigint user_id FK
+        bigint question_id FK
+        bigint choice_id FK
+        boolean correct
+        integer response_time_ms
+        datetime created_at
+    }
+
+    USER_QUESTION_STATES {
+        bigint id PK
+        bigint user_id FK
+        bigint question_id FK
+        integer box_level
+        datetime next_review_at
+        datetime last_reviewed_at
+        integer attempt_count
+        integer correct_count
+    }
+
+    USER_SECTIONS {
+        bigint id PK
+        bigint user_id FK
+        bigint section_id FK
+        datetime cleared_at
+        integer correct_answers_count
+    }
+
+    STUDY_LOGS {
+        bigint id PK
+        bigint user_id FK
+        date date
+        integer study_time
+    }
+```
+
+### Legacy ER Diagram (dbdiagram.io export)
+
+![Legacy ER Diagram](frontend/app/public/docs/dbdiagram_ERchart.png)
 
 ## Infrastructure Diagram
 
