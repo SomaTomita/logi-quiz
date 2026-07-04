@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_04_25_000001) do
+ActiveRecord::Schema[7.0].define(version: 2026_07_04_020907) do
   create_table "choices", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "question_id"
+    t.bigint "question_id", null: false
     t.string "choice_text"
-    t.boolean "is_correct"
+    t.boolean "is_correct", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_choices_on_question_id"
   end
 
   create_table "explanations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "question_id"
+    t.bigint "question_id", null: false
     t.text "explanation_text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_25_000001) do
   end
 
   create_table "questions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "section_id"
+    t.bigint "section_id", null: false
     t.text "question_text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -97,6 +97,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_25_000001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["section_id"], name: "index_user_sections_on_section_id"
+    t.index ["user_id", "cleared_at"], name: "index_user_sections_on_user_id_and_cleared_at"
     t.index ["user_id"], name: "index_user_sections_on_user_id"
   end
 
