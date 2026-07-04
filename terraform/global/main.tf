@@ -1,5 +1,11 @@
 data "aws_caller_identity" "current" {}
-data "aws_region" "current" {}
+
+locals {
+  # production（東京）とstaging（シンガポール）でリージョンが異なるため、
+  # data.aws_region.current（globalスタック自身のリージョン=ap-northeast-1）は使わず、
+  # デプロイ対象の2リージョンを明示する。
+  deploy_regions = ["ap-northeast-1", "ap-southeast-1"]
+}
 
 # ---- ECR（production/staging共用。SHAタグでイメージを共有） ----
 
@@ -170,10 +176,13 @@ data "aws_iam_policy_document" "deploy" {
       "ecs:UpdateService",
       "ecs:RunTask",
     ]
-    resources = [
-      "arn:aws:ecs:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:service/logi-quiz-*",
-      "arn:aws:ecs:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:task-definition/logi-quiz-*:*",
-    ]
+    # production（ap-northeast-1）とstaging（ap-southeast-1）の両方を許可する
+    resources = flatten([
+      for r in local.deploy_regions : [
+        "arn:aws:ecs:${r}:${data.aws_caller_identity.current.account_id}:service/logi-quiz-*",
+        "arn:aws:ecs:${r}:${data.aws_caller_identity.current.account_id}:task-definition/logi-quiz-*:*",
+      ]
+    ])
   }
 
   statement {
