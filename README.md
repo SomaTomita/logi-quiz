@@ -209,10 +209,6 @@ erDiagram
     }
 ```
 
-Rendered snapshot (for viewers without Mermaid rendering):
-
-![New ER Diagram](frontend/app/public/docs/diagrams_er_mermaid.png)
-
 ### Legacy ER Diagram (dbdiagram.io export)
 
 ![Legacy ER Diagram](frontend/app/public/docs/dbdiagram_ERchart.png)
