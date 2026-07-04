@@ -45,9 +45,7 @@ setup:
 		echo "Created .env from .env.example"; \
 	fi
 	@make build
-	@make up
-	@echo "Waiting for DB to be ready..."
-	@sleep 10
+	docker compose up -d --wait
 	@make db-setup
 	@echo ""
 	@echo "Setup complete!"
@@ -62,7 +60,7 @@ build:
 # ===========================================
 
 up:
-	docker compose up -d
+	docker compose up -d --wait
 	@echo ""
 	@echo "Services started:"
 	@echo "  Frontend: http://localhost:3000"

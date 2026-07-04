@@ -112,3 +112,6 @@ yarn-debug.log*
 
 # クイズデータ（ビジネスデータのため非公開）
 /db/seeds/quiz_data.json
+
+# deploy.sh が生成するタスク定義（AWSアカウントID・Secrets ARNを含む）
+/ecs/task-definition.json
