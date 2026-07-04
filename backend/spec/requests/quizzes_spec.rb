@@ -21,4 +21,17 @@ RSpec.describe "Quizzes", type: :request do
       expect(quiz).to include("explanation")
     end
   end
+
+  describe "GET /index セクションに11問以上ある場合" do
+    let!(:section) { create(:section) }
+    let!(:questions) { create_list(:question, 15, section: section) }
+
+    before { get "/sections/#{section.id}/quizzes" }
+
+    it "10問のみ返す" do
+      body = JSON.parse(response.body)
+      expect(body.size).to eq(10)
+      expect(body.first).to include("choices", "explanation")
+    end
+  end
 end

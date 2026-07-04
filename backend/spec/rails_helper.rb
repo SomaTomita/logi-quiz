@@ -80,6 +80,10 @@ RSpec.configure do |config|
 
   config.before(:suite) { truncate_all_tables }
 
+  # Rack::Attackはデフォルトで無効化する（rack_attack_specでのみ明示的に有効化する）。
+  # スロットリングを有効にしたまま実行すると、他のスペックの連続リクエストが誤って制限される。
+  config.before(:suite) { Rack::Attack.enabled = false }
+
   config.before(:each, type: :request) do
     host! 'localhost'
   end
