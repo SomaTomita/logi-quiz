@@ -61,4 +61,7 @@ Rails.application.configure do
 
   # Allow requests from www.example.com (default Rails test host)
   config.hosts << "www.example.com"
+
+  # spec/rails_helper.rbのhost! 'localhost'に対応するため許可する
+  config.hosts << "localhost"
 end
