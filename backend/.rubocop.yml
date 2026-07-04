@@ -1,0 +1,25 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.2
+  Exclude:
+    - "db/schema.rb"
+    - "db/migrate/**/*"
+    - "bin/**/*"
+    - "vendor/**/*"
+    - "node_modules/**/*"
+    - "config/initializers/devise.rb"
+    - "config/initializers/devise_token_auth.rb"
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+    - "config/routes.rb"
