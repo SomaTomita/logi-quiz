@@ -14,8 +14,9 @@ Thumbs.db
 *.swo
 *~
 
-# Docs (internal only — root-level only)
-/docs/
+# Docs (internal only — root-level only). diagrams/ is shared publicly, so it's excluded from the ignore.
+/docs/*
+!/docs/diagrams/
 
 # Playwright
 frontend/app/test-results/
