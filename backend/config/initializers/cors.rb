@@ -1,7 +1,8 @@
 
+# CORSはここ（Rack::Cors）で一元管理する。nginxではCORSヘッダーを付与しないこと。
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins_list = ENV.fetch("CORS_ORIGINS", "localhost:3000,https://logi-quiz.com").split(",").map(&:strip)
+    origins_list = ENV.fetch("CORS_ORIGINS", "http://localhost:3000,https://logi-quiz.com").split(",").map(&:strip)
     origins(*origins_list)
 
     resource "*",
