@@ -24,7 +24,14 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    command: sh -c "yarn install --frozen-lockfile && yarn dev"
+    # npmレジストリの一時的な取りこぼしでyarn installがハードフェイルすることがあるためリトライを入れる
+    command: >
+      sh -c "
+        (yarn install --frozen-lockfile --network-timeout 600000 ||
+         yarn install --frozen-lockfile --network-timeout 600000 ||
+         yarn install --frozen-lockfile --network-timeout 600000) &&
+        yarn dev
+      "
     volumes:
       - ./frontend/app:/front:cached
       - node-modules-volume:/front/node_modules
