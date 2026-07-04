@@ -121,7 +121,7 @@ bash-front:
 	docker compose exec front sh
 
 test:
-	docker compose exec api bundle exec rspec
+	docker compose exec -e RAILS_ENV=test api bundle exec rspec
 
 lint:
 	docker compose exec api bundle exec rubocop
